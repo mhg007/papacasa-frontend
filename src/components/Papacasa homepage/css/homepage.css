@@ -8,7 +8,7 @@
 }
 
 .container {
-    max-width: 1280px;
+    max-width: 1380px;
     margin: 0 auto;
 }
 
@@ -26,7 +26,6 @@
 
 .header__main__wrapper {
     display: flex;
-    flex-wrap: wrap;
     width: 100%;
     max-width: 100%;
     align-items: center;
