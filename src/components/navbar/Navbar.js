@@ -6,19 +6,25 @@ import { useTranslation } from 'react-i18next';
 
 function Navbar({changeLang,t,i18n}) {
 
+        // const { t, i18n } = useTranslation();
+      
+        // const changeLang = (lang) => {
+        //   i18n.changeLanguage(lang);
+        //   console.log("clicked",lang)
+        // };
   return (
     <>
       <header>
           <section>
-            <div className="container ">
-              <div className="header__main__wrapper ">
-                <div className="ppc__logo__menu">
+            <div className="container">
+              <div className="header__main__wrapper w-[100%] flex min-w-[60%]">
+                <div className="ppc__logo__menu  min-w-[60%]">
                   <div className="ppc__logo ">
                     <Link>
                       <img src={logo} alt="" />
                     </Link>
                   </div>
-                  <div className="main-menu">
+                  <div className="main-menu ">
                     <nav className="">
                       <ul>
                         <Link>
