@@ -18,7 +18,7 @@ import why_papacasa_image from "./Assests/Images/why_papacasa_image.png";
 import comas from "./Assests/Images/comas.png";
 import previous_icon from "./Assests/Images/previous_icon.svg";
 import next_icon from "./Assests/Images/next-icon.svg";
-import Building_front from "./Assests/Images/Building front.png";
+import Building_front from "./Assests/Images/Buildingfront.png";
 import grid_2 from "./Assests/Images/grid_2.png";
 import grid_3 from "./Assests/Images/grid_3.png";
 import grid_4 from "./Assests/Images/grid_4.png";
@@ -44,49 +44,58 @@ import { useTranslation } from "react-i18next";
 
 function HomPage() {
     const { t, i18n } = useTranslation();
+
+    const changeLang = (lang) => {
+      i18n.changeLanguage(lang);
+      console.log("clicked",lang)
+    };
   return (
     <>
       <header>
         <section>
-          <div className="container">
-            <div className="header__main__wrapper">
-              <div className="ppc__logo__menu">
-                <div className="ppc__logo">
-                  <Link>
-                    <img src={newlogo} alt="" />
+        <div className="container ">
+              <div className="header__main__wrapper ">
+                <div className="ppc__logo__menu">
+                  <div className="ppc__logo ">
+                    <Link>
+                      <img src={newlogo} alt="" />
+                    </Link>
+                  </div>
+                  <div className="main-menu ">
+                    <nav className="">
+                      <ul>
+                        <Link>
+                          <li>{t("Welcome")}</li>
+                        </Link>
+                        <Link>
+                          <li>{t("Buy")}</li>
+                        </Link>
+                        <Link>
+                          <li>{t("Sell")}</li>
+                        </Link>
+                        <Link>
+                          <li>{t("About")}</li>
+                        </Link>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+                <div className="ppc__header__btn">
+                  <Link href="#">
+                    <button className="header__btn">{t("Post an ad")}</button>
                   </Link>
                 </div>
-                <div className="main-menu">
-                  <nav>
-                    <ul>
-                      <Link>
-                        <li>Accueil</li>
-                      </Link>
-                      <Link>
-                        <li>Acheter</li>
-                      </Link>
-                      <Link>
-                        <li>Vendre</li>
-                      </Link>
-                      <Link>
-                        <li>À propos</li>
-                      </Link>
-                    </ul>
-                  </nav>
+                <div className="flex justify-evenly items-center gap-5 ml-4">
+                  <button onClick={() => changeLang("en")}>En</button>
+                  <button onClick={() => changeLang("fr")}>Fr</button>
                 </div>
-              </div>
-              <div className="ppc__header__btn">
-                <Link>
-                  <button className="header__btn">Publier une annonce</button>
-                </Link>
-              </div>
-              <div className="ppc__header__mobile__btn">
-                <Link>
-                  <button className="header__mobile__btn">Se connecters</button>
-                </Link>
+                {/* <div className="ppc__header__mobile__btn">
+                  <Link>
+                    <button className="header__mobile__btn text-black font-extrabold text-8xl">Se connecters</button>
+                  </Link>
+                </div> */}
               </div>
             </div>
-          </div>
         </section>
       </header>
       <main>
