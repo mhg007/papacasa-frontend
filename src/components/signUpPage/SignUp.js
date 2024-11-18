@@ -2,64 +2,27 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Footer } from "../footer/Footer";
 import styles from "./styles.css";
+import Navbar from "../navbar/Navbar";
+import { useTranslation } from "react-i18next";
 function SignUp() {
+  const { t, i18n } = useTranslation();
+  const changeLang = (lang) => {
+    i18n.changeLanguage(lang);
+  };
   return (
     <>
-      <header>
-        <section>
-          <div className="container">
-            <div className="header__main__wrapper">
-              <div className="ppc__logo__menu">
-                <div className="ppc__logo">
-                  <Link>
-                    {" "}
-                    <img src="/Asessts/Images/new-logo.svg" alt="" />
-                  </Link>
-                </div>
-                <div className="main-menu">
-                  <nav>
-                    <ul>
-                      <Link>
-                        <li>Accueil</li>
-                      </Link>
-                      <Link>
-                        <li>Acheter</li>
-                      </Link>
-                      <Link>
-                        <li>Vendre</li>
-                      </Link>
-                      <Link>
-                        <li>À propos</li>
-                      </Link>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
-              <div className="ppc__header__btn">
-                <Link href="#">
-                  <button className="header__btn">Publier une annonce</button>
-                </Link>
-              </div>
-              <div className="ppc__header__mobile__btn">
-                <Link href="#">
-                  <button className="header__mobile__btn">Se connecters</button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      </header>
+      <Navbar changeLang={changeLang} t={t} i18n={i18n} />
       <main>
         <div className="red-background-container"></div>
         <div className="background">
           <div className="login-container">
             <div className="login-inner-container">
-              <h2>Inscrivez-vous</h2>
-              <p>Bienvenue chez Papacasa</p>
+              <h2>{t("Inscrivez-vous")}</h2>
+              <p>{t("Bienvenue chez Papacasa")}</p>
               <form>
                 <div className="sign-up__nom__premon__wrapper">
                   <div className="sign-up__nom">
-                    <label for="text">Nom*</label>
+                    <label for="text">{t("Nom*")}</label>
                     <input
                       type="text"
                       required
@@ -67,7 +30,7 @@ function SignUp() {
                     />
                   </div>
                   <div className="sign-up__prenom">
-                    <label for="text">Prénom*</label>
+                    <label for="text">{t("Prénom*")}</label>
                     <input
                       type="text"
                       required
@@ -75,7 +38,7 @@ function SignUp() {
                     />
                   </div>
                 </div>
-                <label for="email">Courriel</label>
+                <label for="email">{t("Courriel")}</label>
                 <input
                   type="email"
                   id="email"
@@ -84,7 +47,7 @@ function SignUp() {
                   className="ppc__login__email"
                 />
 
-                <label for="number">Téléphone</label>
+                <label for="number">{t("Téléphone")}</label>
                 <input
                   type="tel"
                   id="number"
@@ -93,7 +56,7 @@ function SignUp() {
                   className="ppc__login__pwd"
                 />
 
-                <label for="password">Mot de passe</label>
+                <label for="password">{t("Mot de passe")}</label>
                 <input
                   type="password"
                   id="password"
@@ -103,29 +66,30 @@ function SignUp() {
                 />
 
                 <button type="submit" className="sign-up-button">
-                  S'inscrire
+                  {t("S'inscrire")}
                 </button>
               </form>
               <p className="register-link">
-                Nouvel utilisateur ? <Link href="#">Créer un compte</Link>
+                {t("Nouvel utilisateur ?")}{" "}
+                <Link href="#">{t("Créer un compte")}</Link>
               </p>
 
               <div className="separator">
-                <p>OU</p>
+                <p>{t("OU")}</p>
               </div>
 
               <div className="social-login">
                 <button className="facebook">
                   <img src="/Asessts/Images/facebook-colored-logo.svg" alt="" />
-                  Continuer avec Facebook
+                  {t("Continuer avec Facebook")}
                 </button>
                 <button className="google">
                   <img src="/Asessts/Images/google-colored-icon.svg" alt="" />
-                  Continuer avec Google
+                  {t("Continuer avec Google")}
                 </button>
                 <button className="twitter">
                   <img src="/Asessts/Images/twitter-colored-icon.svg" alt="" />
-                  Continuer avec Twitter
+                  {t("Continuer avec Twitter")}
                 </button>
               </div>
             </div>
@@ -137,7 +101,7 @@ function SignUp() {
           <div className="mobile__menu__item">
             <Link>
               <img src="/Asessts/Images/mobile menu icons/li_home.svg" alt="" />
-              <p>Accueil</p>
+              <p>{t("Accueil")}</p>
             </Link>
           </div>
           <div className="mobile__menu__item">
@@ -146,7 +110,7 @@ function SignUp() {
                 src="/Asessts/Images/mobile menu icons/cart-icon.svg"
                 alt=""
               />
-              <p>Acheter</p>
+              <p>{t("Acheter")}</p>
             </Link>
           </div>
           <div className="mobile__menu__item">
@@ -155,7 +119,7 @@ function SignUp() {
                 src="/Asessts/Images/mobile menu icons/post-ad-icon.svg"
                 alt=""
               />
-              <p>Annonce</p>
+              <p>{t("Annonce")}</p>
             </Link>
           </div>
           <div className="mobile__menu__item">
@@ -164,7 +128,7 @@ function SignUp() {
                 src="/Asessts/Images/mobile menu icons/vendre-icon.svg"
                 alt=""
               />
-              <p>Vendre</p>
+              <p>{t("Vendre")}</p>
             </Link>
           </div>
           <div className="mobile__menu__item">
@@ -173,7 +137,7 @@ function SignUp() {
                 src="/Asessts/Images/mobile menu icons/info-icon.svg"
                 alt=""
               />
-              <p>À propos</p>
+              <p>{t("À propos")}</p>
             </Link>
           </div>
         </div>

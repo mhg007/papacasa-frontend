@@ -23,7 +23,7 @@ function Login() {
   return (
     <>
       <div>
-        <Navbar changeLang={changeLang} t={t} i18n={i18n}/>
+        <Navbar changeLang={changeLang} t={t} i18n={i18n} />
         <main>
           <div className="red-background-container"></div>
           <div className="background">
