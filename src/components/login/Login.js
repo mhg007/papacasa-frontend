@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./css/login.css";
-import logo from "./Asessts/Images/new-logo.svg";
+// import logo from "./Asessts/Images/new-logo.svg";
 import twittercoloredicon from "./Asessts/Images/twitter-colored-icon.svg";
 import googlecoloredicon from "./Asessts/Images/google-colored-icon.svg";
 import facebookcoloredlogo from "./Asessts/Images/facebook-colored-logo.svg";
@@ -11,6 +11,7 @@ import infoicon from "./Asessts/Images/mobile menu icons/info-icon.svg";
 import carticon from "./Asessts/Images/mobile menu icons/cart-icon.svg";
 import { useTranslation } from "react-i18next";
 import { Footer } from "../footer/Footer";
+import Navbar from "../navbar/Navbar";
 
 function Login() {
   const { t, i18n } = useTranslation();
@@ -22,53 +23,7 @@ function Login() {
   return (
     <>
       <div>
-        <header>
-          <section>
-            <div className="container ">
-              <div className="header__main__wrapper ">
-                <div className="ppc__logo__menu">
-                  <div className="ppc__logo ">
-                    <Link>
-                      <img src={logo} alt="" />
-                    </Link>
-                  </div>
-                  <div className="main-menu ">
-                    <nav className="">
-                      <ul>
-                        <Link>
-                          <li>{t("Welcome")}</li>
-                        </Link>
-                        <Link>
-                          <li>{t("Buy")}</li>
-                        </Link>
-                        <Link>
-                          <li>{t("Sell")}</li>
-                        </Link>
-                        <Link>
-                          <li>{t("About")}</li>
-                        </Link>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-                <div className="ppc__header__btn">
-                  <Link href="#">
-                    <button className="header__btn">{t("Post an ad")}</button>
-                  </Link>
-                </div>
-                <div className="flex justify-evenly items-center gap-5 ml-4">
-                  <button onClick={() => changeLang("en")}>En</button>
-                  <button onClick={() => changeLang("fr")}>Fr</button>
-                </div>
-                {/* <div className="ppc__header__mobile__btn">
-                  <Link>
-                    <button className="header__mobile__btn text-black font-extrabold text-8xl">Se connecters</button>
-                  </Link>
-                </div> */}
-              </div>
-            </div>
-          </section>
-        </header>
+        <Navbar changeLang={changeLang} t={t} i18n={i18n}/>
         <main>
           <div className="red-background-container"></div>
           <div className="background">
