@@ -5,15 +5,15 @@ import { Footer } from "../footer/Footer";
 import { useTranslation } from "react-i18next";
 import Navbar from "../navbar/Navbar";
 export default function ForgetPassword() {
-  const { t, i18n } = useTranslation();
+  // const { t, i18n } = useTranslation();
 
-  const changeLang = (lang) => {
-    i18n.changeLanguage(lang);
-    console.log("clicked", lang);
-  };
+  // const changeLang = (lang) => {
+  //   i18n.changeLanguage(lang);
+  //   console.log("clicked", lang);
+  // };
   return (
     <>
-      <Navbar changeLang={changeLang} t={t} />
+      {/* <Navbar changeLang={changeLang} t={t} /> */}
       <main>
         <div class="red-background-container"></div>
         <div class="background">
@@ -45,7 +45,7 @@ export default function ForgetPassword() {
           </div>
         </div>
       </main>
-      <section class="mobile__menu__section">
+      {/* <section class="mobile__menu__section">
         <div class="mobile__menu__wrapper">
           <div class="mobile__menu__item">
             <Link href="">
@@ -77,7 +77,7 @@ export default function ForgetPassword() {
           <div class="mobile__menu__item">
             <Link href="">
               <img
-                src="/Linksessts/Images/mobile menu icons/vendre-icon.svg"
+                src="/sessts/Images/mobile menu icons/vendre-icon.svg"
                 alt=""
               />
               <p>Vendre</p>
@@ -93,7 +93,7 @@ export default function ForgetPassword() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
       <Footer />
     </>
   );

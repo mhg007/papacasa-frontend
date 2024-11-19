@@ -12,23 +12,36 @@ import ListSeven from "./components/lists/List form 7/ListSeven";
 import ListFour from "./components/lists/List form 4/ListFour";
 import ListSix from "./components/lists/List form 6/ListSix";
 import ListTwo from "./components/lists/List form 2/ListTow";
+import FirstLayOut from "./components/layout/FirstLayOut";
+import ProtectedRoute from "./ProtectedRoute";
+import MobileNavbar from "./components/mobileNav/MobileNavbar";
+
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
+          {/* Public Routes */}
           <Route path="/login" element={<Login />} />
-          <Route path="/navbar" element={<Navbar />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/" element={<HomPage />} />
-          <Route path="/lists/1" element={<ListOne />} />
-          <Route path="/lists/2" element={<ListTwo />} />
-          <Route path="/lists/3" element={<ListThree />} />
-          <Route path="/lists/4" element={<ListFour />} />
-          <Route path="/lists/5" element={<ListFive />} />
-          <Route path="/lists/6" element={<ListSix />} />
-          <Route path="/lists/7" element={<ListSeven />} />
+
+          {/* Protected Routes with Layout */}
+          <Route element={<FirstLayOut />}>
+            {/* Secured Route */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<HomPage />} />
+              <Route path="/navbar" element={<Navbar />} />
+              <Route path="/mobile-nav" element={<MobileNavbar />} />
+              <Route path="/lists/1" element={<ListOne />} />
+              <Route path="/lists/2" element={<ListTwo />} />
+              <Route path="/lists/3" element={<ListThree />} />
+              <Route path="/lists/4" element={<ListFour />} />
+              <Route path="/lists/5" element={<ListFive />} />
+              <Route path="/lists/6" element={<ListSix />} />
+              <Route path="/lists/7" element={<ListSeven />} />
+            </Route>
+          </Route>
         </Routes>
       </Router>
     </div>

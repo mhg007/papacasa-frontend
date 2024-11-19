@@ -14,7 +14,7 @@ function ListOne() {
   };
   return (
     <>
-      <Navbar changeLang={changeLang} t={t} i18n={i18n} />
+      {/* <Navbar changeLang={changeLang} t={t} i18n={i18n} /> */}
       <main>
         <div class="list-form-1-background">
           <div class="list-form-1__inner__container">
@@ -38,14 +38,18 @@ function ListOne() {
                 </div>
               </div>
               <div class="buttons">
+                <Link >
                 <button class="back">Retour</button>
+                </Link>
+                <Link to="/lists/2">
                 <button class="next">Suivant</button>
+                </Link>
               </div>
             </form>
           </div>
         </div>
       </main>
-      <section class="mobile__menu__section">
+      {/* <section class="mobile__menu__section">
         <div class="mobile__menu__wrapper">
           <div class="mobile__menu__item">
             <Link href="">
@@ -79,7 +83,7 @@ function ListOne() {
           </div>
         </div>
       </section>
-      <Footer />
+      <Footer /> */}
     </>
   );
 }

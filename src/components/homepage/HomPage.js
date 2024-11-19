@@ -30,74 +30,25 @@ import Farm_house from "./Assests/Images/Farm house.png";
 import Scenic_home from "./Assests/Images/Scenic home.png";
 import Apartments from "./Assests/Images/Apartments.png";
 import home_pictures from "./Assests/Images/home pictures.png";
-import footericonsyoutube from "./Assests/Images/youtube (2).svg";
-import footericonstwitter from "./Assests/Images/insta.svg";
-import footericonsinsta from "./Assests/Images/twitter (2).svg";
-import footericonsfacebook from "./Assests/Images/facebook.svg";
-import li_home from "./Assests/Images/mobile menu icons/li_home.svg";
-import cart_icon from "./Assests/Images/mobile menu icons/cart-icon.svg";
-import post_ad_icon from "./Assests/Images/mobile menu icons/post-ad-icon.svg";
-import vendre_icon from "./Assests/Images/mobile menu icons/vendre-icon.svg";
-import info_icon from "./Assests/Images/mobile menu icons/info-icon.svg";
+// import footericonsyoutube from "./Assests/Images/youtube (2).svg";
+// import footericonstwitter from "./Assests/Images/insta.svg";
+// import footericonsinsta from "./Assests/Images/twitter (2).svg";
+// import footericonsfacebook from "./Assests/Images/facebook.svg";
+// import li_home from "./Assests/Images/mobile menu icons/li_home.svg";
+// import cart_icon from "./Assests/Images/mobile menu icons/cart-icon.svg";
+// import post_ad_icon from "./Assests/Images/mobile menu icons/post-ad-icon.svg";
+// import vendre_icon from "./Assests/Images/mobile menu icons/vendre-icon.svg";
+// import info_icon from "./Assests/Images/mobile menu icons/info-icon.svg";
 import searchicon from "./Assests/Images/search-icon.svg";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
+// import Navbar from "../navbar/Navbar";
+// import MobileNavbar from "../mobileNav/MobileNavbar";
 
 function HomPage() {
-    const { t, i18n } = useTranslation();
-
-    const changeLang = (lang) => {
-      i18n.changeLanguage(lang);
-      console.log("clicked",lang)
-    };
+   
   return (
     <>
-      <header>
-        <section>
-        <div className="container ">
-              <div className="header__main__wrapper ">
-                <div className="ppc__logo__menu">
-                  <div className="ppc__logo ">
-                    <Link>
-                      <img src={newlogo} alt="" />
-                    </Link>
-                  </div>
-                  <div className="main-menu ">
-                    <nav className="">
-                      <ul>
-                        <Link>
-                          <li>{t("Welcome")}</li>
-                        </Link>
-                        <Link>
-                          <li>{t("Buy")}</li>
-                        </Link>
-                        <Link>
-                          <li>{t("Sell")}</li>
-                        </Link>
-                        <Link>
-                          <li>{t("About")}</li>
-                        </Link>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-                <div className="ppc__header__btn">
-                  <Link href="#">
-                    <button className="header__btn">{t("Post an ad")}</button>
-                  </Link>
-                </div>
-                <div className="flex justify-evenly items-center gap-5 ml-4">
-                  <button onClick={() => changeLang("en")}>En</button>
-                  <button onClick={() => changeLang("fr")}>Fr</button>
-                </div>
-                {/* <div className="ppc__header__mobile__btn">
-                  <Link>
-                    <button className="header__mobile__btn text-black font-extrabold text-8xl">Se connecters</button>
-                  </Link>
-                </div> */}
-              </div>
-            </div>
-        </section>
-      </header>
+        {/* <Navbar changeLang={changeLang} t={t}/> */}
       <main>
         <section className="hero__banner">
           <div className="container">
@@ -612,7 +563,8 @@ function HomPage() {
           </div>
         </section>
       </main>
-      <section className="mobile__menu__section">
+      {/* <MobileNavbar/> */}
+      {/* <section className="mobile__menu__section">
         <div className="mobile__menu__wrapper">
           <div className="mobile__menu__item">
             <Link>
@@ -645,8 +597,8 @@ function HomPage() {
             </Link>
           </div>
         </div>
-      </section>
-      <footer>
+      </section> */}
+      {/* <footer>
         <section>
           <div className="footer__container">
             <section className="main__footer__wrapper">
@@ -721,7 +673,7 @@ function HomPage() {
             </section>
           </div>
         </section>
-      </footer>
+      </footer> */}
     </>
   );
 }

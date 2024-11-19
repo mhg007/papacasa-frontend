@@ -1,16 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userDetailReducer  from "../featchers/userDetailsSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { productsApi } from "./services/services";
+import { papaCasaApi } from "../services/services";
 
 export const store = configureStore({
   reducer: {
-      // app: userDetailReducerz
-
-    [productsApi.reducerPath] : productsApi.reducer
+    [papaCasaApi.reducerPath] : papaCasaApi.reducer
 },
 middleware: (getDefaultMiddleware)=>
-getDefaultMiddleware().concat(productsApi.middleware),
+getDefaultMiddleware().concat(papaCasaApi.middleware),
 });
 setupListeners(store.dispatch)
 // (console.log("🚀 ~ userDetail:", app))

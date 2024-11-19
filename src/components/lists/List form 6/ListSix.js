@@ -3,24 +3,25 @@ import Navbar from "../../navbar/Navbar";
 import { Footer } from "../../footer/Footer";
 import ".//listSix.css"
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 function ListSix() {
-  const { t, i18n } = useTranslation();
+  // const { t, i18n } = useTranslation();
 
-  const changeLang = (lang) => {
-    i18n.changeLanguage(lang);
-    console.log("clicked", lang);
-  };
+  // const changeLang = (lang) => {
+  //   i18n.changeLanguage(lang);
+  //   console.log("clicked", lang);
+  // };
   return (
     <>
       <div>
-      <Navbar changeLang={changeLang} t={t}/>
+      {/* <Navbar changeLang={changeLang} t={t}/> */}
       <main>
           <section class="list-form-6-background">
             <div class="list-form-6-inner__container">
               <h2>Publier une annonce de vente</h2>
               <div class="progress">
-                <p>03</p>
+                <p>06</p>
                 <span>/ 10</span>
               </div>
               <div class="list-form-6-form-container">
@@ -40,18 +41,20 @@ function ListSix() {
                   </div>
                 </form>
               </div>
-              <div class="list-form-6-form-buttons">
-                <button type="button" class="back">
+              <div  className="list-form-2-buttons">
+                <Link to="/lists/5" type="button"  className="back">
                   Retour
-                </button>
-                <button type="submit" class="next">
+                </Link>
+                <Link  to="/lists/7">
+                <button type="submit"  className="next">
                   Suivant
                 </button>
+                </Link>
               </div>
             </div>
           </section>
         </main>
-        <section class="mobile__menu__section">
+        {/* <section class="mobile__menu__section">
           <div class="mobile__menu__wrapper">
             <div class="mobile__menu__item">
               <a href="">
@@ -85,7 +88,7 @@ function ListSix() {
             </div>
           </div>
         </section>
-        <Footer />
+        <Footer /> */}
       </div>
     </>
   );

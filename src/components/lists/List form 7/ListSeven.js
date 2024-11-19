@@ -4,15 +4,15 @@ import "./listSeven.css";
 import Navbar from "../../navbar/Navbar";
 import { useTranslation } from "react-i18next";
 export default function ListSeven() {
-  const { t, i18n } = useTranslation();
+  // const { t, i18n } = useTranslation();
 
-  const changeLang = (lang) => {
-    i18n.changeLanguage(lang);
-    console.log("clicked", lang);
-  };
+  // const changeLang = (lang) => {
+  //   i18n.changeLanguage(lang);
+  //   console.log("clicked", lang);
+  // };
   return (
     <body>
-      <Navbar changeLang={changeLang} t={t} />
+      {/* <Navbar changeLang={changeLang} t={t} /> */}
       <main>
         <section class="list-form-7-background">
           <div class="list-form-7-inner__container">
@@ -41,18 +41,20 @@ export default function ListSeven() {
                 Je ne souhaite pas m'en occuper maintenant
               </label>
             </div>
-            <div class="list-form-7-form-buttons">
-              <button type="button" class="back">
-                Retour
-              </button>
-              <button type="submit" class="next">
-                Suivant
-              </button>
-            </div>
+            <div  className="list-form-2-buttons">
+                <Link to="/lists/6" type="button"  className="back">
+                  Retour
+                </Link>
+                <Link>
+                <button type="submit"  className="next">
+                  Suivant
+                </button>
+                </Link>
+              </div>
           </div>
         </section>
       </main>
-      <section class="mobile__menu__section">
+      {/* <section class="mobile__menu__section">
         <div class="mobile__menu__wrapper">
           <div class="mobile__menu__item">
             <Link href="">
@@ -173,7 +175,7 @@ export default function ListSeven() {
             </section>
           </div>
         </section>
-      </footer>
+      </footer> */}
     </body>
   );
 }

@@ -3,31 +3,33 @@ import Navbar from '../../navbar/Navbar'
 import { Footer } from '../../footer/Footer'
 import ".//listFour.css"
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 function ListFour() {
-    const { t, i18n } = useTranslation();
+    // const { t, i18n } = useTranslation();
       
-        const changeLang = (lang) => {
-          i18n.changeLanguage(lang);
-          console.log("clicked",lang)
-        };
+    //     const changeLang = (lang) => {
+    //       i18n.changeLanguage(lang);
+    //       console.log("clicked",lang)
+    //     };
   return (
     <>
       <div>
-      <Navbar changeLang={changeLang} t={t}/>        <main>
-        <div class="list-form-4-background">
-            <div class="list-form-4-inner__container">
+      {/* <Navbar changeLang={changeLang} t={t}/> */}
+      <main>
+        <div  className="list-form-4-background">
+            <div  className="list-form-4-inner__container">
                 <h2>Publier une annonce de vente</h2>
-                <div class="progress">
+                <div  className="progress">
                     <p>04</p>
                     <span>/ 10</span>
                 </div>
-                <div class="list-form-4-form-container">
+                <div  className="list-form-4-form-container">
                     <h3>Caractéristiques</h3>
-                    <div class="list-form-4-separator"></div>
+                    <div  className="list-form-4-separator"></div>
 
                     <form>
-                        <div class="checkbox-group">
+                        <div  className="checkbox-group">
                             <label><input type="checkbox"checked /> Climatisation</label>
                             <label><input type="checkbox"checked /> Alarme</label>
                             <label><input type="checkbox"checked /> Armoires</label>
@@ -64,40 +66,46 @@ function ListFour() {
 
                     </form>
                 </div>
-                <div class="list-form-4-form-buttons">
-                    <button type="button" class="back">Retour</button>
-                    <button type="submit" class="next">Suivant</button>
-                </div>
+                <div  className="list-form-2-buttons">
+                <Link to="/lists/3" type="button"  className="back">
+                  Retour
+                </Link>
+                <Link  to="/lists/5">
+                <button type="submit"  className="next">
+                  Suivant
+                </button>
+                </Link>
+              </div>
             </div>
         </div>
     </main>
-    <section class="mobile__menu__section">
-        <div class="mobile__menu__wrapper">
-            <div class="mobile__menu__item">
+    {/* <section  className="mobile__menu__section">
+        <div  className="mobile__menu__wrapper">
+            <div  className="mobile__menu__item">
                 <a href="">
                     <img src="/Asessts/Images/mobile menu icons/li_home.svg" />
                     <p>Accueil</p>
                 </a>
             </div>
-            <div class="mobile__menu__item">
+            <div  className="mobile__menu__item">
                 <a href="">
                     <img src="/Asessts/Images/mobile menu icons/cart-icon.svg" />
                     <p>Acheter</p>
                 </a>
             </div>
-            <div class="mobile__menu__item">
+            <div  className="mobile__menu__item">
                 <a href="">
                     <img src="/Asessts/Images/mobile menu icons/post-ad-icon.svg" />
                     <p>Annonce</p>
                 </a>
             </div>
-            <div class="mobile__menu__item">
+            <div  className="mobile__menu__item">
                 <a href="">
                     <img src="/Asessts/Images/mobile menu icons/vendre-icon.svg" />
                     <p>Vendre</p>
                 </a>
             </div>
-            <div class="mobile__menu__item">
+            <div  className="mobile__menu__item">
                 <a href="">
                     <img src="/Asessts/Images/mobile menu icons/info-icon.svg" />
                     <p>À propos</p>
@@ -106,7 +114,7 @@ function ListFour() {
 
         </div>
     </section>
-        <Footer/>
+        <Footer/> */}
       </div>
     </>
   )

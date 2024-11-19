@@ -19,13 +19,13 @@ function Navbar({ changeLang, t, i18n }) {
                 <div className="main-menu ">
                   <nav className="">
                     <ul>
-                      <Link>
+                      <Link to={"/"}>
                         <li>{t("Welcome")}</li>
                       </Link>
                       <Link>
                         <li>{t("Buy")}</li>
                       </Link>
-                      <Link>
+                      <Link to="/lists/1">
                         <li>{t("Sell")}</li>
                       </Link>
                       <Link>
@@ -36,19 +36,19 @@ function Navbar({ changeLang, t, i18n }) {
                 </div>
               </div>
               <div className="ppc__header__btn">
-                <Link href="#">
-                  <button className="header__btn">{t("Post an ad")}</button>
+                <Link to={"/login"}>
+                  <button  className="header__btn">{t("Post an ad")}</button>
                 </Link>
               </div>
               <div className="flex justify-evenly items-center gap-5 ml-4">
                 <button onClick={() => changeLang("en")}>En</button>
                 <button onClick={() => changeLang("fr")}>Fr</button>
               </div>
-              {/* <div className="ppc__header__mobile__btn">
+              <div className="ppc__header__mobile__btn">
                   <Link>
                     <button className="header__mobile__btn text-black font-extrabold text-8xl">Se connecters</button>
                   </Link>
-                </div> */}
+                </div>
             </div>
           </div>
         </section>
