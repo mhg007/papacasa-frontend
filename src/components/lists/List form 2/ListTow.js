@@ -37,7 +37,7 @@ function ListTwo() {
                 </div>
 
                 <form  className="country__info__form">
-                  <label for="list-form-2-country">Country/Region</label>
+                  <label htmlFor="list-form-2-country">Country/Region</label>
                   <select id="country">
                     <option>France</option>
                     <option>Germany</option>
@@ -45,20 +45,20 @@ function ListTwo() {
                     {/* <!-- Add more countries as needed --> */}
                   </select>
 
-                  <label for="street">Street</label>
+                  <label htmlFor="street">Street</label>
                   <input type="text" id="street" />
 
                   <div  className="address-group">
                     <div  className="address-group-inner">
-                      <label for="city">City</label>
+                      <label htmlFor="city">City</label>
                       <input type="text" id="city" />
                     </div>
                     <div  className="address-group-inner">
-                      <label for="state">State</label>
+                      <label htmlFor="state">State</label>
                       <input type="text" id="state" />
                     </div>
                     <div  className="address-group-inner">
-                      <label for="postal-code">Postal code</label>
+                      <label htmlFor="postal-code">Postal code</label>
                       <input type="text" id="postal-code" />
                     </div>
                   </div>

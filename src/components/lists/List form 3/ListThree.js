@@ -12,7 +12,7 @@ export default function ListThree() {
   };
   return (
     <body>
-      <Navbar changeLang={changeLang} t={t} i18n={i18n} />
+      {/* <Navbar changeLang={changeLang} t={t} i18n={i18n} /> */}
       <main>
         <div  className="list-form-3-background">
           <div  className="list-form-3-inner__container">
@@ -29,13 +29,13 @@ export default function ListThree() {
                 <form>
                   <div  className="list-form-3-form-group">
                     <div  className="list-form-3-form-inner">
-                      <label for="superficie-brute">
+                      <label htmlFor="superficie-brute">
                         Superficie brute (m2)
                       </label>
                       <input type="text" id="superficie-brute" placeholder="" />
                     </div>
                     <div  className="list-form-3-form-inner">
-                      <label for="surface-terrain">
+                      <label htmlFor="surface-terrain">
                         Surface du terrain (m2)
                       </label>
                       <input type="text" id="surface-terrain" placeholder="" />
@@ -44,7 +44,7 @@ export default function ListThree() {
 
                   <div  className="list-form-3-form-group">
                     <div  className="list-form-3-form-inner">
-                      <label for="etat">État</label>
+                      <label htmlFor="etat">État</label>
                       <select id="etat">
                         <option></option>
                         <option>Choisir...</option>
@@ -52,7 +52,7 @@ export default function ListThree() {
                     </div>
 
                     <div  className="list-form-3-form-inner">
-                      <label for="classe-energetique">Classe énergétique</label>
+                      <label htmlFor="classe-energetique">Classe énergétique</label>
                       <select id="classe-energetique">
                         <option></option>
                         <option>Choisir...</option>
@@ -62,7 +62,7 @@ export default function ListThree() {
 
                   <div  className="list-form-3-form-group">
                     <div  className="list-form-3-form-inner">
-                      <label for="annee-construction">
+                      <label htmlFor="annee-construction">
                         Année de construction
                       </label>
                       <input
@@ -73,7 +73,7 @@ export default function ListThree() {
                     </div>
 
                     <div  className="list-form-3-form-inner">
-                      <label for="surface-utilisable">
+                      <label htmlFor="surface-utilisable">
                         Surface utilisable (m2)
                       </label>
                       <input
@@ -127,7 +127,7 @@ export default function ListThree() {
           </div>
         </div>
       </main>
-      <section  className="mobile__menu__section">
+      {/* <section  className="mobile__menu__section">
         <div  className="mobile__menu__wrapper">
           <div  className="mobile__menu__item">
             <Link href="">
@@ -248,7 +248,7 @@ export default function ListThree() {
             </section>
           </div>
         </section>
-      </footer>
+      </footer> */}
     </body>
   );
 }

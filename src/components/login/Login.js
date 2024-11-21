@@ -42,6 +42,12 @@ function Login() {
     }
   };
 
+
+  // useEffect(() => {
+    
+  
+  // }, [handleSubmit]);
+
   return (
     <>
       <div>
@@ -92,7 +98,7 @@ function Login() {
                 {isError && <p className="error">Login Failed: {error?.data?.message}</p>}
                 {isSuccess && <p className="success">Login Successful!</p>}
                 <p className="register-link">
-                  {t("New user ?")} <Link>{t("Create an account")}</Link>
+                  {t("New user ?")} <Link to={"/signup"}>{t("Create an account")}</Link>
                 </p>
 
                 <div className="separator">

@@ -14,14 +14,14 @@ export default function ListSeven() {
     <body>
       {/* <Navbar changeLang={changeLang} t={t} /> */}
       <main>
-        <section class="list-form-7-background">
-          <div class="list-form-7-inner__container">
+        <section className="list-form-7-background">
+          <div className="list-form-7-inner__container">
             <h2>Publier une annonce de vente</h2>
-            <div class="progress">
+            <div className="progress">
               <p>07</p>
               <span>/ 10</span>
             </div>
-            <div class="form-section">
+            <div className="form-section">
               <h2>Vos diagnostics immobiliers</h2>
               <p>
                 Dans le cadre d'une vente, vous devez fournir à l'acheteur des
@@ -45,7 +45,7 @@ export default function ListSeven() {
                 <Link to="/lists/6" type="button"  className="back">
                   Retour
                 </Link>
-                <Link>
+                <Link  to="/lists/8">
                 <button type="submit"  className="next">
                   Suivant
                 </button>
@@ -54,15 +54,15 @@ export default function ListSeven() {
           </div>
         </section>
       </main>
-      {/* <section class="mobile__menu__section">
-        <div class="mobile__menu__wrapper">
-          <div class="mobile__menu__item">
+      {/* <section className="mobile__menu__section">
+        <div className="mobile__menu__wrapper">
+          <div className="mobile__menu__item">
             <Link href="">
               <img src="/Asessts/Images/mobile menu icons/li_home.svg" alt="" />
               <p>Accueil</p>
             </Link>
           </div>
-          <div class="mobile__menu__item">
+          <div className="mobile__menu__item">
             <Link href="">
               <img
                 src="/Asessts/Images/mobile menu icons/cart-icon.svg"
@@ -71,7 +71,7 @@ export default function ListSeven() {
               <p>Acheter</p>
             </Link>
           </div>
-          <div class="mobile__menu__item">
+          <div className="mobile__menu__item">
             <Link href="">
               <img
                 src="/Asessts/Images/mobile menu icons/post-ad-icon.svg"
@@ -80,7 +80,7 @@ export default function ListSeven() {
               <p>Annonce</p>
             </Link>
           </div>
-          <div class="mobile__menu__item">
+          <div className="mobile__menu__item">
             <Link href="">
               <img
                 src="/Asessts/Images/mobile menu icons/vendre-icon.svg"
@@ -89,7 +89,7 @@ export default function ListSeven() {
               <p>Vendre</p>
             </Link>
           </div>
-          <div class="mobile__menu__item">
+          <div className="mobile__menu__item">
             <Link href="">
               <img
                 src="/Asessts/Images/mobile menu icons/info-icon.svg"
@@ -102,74 +102,74 @@ export default function ListSeven() {
       </section>
       <footer>
         <section>
-          <div class="footer__container">
-            <section class="main__footer__wrapper">
-              <div class="ppc__logo__social">
+          <div className="footer__container">
+            <section className="main__footer__wrapper">
+              <div className="ppc__logo__social">
                 <Link href="/">
                   <img
                     src="/Asessts/Images/new-logo.svg"
                     alt=""
-                    class="footer__logo"
+                    className="footer__logo"
                   />
                 </Link>
 
                 <Link href="#">
-                  <div class="links">
+                  <div className="links">
                     <img
                       src="/Asessts/Images/footer-icons/facebook.svg"
                       alt=""
-                      class="social-icons"
+                      className="social-icons"
                     />
-                    <p class="social__text">Facebook</p>
+                    <p className="social__text">Facebook</p>
                   </div>
                 </Link>
                 <Link href="#">
-                  <div class="links">
+                  <div className="links">
                     <img
                       src="/Asessts/Images/footer-icons/twitter (2).svg"
                       alt=""
-                      class="social-icons"
+                      className="social-icons"
                     />
-                    <p class="social__text">Twitter</p>
+                    <p className="social__text">Twitter</p>
                   </div>
                 </Link>
                 <Link href="#">
-                  <div class="links">
+                  <div className="links">
                     <img
                       src="/Asessts/Images/footer-icons/insta.svg"
                       alt=""
-                      class=" social-icons"
+                      className=" social-icons"
                     />
-                    <p class="social__text">Instagram</p>
+                    <p className="social__text">Instagram</p>
                   </div>
                 </Link>
                 <Link href="#">
-                  <div class="links">
+                  <div className="links">
                     <img
                       src="/Asessts/Images/footer-icons/youtube (2).svg"
                       alt=""
-                      class="social-icons"
+                      className="social-icons"
                     />
-                    <p class="social__text">Youtube</p>
+                    <p className="social__text">Youtube</p>
                   </div>
                 </Link>
               </div>
-              <div class="ppc__pages">
+              <div className="ppc__pages">
                 <h2>Pages</h2>
                 <Link href="#">
-                  <li class="footer__pages">Prix immo</li>
+                  <li className="footer__pages">Prix immo</li>
                 </Link>
                 <Link href="#">
-                  <li class="footer__pages">Acheter</li>
+                  <li className="footer__pages">Acheter</li>
                 </Link>
                 <Link href="#">
-                  <li class="footer__pages">Louer</li>
+                  <li className="footer__pages">Louer</li>
                 </Link>
                 <Link href="#">
-                  <li class="footer__pages">Vacances</li>
+                  <li className="footer__pages">Vacances</li>
                 </Link>
                 <Link href="#">
-                  <li class="footer__pages">Mon espace</li>
+                  <li className="footer__pages">Mon espace</li>
                 </Link>
               </div>
             </section>

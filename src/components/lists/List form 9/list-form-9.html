@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
-    <link rel="stylesheet" href="./styles.css">
+    <title>Publier une annonce de vente</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -47,53 +47,85 @@
         </section>
     </header>
     <main>
-        <div class="red-background-container"></div>
-        <div class="background">
-            <div class="login-container">
-                <div class="login-inner-container">
-                    <h2>Inscrivez-vous</h2>
-                    <p>Bienvenue chez Papacasa</p>
+        <section class="list-form-9-background">
+            <div class="list-form-9-inner__container">
+                <h1>Publier une annonce de vente</h1>
+                <div class="progress">
+                    <p>09</p>
+                    <span>/ 10</span>
+                </div>
+                <div class="list-form-9-form-card">
                     <form>
-                        <div class="sign-up__nom__premon__wrapper">
-                            <div class="sign-up__nom">
-                                <label for="text">Nom*</label>
-                                <input type="text" required class="ppc__sign-up__names">
+                        <fieldset>
+                            <legend>Vos coordonnées</legend>
+                            <p class="info">
+                                Ces informations sont confidentielles, elles ne seront pas publiées dans l'annonce ni
+                                communiquées à des tiers.
+                            </p>
+                            <div class="list-form-9-separator"></div>
+                            <div class="row">
+                                <div class="list-form-9-form-group-first-field">
+                                    <label for="civilite">Civilité*</label>
+                                    <input type="text" id="civilite" name="civilite" required>
+                                </div>
                             </div>
-                            <div class="sign-up__prenom">
-                                <label for="text">Prénom*</label>
-                                <input type="text" required class="ppc__sign-up__names">
+                            <div class="row">
+                                <div class="list-form-9-form-group">
+                                    <label for="nom">Nom*</label>
+                                    <input type="text" id="nom" name="nom" required>
+                                </div>
+                                <div class="list-form-9-form-group">
+                                    <label for="prenom">Prénom*</label>
+                                    <input type="text" id="prenom" name="prenom" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="list-form-9-form-group">
+                                    <label for="email">Email*</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="list-form-9-form-group">
+                                    <label for="telephone">Téléphone*</label>
+                                    <input type="tel" id="telephone" name="telephone" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="list-form-9-form-group">
+                                    <label for="password">Mot de passe*</label>
+                                    <input type="password" id="password" name="password" required>
+                                </div>
+                                <div class="list-form-9-form-group">
+                                    <label for="confirm-password">Confirmer le mot de passe*</label>
+                                    <input type="password" id="confirm-password" name="confirm-password" required>
+                                </div>
+                            </div>
+                            <div class="checkbox-group">
+                                <div class="checkbox__inner">
+                                    <input type="checkbox" id="cgu" name="cgu" required>
+                                    <label for="cgu">CGU/CGV/Vie privée</label>
+                                </div>
+                                <div class="checkbox__inner">
+                                    <input type="checkbox" id="data" name="data" required>
+                                    <label for="data">récupération de data de l'utilisateur et la partager avec
+                                        partenaires</label>
+                                </div>
+                                <div class="checkbox__inner">
+                                    <input type="checkbox" id="newsletter" name="newsletter">
+                                    <label for="newsletter">inscription à la newsletter</label>
+                                </div>
                             </div>
 
-                        </div>
-                        <label for="email">Courriel</label>
-                        <input type="email" id="email" placeholder="you@example.com" required class="ppc__login__email">
+                        </fieldset>
 
-                        <label for="number">Téléphone</label>
-                        <input type="tel" id="number" placeholder="+1 (123) 456 - 7890" required
-                            class="ppc__login__pwd">
-
-                        <label for="password">Mot de passe</label>
-                        <input type="password" id="password" placeholder="********" required class="ppc__login__pwd">
-
-                        <button type="submit" class="sign-up-button">S'inscrire</button>
                     </form>
-                    <p class="register-link">Nouvel utilisateur ? <a href="#">Créer un compte</a></p>
 
-                    <div class="separator">
-                        <p>OU</p>
-                    </div>
-
-                    <div class="social-login">
-                        <button class="facebook"><img src="/Asessts/Images/facebook-colored-logo.svg" alt="">Continuer
-                            avec Facebook</button>
-                        <button class="google"><img src="/Asessts/Images/google-colored-icon.svg" alt="">Continuer avec
-                            Google</button>
-                        <button class="twitter"><img src="/Asessts/Images/twitter-colored-icon.svg" alt="">Continuer
-                            avec Twitter</button>
-                    </div>
+                </div>
+                <div class="list-form-9-form-buttons">
+                    <button type="button" class="back">Retour</button>
+                    <button type="submit" class="next">Suivant</button>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
     <section class="mobile__menu__section">
         <div class="mobile__menu__wrapper">
@@ -187,8 +219,6 @@
             </div>
         </section>
     </footer>
-
-
 </body>
 
 </html>

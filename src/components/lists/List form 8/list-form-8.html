@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
-    <link rel="stylesheet" href="./styles.css">
+    <title>Publier une annonce de vente</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -47,53 +47,52 @@
         </section>
     </header>
     <main>
-        <div class="red-background-container"></div>
-        <div class="background">
-            <div class="login-container">
-                <div class="login-inner-container">
-                    <h2>Inscrivez-vous</h2>
-                    <p>Bienvenue chez Papacasa</p>
-                    <form>
-                        <div class="sign-up__nom__premon__wrapper">
-                            <div class="sign-up__nom">
-                                <label for="text">Nom*</label>
-                                <input type="text" required class="ppc__sign-up__names">
-                            </div>
-                            <div class="sign-up__prenom">
-                                <label for="text">Prénom*</label>
-                                <input type="text" required class="ppc__sign-up__names">
-                            </div>
+        <section class="list-form-8-background">
+            <div class="list-form-8-inner__container">
+                <h1>Publier une annonce de vente</h1>
+                <div class="progress">
+                    <p>08</p>
+                    <span>/ 10</span>
+                </div>
+                <div class="list-form-8-form-section">
+                    <h2>Vos photos</h2>
+                    <p>Vous pouvez télécharger jusqu'à 12 photos. <br>
+                        Pas d'inquiétude : vos photos peuvent être ajoutées ou modifiées plus tard gratuitement.</p>
+                    <span class="photo-label">Photo de couverture</span>
+
+
+                    <div class="photo-gallery">
+                        <div class="photo">
+                            <img src="/Asessts/Images/Front of a house.png" alt="Photo 1" class="upload-selected-image">
+                            <img src="/Asessts/Images/upload_placeholder_delete_icon.svg" alt="" class="delete-icon">
+                        </div>
+                        <div class="photo">
+                            <img src="/Asessts/Images/Front of a house.png" alt="Photo 2" class="upload-selected-image">
+                            <img src="/Asessts/Images/upload_placeholder_delete_icon.svg" alt="" class="delete-icon">
 
                         </div>
-                        <label for="email">Courriel</label>
-                        <input type="email" id="email" placeholder="you@example.com" required class="ppc__login__email">
+                        <div class="photo">
+                            <img src="/Asessts/Images/Front of a house.png" alt="Photo 3" class="upload-selected-image">
+                            <img src="/Asessts/Images/upload_placeholder_delete_icon.svg" alt="" class="delete-icon">
 
-                        <label for="number">Téléphone</label>
-                        <input type="tel" id="number" placeholder="+1 (123) 456 - 7890" required
-                            class="ppc__login__pwd">
-
-                        <label for="password">Mot de passe</label>
-                        <input type="password" id="password" placeholder="********" required class="ppc__login__pwd">
-
-                        <button type="submit" class="sign-up-button">S'inscrire</button>
-                    </form>
-                    <p class="register-link">Nouvel utilisateur ? <a href="#">Créer un compte</a></p>
-
-                    <div class="separator">
-                        <p>OU</p>
+                        </div>
                     </div>
 
-                    <div class="social-login">
-                        <button class="facebook"><img src="/Asessts/Images/facebook-colored-logo.svg" alt="">Continuer
-                            avec Facebook</button>
-                        <button class="google"><img src="/Asessts/Images/google-colored-icon.svg" alt="">Continuer avec
-                            Google</button>
-                        <button class="twitter"><img src="/Asessts/Images/twitter-colored-icon.svg" alt="">Continuer
-                            avec Twitter</button>
+                    <div class="placeholder__text">
+                        <h3>Télécharger l'image</h3>
+                    </div>
+                    <div class="upload-box">
+                        <img src="/Asessts/Images/upload_placeholder_icon.svg" alt="">
+                        <p><a href="#">Télécharger un fichier</a> ou faites glisser et déposez</p>
+                        <h5 class="upload-info">PNG, JPG, GIF jusqu'à 10 Mo</h5>
                     </div>
                 </div>
+                <div class="list-form-8-form-buttons">
+                    <button type="button" class="back">Retour</button>
+                    <button type="submit" class="next">Suivant</button>
+                </div>
             </div>
-        </div>
+        </section>
     </main>
     <section class="mobile__menu__section">
         <div class="mobile__menu__wrapper">
@@ -187,8 +186,6 @@
             </div>
         </section>
     </footer>
-
-
 </body>
 
 </html>

@@ -15,6 +15,9 @@ import ListTwo from "./components/lists/List form 2/ListTow";
 import FirstLayOut from "./components/layout/FirstLayOut";
 import ProtectedRoute from "./ProtectedRoute";
 import MobileNavbar from "./components/mobileNav/MobileNavbar";
+import ListEight from "./components/lists/List form 8/ListEight";
+import ListNine from "./components/lists/List form 9/ListNine";
+import ListTen from "./components/lists/List form 10/ListTen";
 
 function App() {
   return (
@@ -22,9 +25,12 @@ function App() {
       <Router>
         <Routes>
           {/* Public Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/forget-password" element={<ForgetPassword />} />
+
+          {/* <Route element={<FirstLayOut />}> */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+          {/* </Route> */}
 
           {/* Protected Routes with Layout */}
           <Route element={<FirstLayOut />}>
@@ -40,6 +46,9 @@ function App() {
               <Route path="/lists/5" element={<ListFive />} />
               <Route path="/lists/6" element={<ListSix />} />
               <Route path="/lists/7" element={<ListSeven />} />
+              <Route path="/lists/8" element={<ListEight />} />
+              <Route path="/lists/9" element={<ListNine />} />
+              <Route path="/lists/10" element={<ListTen />} />
             </Route>
           </Route>
         </Routes>

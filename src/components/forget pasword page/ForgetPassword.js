@@ -15,39 +15,39 @@ export default function ForgetPassword() {
     <>
       {/* <Navbar changeLang={changeLang} t={t} /> */}
       <main>
-        <div class="red-background-container"></div>
-        <div class="background">
-          <div class="login-container">
-            <div class="login-inner-container">
+        <div className="red-background-container"></div>
+        <div className="background">
+          <div className="login-container">
+            <div className="login-inner-container">
               <h2>Mot de passe oublié</h2>
               <p>
                 Nous enverrons des instructions de mot de passe à votre adresse
                 e-mail
               </p>
               <form>
-                <label for="email">E-mail</label>
+                <label htmlFor="email">E-mail</label>
                 <input
                   type="email"
                   id="email"
                   placeholder="vous@example.com"
                   required
-                  class="ppc__login__email"
+                  className="ppc__login__email"
                 />
 
-                <button type="submit" class="login-button">
+                <button type="submit" className="login-button">
                   Envoyer
                 </button>
               </form>
-              <p class="register-link">
+              <p className="register-link">
                 Retourner pour se <Link href="#">connecter</Link>
               </p>
             </div>
           </div>
         </div>
       </main>
-      {/* <section class="mobile__menu__section">
-        <div class="mobile__menu__wrapper">
-          <div class="mobile__menu__item">
+      {/* <section className="mobile__menu__section">
+        <div className="mobile__menu__wrapper">
+          <div className="mobile__menu__item">
             <Link href="">
               <img
                 src="/Linksessts/Images/mobile menu icons/li_home.svg"
@@ -56,7 +56,7 @@ export default function ForgetPassword() {
               <p>Accueil</p>
             </Link>
           </div>
-          <div class="mobile__menu__item">
+          <div className="mobile__menu__item">
             <Link href="">
               <img
                 src="/Linksessts/Images/mobile menu icons/cart-icon.svg"
@@ -65,7 +65,7 @@ export default function ForgetPassword() {
               <p>Acheter</p>
             </Link>
           </div>
-          <div class="mobile__menu__item">
+          <div className="mobile__menu__item">
             <Link href="">
               <img
                 src="/Linksessts/Images/mobile menu icons/post-ad-icon.svg"
@@ -74,7 +74,7 @@ export default function ForgetPassword() {
               <p>Annonce</p>
             </Link>
           </div>
-          <div class="mobile__menu__item">
+          <div className="mobile__menu__item">
             <Link href="">
               <img
                 src="/sessts/Images/mobile menu icons/vendre-icon.svg"
@@ -83,7 +83,7 @@ export default function ForgetPassword() {
               <p>Vendre</p>
             </Link>
           </div>
-          <div class="mobile__menu__item">
+          <div className="mobile__menu__item">
             <Link href="">
               <img
                 src="/Linksessts/Images/mobile menu icons/info-icon.svg"

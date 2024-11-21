@@ -8,7 +8,7 @@ export const papaCasaApi = createApi({
     // getAllProducts: builder.query({
     //   query: () => "token/",
     // }),
-    // New mutation for login
+    // New mutation htmlFor login
     loginUser: builder.mutation({
       query: ({payload,headers}) => ({
         url: "token/", 
@@ -18,7 +18,25 @@ export const papaCasaApi = createApi({
 
       }),
     }),
+    // getUser: builder.mutation({
+    //   query: ({payload,headers}) => ({
+    //     url: "users/", 
+    //     method: "GET",
+    //     body: payload,
+    //     headers
+
+    //   }),
+    // }),
+    signUpUser: builder.mutation({
+      query: ({payload,headers}) => ({
+        url: "register/", 
+        method: "POST",
+        body: payload,
+        headers
+
+      }),
+    }),
   }),
 });
 
-export const { useLoginUserMutation } = papaCasaApi;
+export const { useLoginUserMutation ,useSignUpUserMutation } = papaCasaApi;
