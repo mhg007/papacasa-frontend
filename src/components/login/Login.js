@@ -21,26 +21,35 @@ function Login() {
     console.log("🚀 ~ Login ~ useLoginUserMutation:", useLoginUserMutation)
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const payload = {
-      username: e.target.email.value,
-      password: e.target.password.value,
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const payload = {
+        username: e.target.username.value,
+        password: e.target.password.value,
+      };
+      const headers = {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+      };
+      try {
+        const response = await loginUser({ payload, headers }).unwrap(); // Executes the POST call
+        console.log("Login Successful:", response);
+    
+        // Assuming the token is in response.token
+        const token = response.access; 
+        if (token) {
+          localStorage.setItem("token", token); // Save token to localStorage
+          console.log("Token saved successfully:", token);
+        } else {
+          console.error("No token received in the response");
+        }
+    
+        navigate("/"); // Redirect after successful login
+      } catch (err) {
+        console.error("Login Failed:", err);
+      }
     };
-    const headers = {
-      "Content-Type": "application/json",
-      // Authorization: "Bearer your-token-here",
-      "Accept": "*/*",
-      // "Accept-Encoding": "gzip, deflate, br"
-    };
-    try {
-      const response = await loginUser({payload,headers}).unwrap(); // Executes the POST call
-      console.log("Login Successful:", response);
-      navigate("/")
-    } catch (err) {
-      console.error("Login Failed:", err);
-    }
-  };
+    
 
 
   // useEffect(() => {
@@ -61,9 +70,9 @@ function Login() {
                 <form onSubmit={handleSubmit}>
                   <label htmlFor="email">{t("E-mail")}</label>
                   <input
-                    type="email"
-                    name="email"
-                    id="email"
+                    type="text"
+                    name="username"
+                    id="userName"
                     placeholder="you@example.com"
                     required
                     className="ppc__login__email"

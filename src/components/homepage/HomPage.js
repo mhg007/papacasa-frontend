@@ -40,15 +40,48 @@ import home_pictures from "./Assests/Images/home pictures.png";
 // import vendre_icon from "./Assests/Images/mobile menu icons/vendre-icon.svg";
 // import info_icon from "./Assests/Images/mobile menu icons/info-icon.svg";
 import searchicon from "./Assests/Images/search-icon.svg";
+import {
+  useFavoritesIconMutation,
+  useGetListingsQuery,
+} from "../redux/services/services";
+import { message } from "antd";
 // import { useTranslation } from "react-i18next";
 // import Navbar from "../navbar/Navbar";
 // import MobileNavbar from "../mobileNav/MobileNavbar";
 
 function HomPage() {
-   
+  const token = localStorage.getItem("token");
+  console.log(token);
+  const {
+    data: listingsData,
+    error: listingsError,
+    isLoading: isListingsLoading,
+  } = useGetListingsQuery(token);
+  console.log("Daataaaaaaa", listingsData);
+  const [favoritesIcon, {}] = useFavoritesIconMutation(token);
+
+  const handleFavortiesIcons = async (e) => {
+    const payload = {
+      utilisateur: e.utilisateur,
+      annonce: e.id,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+    };
+    try {
+      const response = await favoritesIcon({ payload, headers }).unwrap();
+      message.success("Favorites Successfully");
+      console.log("Favorites Successfully", response);
+      // navigate("/");
+    } catch (error) {
+      message.error("Favorites Failed");
+      console.log("Favorites Failed", error);
+    }
+  };
   return (
     <>
-        {/* <Navbar changeLang={changeLang} t={t}/> */}
+      {/* <Navbar changeLang={changeLang} t={t}/> */}
       <main>
         <section className="hero__banner">
           <div className="container">
@@ -71,20 +104,22 @@ function HomPage() {
                 <img src={Hero_image} alt="" className="hero__image" />
               </div>
             </div>
-            <div className="search__bar ">
-              <form className="  flex flex-row w-full">
+            <div className="search__bar">
+              <form className="search__form">
                 <div className="search__types-1">
                   <h2>Type de recherche</h2>
                   <label htmlFor="">
-                    <select name="" id="">
-                      <option value="">Sélectionner</option>
+                    <select className="m-0" name="" id="">
+                      <option className="" value="">
+                        Sélectionner
+                      </option>
                     </select>
                   </label>
                 </div>
                 <div className="search__types">
                   <h2>Localisation</h2>
                   <label htmlFor="">
-                    <select name="" id="">
+                    <select className="m-0" name="" id="">
                       <option value="">Sélectionner</option>
                     </select>
                   </label>
@@ -92,7 +127,7 @@ function HomPage() {
                 <div className="search__types">
                   <h2>Types de bien</h2>
                   <label htmlFor="">
-                    <select name="" id="">
+                    <select className="m-0" name="" id="">
                       <option value="">Sélectionner</option>
                     </select>
                   </label>
@@ -100,7 +135,7 @@ function HomPage() {
                 <div className="search__types">
                   <h2>Pièces</h2>
                   <label htmlFor="">
-                    <select name="" id="">
+                    <select className="m-0" name="" id="">
                       <option value="">Sélectionner</option>
                     </select>
                   </label>
@@ -108,7 +143,7 @@ function HomPage() {
                 <div className="search__types">
                   <h2>Prix maximum</h2>
                   <label htmlFor="">
-                    <select name="" id="">
+                    <select className="m-0" name="" id="">
                       <option value="">Ajouter Prix (€)</option>
                     </select>
                   </label>
@@ -121,6 +156,7 @@ function HomPage() {
                 </div>
               </form>
             </div>
+
             <form action="" className="mobile__search__btn">
               <div className="mbl__Srch__btn__wrapper">
                 <div className="mbl_srch_icon">
@@ -198,193 +234,42 @@ function HomPage() {
                   </Link>
                 </div>
               </div>
-
-              <div className="properties__grid">
-                <div className="properties">
-                  <div
-                    style={{ backgroundImage: `url(${Building_front})` }}
-                    className="properties__top__block"
-                  >
-                    <div className="price__block">
-                      <p>-10% aujourd'hui</p>
+              {(listingsData || []).map((item) => (
+                <div className="properties__grid">
+                  <div className="properties">
+                    <div
+                      style={{ backgroundImage: `url(${Building_front})` }}
+                      className="properties__top__block"
+                    >
+                      <div className="price__block">
+                        <p>-10% aujourd'hui</p>
+                      </div>
+                      <div className="favorite__icon">
+                        <img
+                          name="favIcon"
+                          onClick={() => handleFavortiesIcons(item)}
+                          src={heart_Icon}
+                          alt=""
+                          className="cursor-pointer"
+                        />
+                      </div>
                     </div>
-                    <div className="favorite__icon">
-                      <img src={heart_Icon} alt="" />
+                    <div className="properties__bottom__block">
+                      <p>3 lits</p>
+                      <h4>{item.titre}</h4>
+                      <div className="location">
+                        <img src={location_Icon} alt="" />
+                        <p className="">
+                          {item.adresse} <span>,</span>
+                        </p>
+                        <p className="">{item.ville}</p>
+                      </div>
+                      <div className="divider"></div>
+                      <h5>{item.prix}</h5>
                     </div>
-                  </div>
-                  <div className="properties__bottom__block">
-                    <p>3 lits</p>
-                    <h4>Appartement Meublé</h4>
-                    <div className="location">
-                      <img src={location_Icon} alt="" />
-                      <p>Paris, France</p>
-                    </div>
-                    <div className="divider"></div>
-                    <h5>100 000 €</h5>
                   </div>
                 </div>
-                <div className="properties">
-                  <div
-                    style={{ backgroundImage: `url(${grid_2})` }}
-                    className="properties__top__block"
-                  >
-                    <div className="price__block">
-                      <p>-10% aujourd'hui</p>
-                    </div>
-                    <div className="favorite__icon">
-                      <img src={heart_Icon} alt="" />
-                    </div>
-                  </div>
-                  <div className="properties__bottom__block">
-                    <p>3 lits</p>
-                    <h4>Appartement Meublé</h4>
-                    <div className="location">
-                      <img src={location_Icon} alt="" />
-                      <p>Paris, France</p>
-                    </div>
-                    <div className="divider"></div>
-                    <h5>100 000 €</h5>
-                  </div>
-                </div>
-                <div className="properties">
-                  <div
-                    style={{ backgroundImage: `url(${grid_3})` }}
-                    className="properties__top__block"
-                  >
-                    <div className="price__block">
-                      <p>-10% aujourd'hui</p>
-                    </div>
-                    <div className="favorite__icon">
-                      <img src={heart_Icon} alt="" />
-                    </div>
-                  </div>
-                  <div className="properties__bottom__block">
-                    <p>3 lits</p>
-                    <h4>Appartement Meublé</h4>
-                    <div className="location">
-                      <img src={location_Icon} alt="" />
-                      <p>Paris, France</p>
-                    </div>
-                    <div className="divider"></div>
-                    <h5>100 000 €</h5>
-                  </div>
-                </div>
-                <div className="properties">
-                  <div
-                    style={{ backgroundImage: `url(${grid_4})` }}
-                    className="properties__top__block"
-                  >
-                    <div className="price__block">
-                      <p>-10% aujourd'hui</p>
-                    </div>
-                    <div className="favorite__icon">
-                      <img src={heart_Icon} alt="" />
-                    </div>
-                  </div>
-                  <div className="properties__bottom__block">
-                    <p>3 lits</p>
-                    <h4>Appartement Meublé</h4>
-                    <div className="location">
-                      <img src={location_Icon} alt="" />
-                      <p>Paris, France</p>
-                    </div>
-                    <div className="divider"></div>
-                    <h5>100 000 €</h5>
-                  </div>
-                </div>
-                <div className="properties">
-                  <div
-                    style={{ backgroundImage: `url(${grid_5})` }}
-                    className="properties__top__block"
-                  >
-                    <div className="price__block">
-                      <p>-10% aujourd'hui</p>
-                    </div>
-                    <div className="favorite__icon">
-                      <img src={heart_Icon} alt="" />
-                    </div>
-                  </div>
-                  <div className="properties__bottom__block">
-                    <p>3 lits</p>
-                    <h4>Appartement Meublé</h4>
-                    <div className="location">
-                      <img src={location_Icon} alt="" />
-                      <p>Paris, France</p>
-                    </div>
-                    <div className="divider"></div>
-                    <h5>100 000 €</h5>
-                  </div>
-                </div>
-                <div className="properties">
-                  <div
-                    style={{ backgroundImage: `url(${grid_6})` }}
-                    className="properties__top__block"
-                  >
-                    <div className="price__block">
-                      <p>-10% aujourd'hui</p>
-                    </div>
-                    <div className="favorite__icon">
-                      <img src={heart_Icon} alt="" />
-                    </div>
-                  </div>
-                  <div className="properties__bottom__block">
-                    <p>3 lits</p>
-                    <h4>Appartement Meublé</h4>
-                    <div className="location">
-                      <img src={location_Icon} alt="" />
-                      <p>Paris, France</p>
-                    </div>
-                    <div className="divider"></div>
-                    <h5>100 000 €</h5>
-                  </div>
-                </div>
-                <div className="properties">
-                  <div
-                    style={{ backgroundImage: `url(${grid_7})` }}
-                    className="properties__top__block"
-                  >
-                    <div className="price__block">
-                      <p>-10% aujourd'hui</p>
-                    </div>
-                    <div className="favorite__icon">
-                      <img src={heart_Icon} alt="" />
-                    </div>
-                  </div>
-                  <div className="properties__bottom__block">
-                    <p>3 lits</p>
-                    <h4>Appartement Meublé</h4>
-                    <div className="location">
-                      <img src={location_Icon} alt="" />
-                      <p>Paris, France</p>
-                    </div>
-                    <div className="divider"></div>
-                    <h5>100 000 €</h5>
-                  </div>
-                </div>
-                <div className="properties">
-                  <div
-                    style={{ backgroundImage: `url(${grid_8})` }}
-                    className="properties__top__block"
-                  >
-                    <div className="price__block">
-                      <p>-10% aujourd'hui</p>
-                    </div>
-                    <div className="favorite__icon">
-                      <img src={heart_Icon} alt="" />
-                    </div>
-                  </div>
-                  <div className="properties__bottom__block">
-                    <p>3 lits</p>
-                    <h4>Appartement Meublé</h4>
-                    <div className="location">
-                      <img src={location_Icon} alt="" />
-                      <p>Paris, France</p>
-                    </div>
-                    <div className="divider"></div>
-                    <h5>100 000 €</h5>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </section>
         </section>

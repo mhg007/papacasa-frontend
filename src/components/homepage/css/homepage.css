@@ -36,6 +36,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     width: 100%;
     max-width: 60%;
 }
@@ -336,9 +337,12 @@ a {
 }
 
 .search__bar {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
     width: 100%;
-    max-width: 1192px;
-    padding: 25px;
+    max-width: 1200px;
+    padding: 20px;
     border-radius: 130px;
     background-color: #FFFFFFCC;
     box-shadow: 0px 10px 10px -5px #0000000A;
@@ -350,7 +354,9 @@ a {
 
 .search__form {
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
 }
 
 .search__types {
