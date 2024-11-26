@@ -1,18 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import baseQueryWithRefresh from "./baseQueryWithRefresh";
 
 export const papaCasaApi = createApi({
   reducerPath: "papaCasa",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://papacasa.caansoft.com/api/",
-    prepareHeaders: (headers) => {
-        // Retrieve the token from localStorage
-        const token = localStorage.getItem("token");
-        if (token) {
-          headers.set("Authorization", `Bearer ${token}`); // Add token to headers
-        }
-        return headers;
-      },
-  }),
+  baseQuery: baseQueryWithRefresh,
   endpoints: (builder) => ({
     getListings: builder.query({
       query: () => "listings/",
@@ -38,9 +29,15 @@ export const papaCasaApi = createApi({
         body: payload,
       }),
     }),
+      submitFormData: builder.mutation({
+      query: (formData) => ({
+        url: "visits/",
+        method: "POST",
+        body: formData,
+      }),
+    }),
   }),
 });
-console.log(fetchBaseQuery.headers);
 
 
 export const { 

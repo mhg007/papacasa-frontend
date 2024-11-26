@@ -30,35 +30,22 @@ import Farm_house from "./Assests/Images/Farm house.png";
 import Scenic_home from "./Assests/Images/Scenic home.png";
 import Apartments from "./Assests/Images/Apartments.png";
 import home_pictures from "./Assests/Images/home pictures.png";
-// import footericonsyoutube from "./Assests/Images/youtube (2).svg";
-// import footericonstwitter from "./Assests/Images/insta.svg";
-// import footericonsinsta from "./Assests/Images/twitter (2).svg";
-// import footericonsfacebook from "./Assests/Images/facebook.svg";
-// import li_home from "./Assests/Images/mobile menu icons/li_home.svg";
-// import cart_icon from "./Assests/Images/mobile menu icons/cart-icon.svg";
-// import post_ad_icon from "./Assests/Images/mobile menu icons/post-ad-icon.svg";
-// import vendre_icon from "./Assests/Images/mobile menu icons/vendre-icon.svg";
-// import info_icon from "./Assests/Images/mobile menu icons/info-icon.svg";
 import searchicon from "./Assests/Images/search-icon.svg";
 import {
   useFavoritesIconMutation,
   useGetListingsQuery,
 } from "../redux/services/services";
 import { message } from "antd";
-// import { useTranslation } from "react-i18next";
-// import Navbar from "../navbar/Navbar";
-// import MobileNavbar from "../mobileNav/MobileNavbar";
 
 function HomPage() {
-  const token = localStorage.getItem("token");
-  console.log(token);
+  
   const {
     data: listingsData,
     error: listingsError,
     isLoading: isListingsLoading,
-  } = useGetListingsQuery(token);
+  } = useGetListingsQuery();
   console.log("Daataaaaaaa", listingsData);
-  const [favoritesIcon, {}] = useFavoritesIconMutation(token);
+  const [favoritesIcon, {}] = useFavoritesIconMutation();
 
   const handleFavortiesIcons = async (e) => {
     const payload = {
@@ -234,8 +221,8 @@ function HomPage() {
                   </Link>
                 </div>
               </div>
-              {(listingsData || []).map((item) => (
-                <div className="properties__grid">
+              {(listingsData || []).map((item ,index) => (
+                <div className="properties__grid" key={index}>
                   <div className="properties">
                     <div
                       style={{ backgroundImage: `url(${Building_front})` }}

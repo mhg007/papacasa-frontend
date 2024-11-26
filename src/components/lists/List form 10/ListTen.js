@@ -1,5 +1,6 @@
 import React from 'react'
 import "./listTen.css"
+import { Link } from 'react-router-dom'
 
 function ListTen() {
   return (
@@ -31,8 +32,18 @@ function ListTen() {
                     </ul>
 
                 </div>
-                <div className="list-form-10-button-wrapper">
+                <div className="list-form-10-button-wrapper ">
+                <Link to="/lists/9" type="button"  className="back">
+                  Retour
+                </Link>
                     <button className="list-form-10-button">D'accord</button>
+                    {/* <div className="list-form-9-form-buttons"> */}
+                {/* <Link  to="/lists/10">
+                <button type="submit"  className="next">
+                  Suivant
+                </button>
+                </Link> */}
+                {/* </div> */}
                 </div>
             </div>
 

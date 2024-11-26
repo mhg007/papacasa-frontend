@@ -1,88 +1,91 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import ".//listOne.css";
-import { useTranslation } from "react-i18next";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { updateStepData } from "../../redux/slice/formDataSlice";
+import "./listOne.css";
 
 function ListOne() {
-  // const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const step1Data = useSelector((state) => state.multiStepForm.step1);
+  const [formValues, setFormValues] = useState( step1Data || {});
 
-  // const changeLang = (lang) => {
-  //   i18n.changeLanguage(lang);
-  //   console.log("clicked", lang);
-  // };
+  const [selectedTypes, setSelectedTypes] = useState(step1Data?.propertyType || []);
+  // Initialize the local state with step1Data or an empty array
+  const handleChange = (type) => {
+    if ( selectedTypes.includes(type) ){
+      const newFormValues = selectedTypes.filter( values => values !== type);
+      setSelectedTypes(newFormValues);
+    }
+
+    setSelectedTypes([ ...selectedTypes, type ]);
+  };
+
+  const handleStepUpdate = () => {
+  
+
+    // Dispatch the updated list to Redux
+    if (selectedTypes.length !== 0){
+      const formData = {
+        propertyType: selectedTypes
+      };
+      dispatch(updateStepData({ step: "step1", data: formData }));
+      navigate('/lists/2')
+    }
+  
+  };
+
   return (
-    <>
-      {/* <Navbar changeLang={changeLang} t={t} i18n={i18n} /> */}
-      <main>
-        <div className="list-form-1-background">
-          <div className="list-form-1__inner__container">
-            <h2>Publier une annonce de vente</h2>
-            <div className="progress">
-              <p>01</p>
-              <span>/ 10</span>
+    <main>
+      <div className="list-form-1-background">
+        <div className="list-form-1__inner__container">
+          <h2>Publier une annonce de vente</h2>
+          <div className="progress">
+            <p>01</p>
+            <span>/ 10</span>
+          </div>
+          <form>
+            <div className="list-form-1-form-container">
+              <h3>Choisissez votre type de bien</h3>
+              <div className="property-types">
+                {[
+                  "Appartement",
+                  "Maison",
+                  "Garage / Parking",
+                  "Terrain",
+                  "Immeuble",
+                  "Fonds de commerce",
+                  "Local commercial",
+                  "Autres",
+                ].map((type) => (
+                  <button
+                  id="dummyData"
+                    key={type}
+                    type="button"
+                    className={`property-button ${
+                      selectedTypes.includes(type) ? "selected" : ""
+                    }`}
+                    onClick={() => handleChange(type)}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
             </div>
-            <form action="">
-              <div className="list-form-1-form-container">
-                <h3>Choisissez votre type de bien</h3>
-                <div className="property-types">
-                  <button>Appartement</button>
-                  <button>Maison</button>
-                  <button>Garage / Parking</button>
-                  <button>Terrain</button>
-                  <button>Immeuble</button>
-                  <button>Fonds de commerce</button>
-                  <button>Local commercial</button>
-                  <button>Autres</button>
-                </div>
-              </div>
-              <div className="buttons">
-                <Link >
-                <button className="back">Retour</button>
-                </Link>
-                <Link to="/lists/2">
-                <button className="next">Suivant</button>
-                </Link>
-              </div>
-            </form>
-          </div>
+            <div className="buttons">
+              <Link to="/lists/1">
+                <button className="back" type="button">
+                  Retour
+                </button>
+              </Link>
+              <button className="next" type="button" onClick={() => handleStepUpdate()}>
+                Suivant
+              </button>
+            </div>
+          </form>
         </div>
-      </main>
-      {/* <section className="mobile__menu__section">
-        <div className="mobile__menu__wrapper">
-          <div className="mobile__menu__item">
-            <Link href="">
-              <img src="/Asessts/Images/mobile menu icons/li_home.svg" />
-              <p>Accueil</p>
-            </Link>
-          </div>
-          <div className="mobile__menu__item">
-            <Link href="">
-              <img src="/Asessts/Images/mobile menu icons/cart-icon.svg" />
-              <p>Acheter</p>
-            </Link>
-          </div>
-          <div className="mobile__menu__item">
-            <Link href="">
-              <img src="/Asessts/Images/mobile menu icons/post-ad-icon.svg" />
-              <p>Annonce</p>
-            </Link>
-          </div>
-          <div className="mobile__menu__item">
-            <Link href="">
-              <img src="/Asessts/Images/mobile menu icons/vendre-icon.svg" />
-              <p>Vendre</p>
-            </Link>
-          </div>
-          <div className="mobile__menu__item">
-            <Link href="">
-              <img src="/Asessts/Images/mobile menu icons/info-icon.svg" />
-              <p>À propos</p>
-            </Link>
-          </div>
-        </div>
-      </section>
-      <Footer /> */}
-    </>
+      </div>
+    </main>
   );
 }
 

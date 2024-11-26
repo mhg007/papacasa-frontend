@@ -19,6 +19,28 @@
   margin: 0 auto;
 }
 
+.property-button {
+  background-color: #f0f0f0; /* Default background */
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.property-button.selected {
+  background-color: #0056b3; /* Highlight color for selected items */
+  color: #fff;
+  border-color: #007bff;
+  font-weight: bold;
+}
+
+.property-button:hover {
+  background-color: #0056b3; /* Hover effect */
+  color: #fff;
+}
+
+
 .list-form-1__inner__container {
   max-width: 784px;
   margin: 0 auto;

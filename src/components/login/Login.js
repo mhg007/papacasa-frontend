@@ -32,19 +32,17 @@ function Login() {
         Accept: "*/*",
       };
       try {
-        const response = await loginUser({ payload, headers }).unwrap(); // Executes the POST call
+        const response = await loginUser({ payload, headers }).unwrap();
         console.log("Login Successful:", response);
     
-        // Assuming the token is in response.token
         const token = response.access; 
-        if (token) {
-          localStorage.setItem("token", token); // Save token to localStorage
-          console.log("Token saved successfully:", token);
-        } else {
-          console.error("No token received in the response");
+        const refreshToken = response.refresh; 
+        if (response) {
+          
+          console.log("Token saved successfully:", response);
+          localStorage.setItem("token", JSON.stringify(response)); 
+          navigate("/"); // Redirect after successful login
         }
-    
-        navigate("/"); // Redirect after successful login
       } catch (err) {
         console.error("Login Failed:", err);
       }

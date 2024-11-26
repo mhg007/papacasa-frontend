@@ -1,254 +1,208 @@
-import React from "react";
-import Navbar from "../../navbar/Navbar";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./listThree.css";
+import { useDispatch, useSelector } from "react-redux";
+import { updateStepData } from "../../redux/slice/formDataSlice";
 export default function ListThree() {
   const { t, i18n } = useTranslation();
+  const intialFormData = useSelector((state)=> state.multiStepForm.step3)
+  // const [bathcount, setBathCount] = useState(0);
+  // const [count, setCount] = useState(0);
+  const [formValues, setFormValues] = useState( intialFormData || {
+    superficieBrute: "",
+    surfaceTerrain: "",
+    etat: "",
+    classeEnergetique: "",
+    anneeConstruction: "",
+    surfaceUtilisable: "",
+    bathcount:0,
+    count:0
+  });
 
-  const changeLang = (lang) => {
-    i18n.changeLanguage(lang);
-    console.log("clicked", lang);
+  // console.log(intialFormData)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const handleChange = (e) => {
+    setFormValues({ ...formValues, [e.target.id]: e.target.value });
   };
+  
+
+  const handleCounterChange = (type, operation) => {
+    if (type === "bathrooms") {
+      setFormValues((prevFormValues) => ({
+        ...prevFormValues,
+        bathcount: Math.max(0, (prevFormValues.count || 0) + (operation === "increment" ? 1 : -1)),
+      }));
+          } else if (type === "parkingSpaces") {
+      setFormValues((prevFormValues) => ({
+        ...prevFormValues,
+        count: Math.max(0, (prevFormValues.count || 0) + (operation === "increment" ? 1 : -1)),
+      }));
+          }
+  };
+  
+  // const step3Data = useSelector((state) => state.MultiStepForm.step3);
+  const handleStepUpdate = (e) => {
+    e.preventDefault();
+    if (!Object.values(formValues).includes("")){
+      const formData = {
+        superficieBrute: formValues.superficieBrute,
+        surfaceTerrain: formValues.surfaceTerrain,
+        etat: formValues.etat,
+        classeEnergetique: formValues.classeEnergetique,
+        anneeConstruction: formValues.anneeConstruction,
+        surfaceUtilisable: formValues.surfaceUtilisable,
+        bathcount: formValues.bathcount,
+        count: formValues.count,
+      };
+      dispatch(updateStepData({ step: "step3", data: formData }));
+      navigate('/lists/4')
+    }
+    
+  };
+  
   return (
-    <body>
+    <>
       {/* <Navbar changeLang={changeLang} t={t} i18n={i18n} /> */}
       <main>
-        <div  className="list-form-3-background">
-          <div  className="list-form-3-inner__container">
-            <div  className="container">
+        <div className="list-form-3-background">
+          <div className="list-form-3-inner__container">
+            <div className="container">
               <h2>Publier une annonce de vente</h2>
-              <div  className="progress">
+              <div className="progress">
                 <p>03</p>
                 <span>/ 10</span>
               </div>
-              <div  className="list-form-3-form-container">
+              <div className="list-form-3-form-container">
                 <h3>Caractéristiques du bien</h3>
-                <div  className="list-form-3-separator"></div>
+                <div className="list-form-3-separator"></div>
 
-                <form>
-                  <div  className="list-form-3-form-group">
-                    <div  className="list-form-3-form-inner">
+                <form onSubmit={handleStepUpdate}>
+                  <div className="list-form-3-form-group">
+                    <div className="list-form-3-form-inner">
                       <label htmlFor="superficie-brute">
                         Superficie brute (m2)
                       </label>
-                      <input type="text" id="superficie-brute" placeholder="" />
+                      <input
+                      value={formValues.superficieBrute}
+                      onChange={handleChange}
+                      type="text" id="superficieBrute" placeholder="" />
                     </div>
-                    <div  className="list-form-3-form-inner">
+                    <div className="list-form-3-form-inner">
                       <label htmlFor="surface-terrain">
                         Surface du terrain (m2)
                       </label>
-                      <input type="text" id="surface-terrain" placeholder="" />
+                      <input  value={formValues.surfaceTerrain} type="text" id="surfaceTerrain" placeholder="" onChange={handleChange} />
                     </div>
                   </div>
 
-                  <div  className="list-form-3-form-group">
-                    <div  className="list-form-3-form-inner">
+                  <div className="list-form-3-form-group">
+                    <div className="list-form-3-form-inner">
                       <label htmlFor="etat">État</label>
-                      <select id="etat">
+                      <select value={formValues.etat} id="etat" onChange={handleChange} >
                         <option></option>
                         <option>Choisir...</option>
                       </select>
                     </div>
 
-                    <div  className="list-form-3-form-inner">
-                      <label htmlFor="classe-energetique">Classe énergétique</label>
-                      <select id="classe-energetique">
+                    <div className="list-form-3-form-inner">
+                      <label htmlFor="classe-energetique">
+                        Classe énergétique
+                      </label>
+                      <select value={formValues.classeEnergetique} id="classeEnergetique" onChange={handleChange}>
                         <option></option>
                         <option>Choisir...</option>
                       </select>
                     </div>
                   </div>
 
-                  <div  className="list-form-3-form-group">
-                    <div  className="list-form-3-form-inner">
+                  <div className="list-form-3-form-group">
+                    <div className="list-form-3-form-inner">
                       <label htmlFor="annee-construction">
                         Année de construction
                       </label>
                       <input
+                      value={formValues.anneeConstruction}
                         type="text"
-                        id="annee-construction"
+                        id="anneeConstruction"
                         placeholder=""
+                        onChange={handleChange}
                       />
                     </div>
 
-                    <div  className="list-form-3-form-inner">
+                    <div className="list-form-3-form-inner">
                       <label htmlFor="surface-utilisable">
                         Surface utilisable (m2)
                       </label>
                       <input
+                      value={formValues.surfaceUtilisable}
                         type="text"
-                        id="surface-utilisable"
+                        id="surfaceUtilisable"
                         placeholder=""
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
 
-                  <div  className="list-form-3-form-group-range">
-                    <div  className="list-form-3-form-group-range-inner">
+                  <div className="list-form-3-form-group-range">
+                    <div className="list-form-3-form-group-range-inner">
                       <label>Salles de bains</label>
-                      <div  className="counter">
-                        <button type="button"  className="minus">
+                      <div className="counter">
+                        <button
+                          onClick={() => handleCounterChange("bathrooms", "decrement")}
+                          type="button"
+                          className="minus"
+                        >
                           −
                         </button>
-                        <span>1</span>
-                        <button type="button"  className="plus">
+                        <span value={formValues.bathcount}>{formValues.bathcount}</span>
+                        <button
+                          onClick={() => handleCounterChange("bathrooms", "increment")}
+                          type="button"
+                          className="plus"
+                        >
                           +
                         </button>
                       </div>
                     </div>
 
-                    <div  className="list-form-3-form-group-range-inner">
+                    <div className="list-form-3-form-group-range-inner">
                       <label>Places de parking</label>
-                      <div  className="counter">
-                        <button type="button"  className="minus">
+                      <div className="counter">
+                        <button
+                          onClick={() => handleCounterChange("parkingSpaces", "decrement")}
+                          type="button"
+                          className="minus"
+                        >
                           −
                         </button>
-                        <span>1</span>
-                        <button type="button"  className="plus">
+                        <span value={formValues.count}>{formValues.count}</span>
+                        <button
+                          onClick={() => handleCounterChange("parkingSpaces", "increment")}
+                          type="button"
+                          className="plus"
+                        >
                           +
                         </button>
                       </div>
                     </div>
                   </div>
+                <div className="list-form-2-buttons">
+                  <Link to="/lists/2" type="button" className="back">
+                    Retour
+                  </Link>
+                    <button type="submit" className="next">
+                      Suivant
+                    </button>
+                </div>
                 </form>
-              </div>
-              <div  className="list-form-2-buttons">
-                <Link to="/lists/2" type="button"  className="back">
-                  Retour
-                </Link>
-                <Link  to="/lists/4">
-                <button type="submit"  className="next">
-                  Suivant
-                </button>
-                </Link>
               </div>
             </div>
           </div>
         </div>
       </main>
-      {/* <section  className="mobile__menu__section">
-        <div  className="mobile__menu__wrapper">
-          <div  className="mobile__menu__item">
-            <Link href="">
-              <img src="/Asessts/Images/mobile menu icons/li_home.svg" alt="" />
-              <p>Accueil</p>
-            </Link>
-          </div>
-          <div  className="mobile__menu__item">
-            <Link href="">
-              <img
-                src="/Asessts/Images/mobile menu icons/cart-icon.svg"
-                alt=""
-              />
-              <p>Acheter</p>
-            </Link>
-          </div>
-          <div  className="mobile__menu__item">
-            <Link href="">
-              <img
-                src="/Asessts/Images/mobile menu icons/post-ad-icon.svg"
-                alt=""
-              />
-              <p>Annonce</p>
-            </Link>
-          </div>
-          <div  className="mobile__menu__item">
-            <Link href="">
-              <img
-                src="/Asessts/Images/mobile menu icons/vendre-icon.svg"
-                alt=""
-              />
-              <p>Vendre</p>
-            </Link>
-          </div>
-          <div  className="mobile__menu__item">
-            <Link href="">
-              <img
-                src="/Asessts/Images/mobile menu icons/info-icon.svg"
-                alt=""
-              />
-              <p>À propos</p>
-            </Link>
-          </div>
-        </div>
-      </section>
-      <footer>
-        <section>
-          <div  className="footer__container">
-            <section  className="main__footer__wrapper">
-              <div  className="ppc__logo__social">
-                <Link href="/">
-                  <img
-                    src="/Asessts/Images/new-logo.svg"
-                    alt=""
-                     className="footer__logo"
-                  />
-                </Link>
-
-                <Link href="#">
-                  <div  className="links">
-                    <img
-                      src="/Asessts/Images/footer-icons/facebook.svg"
-                      alt=""
-                       className="social-icons"
-                    />
-                    <p  className="social__text">Facebook</p>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div  className="links">
-                    <img
-                      src="/Asessts/Images/footer-icons/twitter (2).svg"
-                      alt=""
-                       className="social-icons"
-                    />
-                    <p  className="social__text">Twitter</p>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div  className="links">
-                    <img
-                      src="/Asessts/Images/footer-icons/insta.svg"
-                      alt=""
-                       className=" social-icons"
-                    />
-                    <p  className="social__text">Instagram</p>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div  className="links">
-                    <img
-                      src="/Asessts/Images/footer-icons/youtube (2).svg"
-                      alt=""
-                       className="social-icons"
-                    />
-                    <p  className="social__text">Youtube</p>
-                  </div>
-                </Link>
-              </div>
-              <div  className="ppc__pages">
-                <h2>Pages</h2>
-                <Link href="#">
-                  <li  className="footer__pages">Prix immo</li>
-                </Link>
-                <Link href="#">
-                  <li  className="footer__pages">Acheter</li>
-                </Link>
-                <Link href="#">
-                  <li  className="footer__pages">Louer</li>
-                </Link>
-                <Link href="#">
-                  <li  className="footer__pages">Vacances</li>
-                </Link>
-                <Link href="#">
-                  <li  className="footer__pages">Mon espace</li>
-                </Link>
-              </div>
-            </section>
-          </div>
-        </section>
-      </footer> */}
-    </body>
+    </>
   );
 }
