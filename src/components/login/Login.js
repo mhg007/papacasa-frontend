@@ -18,7 +18,6 @@ function Login() {
 
   const [loginUser, { isLoading, isSuccess, isError, data, error }] =
     useLoginUserMutation();
-    console.log("🚀 ~ Login ~ useLoginUserMutation:", useLoginUserMutation)
 
 
     const handleSubmit = async (e) => {
@@ -33,10 +32,9 @@ function Login() {
       };
       try {
         const response = await loginUser({ payload, headers }).unwrap();
-        console.log("Login Successful:", response);
     
-        const token = response.access; 
-        const refreshToken = response.refresh; 
+        // const token = response.access; 
+        // const refreshToken = response.refresh; 
         if (response) {
           
           console.log("Token saved successfully:", response);

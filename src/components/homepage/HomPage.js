@@ -44,7 +44,6 @@ function HomPage() {
     error: listingsError,
     isLoading: isListingsLoading,
   } = useGetListingsQuery();
-  console.log("Daataaaaaaa", listingsData);
   const [favoritesIcon, {}] = useFavoritesIconMutation();
 
   const handleFavortiesIcons = async (e) => {

@@ -1,70 +1,143 @@
-import React from 'react'
-import "./listEight.css"
-import FrontOfAhouse from "./Asessts/Images/Front of a house.png"
-import upload_placeholder_delete_icon from "./Asessts/Images/upload_placeholder_delete_icon.svg" 
-import upload_placeholder_icon from "./Asessts/Images/upload_placeholder_icon.svg"
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import "./listEight.css";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateStepData } from "../../redux/slice/formDataSlice";
+import upload_placeholder_delete_icon from "./Asessts/Images/upload_placeholder_delete_icon.svg";
+import upload_placeholder_icon from "./Asessts/Images/upload_placeholder_icon.svg";
 
 function ListEight() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Fetch initial data from Redux store
+  const intialFormData = useSelector((state) => state.multiStepForm.step8);
+  const [files, setFiles] = useState(intialFormData?.files || []);
+
+  const handleFileDrop = (e) => {
+    e.preventDefault();
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    addFiles(droppedFiles);
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files || []);
+    addFiles(selectedFiles);
+  };
+
+  const addFiles = (newFiles) => {
+    // Convert files to URLs for display
+    const fileURLs = newFiles.map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+    }));
+
+    setFiles((prevFiles) => [...prevFiles, ...fileURLs]);
+  };
+
+  const removeFile = (index) => {
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
+
+  const handleStepUpdate = (event) => {
+    event.preventDefault();
+
+    // Store file metadata (e.g., names or URLs) in Redux
+    const fileData = files.map((fileObj) => ({
+      name: fileObj.file.name,
+      url: fileObj.url,
+    }));
+
+    dispatch(updateStepData({ step: "step8", data: { image: fileData } }));
+    navigate("/lists/9");
+  };
+
   return (
     <>
-
-       <main>
+      <main>
         <section className="list-form-8-background">
-            <div className="list-form-8-inner__container">
-                <h1>Publier une annonce de vente</h1>
-                <div className="progress">
-                    <p>08</p>
-                    <span>/ 10</span>
-                </div>
-                <div className="list-form-8-form-section">
-                    <h2>Vos photos</h2>
-                    <p>Vous pouvez télécharger jusqu'à 12 photos. <br/>
-                        Pas d'inquiétude : vos photos peuvent être ajoutées ou modifiées plus tard gratuitement.</p>
-                    <span className="photo-label">Photo de couverture</span>
-
-
-                    <div className="photo-gallery">
-                        <div className="photo">
-                            <img src={FrontOfAhouse} alt="Photo 1" className="upload-selected-image"/>
-                            <img src={upload_placeholder_delete_icon} className="delete-icon"/>
-                        </div>
-                        <div className="photo">
-                            <img src={FrontOfAhouse} alt="Photo 2" className="upload-selected-image"/>
-                            <img src={upload_placeholder_delete_icon} className="delete-icon"/>
-
-                        </div>
-                        <div className="photo">
-                            <img src={FrontOfAhouse} alt="Photo 3" className="upload-selected-image"/>
-                            <img src={upload_placeholder_delete_icon} className="delete-icon"/>
-
-                        </div>
-                    </div>
-
-                    <div className="placeholder__text">
-                        <h3>Télécharger l'image</h3>
-                    </div>
-                    <div className="upload-box">
-                        <img src={upload_placeholder_icon} />
-                        <p><a href="#">Télécharger un fichier</a> ou faites glisser et déposez</p>
-                        <h5 className="upload-info">PNG, JPG, GIF jusqu'à 10 Mo</h5>
-                    </div>
-                </div>
-                <div className="list-form-8-form-buttons">
-                <Link to="/lists/7" type="button"  className="back">
-                  Retour
-                </Link>
-                <Link  to="/lists/9">
-                <button type="submit"  className="next">
-                  Suivant
-                </button>
-                </Link>
-                </div>
+          <div className="list-form-8-inner__container">
+            <h1>Publier une annonce de vente</h1>
+            <div className="progress">
+              <p>08</p>
+              <span>/ 10</span>
             </div>
+            <div className="list-form-8-form-section">
+              <h2>Vos photos</h2>
+              <p>
+                Vous pouvez télécharger jusqu'à 12 photos. <br />
+                Pas d'inquiétude : vos photos peuvent être ajoutées ou modifiées
+                plus tard gratuitement.
+              </p>
+              <span className="photo-label">Photo de couverture</span>
+
+              {/* Photo Gallery */}
+              <div className="photo-gallery">
+                {files.map((fileObj, index) => (
+                  <div className="photo" key={index}>
+                    <img
+                      src={fileObj.url}
+                      alt={`Uploaded ${index + 1}`}
+                      className="upload-selected-image"
+                    />
+                    <img
+                      src={upload_placeholder_delete_icon}
+                      className="delete-icon"
+                      alt="Delete"
+                      onClick={() => removeFile(index)}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Upload Section */}
+              <div className="placeholder__text">
+                <h3>Télécharger l'image</h3>
+              </div>
+              <div
+                className="upload-box w-full bg-white border-dashed border-2 border-black-300 p-4 text-center cursor-pointer"
+                onDrop={handleFileDrop}
+                onDragOver={(e) => e.preventDefault()}
+              >
+                <img src={upload_placeholder_icon} alt="Upload Placeholder" />
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  id="fileUpload"
+                />
+                <label
+                  htmlFor="fileUpload"
+                  className="cursor-pointer text-sm mt-2 text-black-500"
+                >
+                  <p>
+                    <a>Télécharger un fichier</a> ou faites glisser et déposez
+                  </p>
+                  <h5 className="upload-info">PNG, JPG, GIF jusqu'à 10 Mo</h5>
+                </label>
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div className="list-form-8-form-buttons">
+              <Link to="/lists/7" type="button" className="back">
+                Retour
+              </Link>
+              <button
+                type="button"
+                className="next"
+                onClick={handleStepUpdate}
+              >
+                Suivant
+              </button>
+            </div>
+          </div>
         </section>
-    </main>
+      </main>
     </>
-  )
+  );
 }
 
-export default ListEight
+export default ListEight;

@@ -6,47 +6,47 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateStepData } from "../../redux/slice/formDataSlice";
 export default function ListThree() {
   const { t, i18n } = useTranslation();
-  const intialFormData = useSelector((state)=> state.multiStepForm.step3)
+  const intialFormData = useSelector((state) => state.multiStepForm.step3);
   // const [bathcount, setBathCount] = useState(0);
   // const [count, setCount] = useState(0);
-  const [formValues, setFormValues] = useState( intialFormData || {
-    superficieBrute: "",
-    surfaceTerrain: "",
-    etat: "",
-    classeEnergetique: "",
-    anneeConstruction: "",
-    surfaceUtilisable: "",
-    bathcount:0,
-    count:0
-  });
+  const [formValues, setFormValues] = useState(
+    intialFormData || {
+      superficieBrute: "",
+      surfaceTerrain: "",
+      etat: "",
+      classeEnergetique: "",
+      anneeConstruction: "",
+      surfaceUtilisable: "",
+      bathcount: 0,
+      count: 0,
+    }
+  );
 
   // console.log(intialFormData)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value });
   };
-  
 
   const handleCounterChange = (type, operation) => {
-    if (type === "bathrooms") {
-      setFormValues((prevFormValues) => ({
+    setFormValues((prevFormValues) => {
+      const key = type === "bathrooms" ? "bathcount" : "count"; // Use correct keys
+      return {
         ...prevFormValues,
-        bathcount: Math.max(0, (prevFormValues.count || 0) + (operation === "increment" ? 1 : -1)),
-      }));
-          } else if (type === "parkingSpaces") {
-      setFormValues((prevFormValues) => ({
-        ...prevFormValues,
-        count: Math.max(0, (prevFormValues.count || 0) + (operation === "increment" ? 1 : -1)),
-      }));
-          }
+        [key]: Math.max(
+          0,
+          (prevFormValues[key] || 0) + (operation === "increment" ? 1 : -1)
+        ),
+      };
+    });
   };
-  
+
   // const step3Data = useSelector((state) => state.MultiStepForm.step3);
   const handleStepUpdate = (e) => {
     e.preventDefault();
-    if (!Object.values(formValues).includes("")){
+    if (!Object.values(formValues).includes("")) {
       const formData = {
         superficieBrute: formValues.superficieBrute,
         surfaceTerrain: formValues.surfaceTerrain,
@@ -58,11 +58,10 @@ export default function ListThree() {
         count: formValues.count,
       };
       dispatch(updateStepData({ step: "step3", data: formData }));
-      navigate('/lists/4')
+      navigate("/lists/4");
     }
-    
   };
-  
+
   return (
     <>
       {/* <Navbar changeLang={changeLang} t={t} i18n={i18n} /> */}
@@ -86,22 +85,35 @@ export default function ListThree() {
                         Superficie brute (m2)
                       </label>
                       <input
-                      value={formValues.superficieBrute}
-                      onChange={handleChange}
-                      type="text" id="superficieBrute" placeholder="" />
+                        value={formValues.superficieBrute}
+                        onChange={handleChange}
+                        type="text"
+                        id="superficieBrute"
+                        placeholder=""
+                      />
                     </div>
                     <div className="list-form-3-form-inner">
                       <label htmlFor="surface-terrain">
                         Surface du terrain (m2)
                       </label>
-                      <input  value={formValues.surfaceTerrain} type="text" id="surfaceTerrain" placeholder="" onChange={handleChange} />
+                      <input
+                        value={formValues.surfaceTerrain}
+                        type="text"
+                        id="surfaceTerrain"
+                        placeholder=""
+                        onChange={handleChange}
+                      />
                     </div>
                   </div>
 
                   <div className="list-form-3-form-group">
                     <div className="list-form-3-form-inner">
                       <label htmlFor="etat">État</label>
-                      <select value={formValues.etat} id="etat" onChange={handleChange} >
+                      <select
+                        value={formValues.etat}
+                        id="etat"
+                        onChange={handleChange}
+                      >
                         <option></option>
                         <option>Choisir...</option>
                       </select>
@@ -111,7 +123,11 @@ export default function ListThree() {
                       <label htmlFor="classe-energetique">
                         Classe énergétique
                       </label>
-                      <select value={formValues.classeEnergetique} id="classeEnergetique" onChange={handleChange}>
+                      <select
+                        value={formValues.classeEnergetique}
+                        id="classeEnergetique"
+                        onChange={handleChange}
+                      >
                         <option></option>
                         <option>Choisir...</option>
                       </select>
@@ -124,7 +140,7 @@ export default function ListThree() {
                         Année de construction
                       </label>
                       <input
-                      value={formValues.anneeConstruction}
+                        value={formValues.anneeConstruction}
                         type="text"
                         id="anneeConstruction"
                         placeholder=""
@@ -137,7 +153,7 @@ export default function ListThree() {
                         Surface utilisable (m2)
                       </label>
                       <input
-                      value={formValues.surfaceUtilisable}
+                        value={formValues.surfaceUtilisable}
                         type="text"
                         id="surfaceUtilisable"
                         placeholder=""
@@ -151,15 +167,20 @@ export default function ListThree() {
                       <label>Salles de bains</label>
                       <div className="counter">
                         <button
-                          onClick={() => handleCounterChange("bathrooms", "decrement")}
+                          onClick={() =>
+                            handleCounterChange("bathrooms", "decrement")
+                          }
                           type="button"
                           className="minus"
                         >
                           −
                         </button>
-                        <span value={formValues.bathcount}>{formValues.bathcount}</span>
+                        <span>{formValues.bathcount || 0}</span>
+                        {/* Display default as 0 */}
                         <button
-                          onClick={() => handleCounterChange("bathrooms", "increment")}
+                          onClick={() =>
+                            handleCounterChange("bathrooms", "increment")
+                          }
                           type="button"
                           className="plus"
                         >
@@ -172,15 +193,20 @@ export default function ListThree() {
                       <label>Places de parking</label>
                       <div className="counter">
                         <button
-                          onClick={() => handleCounterChange("parkingSpaces", "decrement")}
+                          onClick={() =>
+                            handleCounterChange("parkingSpaces", "decrement")
+                          }
                           type="button"
                           className="minus"
                         >
                           −
                         </button>
-                        <span value={formValues.count}>{formValues.count}</span>
+                        <span>{formValues.count || 0}</span>
+                        {/* Display default as 0 */}
                         <button
-                          onClick={() => handleCounterChange("parkingSpaces", "increment")}
+                          onClick={() =>
+                            handleCounterChange("parkingSpaces", "increment")
+                          }
                           type="button"
                           className="plus"
                         >
@@ -189,14 +215,14 @@ export default function ListThree() {
                       </div>
                     </div>
                   </div>
-                <div className="list-form-2-buttons">
-                  <Link to="/lists/2" type="button" className="back">
-                    Retour
-                  </Link>
+                  <div className="list-form-2-buttons">
+                    <Link to="/lists/2" type="button" className="back">
+                      Retour
+                    </Link>
                     <button type="submit" className="next">
                       Suivant
                     </button>
-                </div>
+                  </div>
                 </form>
               </div>
             </div>

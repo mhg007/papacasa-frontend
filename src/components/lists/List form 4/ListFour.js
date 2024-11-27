@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ".//listFour.css";
+import "./listFour.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStepData } from "../../redux/slice/formDataSlice";
@@ -7,9 +7,9 @@ import { updateStepData } from "../../redux/slice/formDataSlice";
 function ListFour() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const intialFormData = useSelector((state)=> state.multiStepForm.step4)
 
-  const [formValues, setFormValues] = useState({
+  // Default state for all checkboxes
+  const defaultState = {
     climatisation: false,
     alarme: false,
     armoires: false,
@@ -34,6 +34,14 @@ function ListFour() {
     piscine: false,
     débarras: false,
     jardin: false,
+  };
+
+  const intialFormData = useSelector((state) => state.multiStepForm.step4);
+
+  // Merge intialFormData with defaultState
+  const [formValues, setFormValues] = useState({
+    ...defaultState,
+    ...intialFormData,
   });
 
   const handleChange = (e) => {
@@ -47,13 +55,12 @@ function ListFour() {
   const stepData = (e) => {
     e.preventDefault();
     dispatch(updateStepData({ step: "step4", data: formValues }));
-    navigate("/lists/5")
+    navigate("/lists/5");
   };
 
   return (
     <>
       <div>
-        {/* <Navbar changeLang={changeLang} t={t}/> */}
         <main>
           <div className="list-form-4-background">
             <div className="list-form-4-inner__container">
@@ -67,30 +74,27 @@ function ListFour() {
                 <div className="list-form-4-separator"></div>
 
                 <form onSubmit={stepData}>
-                        <div
-                        className="checkbox-group">
-                        {Object.keys(formValues).map((key,index)=>(
-                            <label>
-                          <input
-                            key={index}
-                            type="checkbox"
-                            id={key}
-                            value={formValues[key]}
-                            checked={!!formValues[key]}
-                            onChange={handleChange}
-                          />
-                          {key.charAt(0).toUpperCase() + key.slice(1)}
-                        </label>
+                  <div className="checkbox-group">
+                    {Object.keys(formValues).map((key, index) => (
+                      <label key={index}>
+                        <input
+                          type="checkbox"
+                          id={key}
+                          checked={!!formValues[key]}
+                          onChange={handleChange}
+                        />
+                        {key.charAt(0).toUpperCase() + key.slice(1)}
+                      </label>
                     ))}
-                        </div>
-              <div className="list-form-2-buttons">
-                <Link to="/lists/3" type="button" className="back">
-                  Retour
-                </Link>
-                  <button type="submit" className="next">
-                    Suivant
-                  </button>
-              </div>
+                  </div>
+                  <div className="list-form-2-buttons">
+                    <Link to="/lists/3" type="button" className="back">
+                      Retour
+                    </Link>
+                    <button type="submit" className="next">
+                      Suivant
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>

@@ -31,7 +31,7 @@ export const papaCasaApi = createApi({
     }),
       submitFormData: builder.mutation({
       query: (formData) => ({
-        url: "visits/",
+        url: "listings/",
         method: "POST",
         body: formData,
       }),
@@ -44,5 +44,6 @@ export const {
   useGetListingsQuery, 
   useLoginUserMutation, 
   useSignUpUserMutation ,
-  useFavoritesIconMutation
+  useFavoritesIconMutation,
+  useSubmitFormDataMutation
 } = papaCasaApi;

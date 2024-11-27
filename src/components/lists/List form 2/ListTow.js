@@ -9,33 +9,30 @@ function ListTwo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Default values for form fields
+  const defaultFormValues = {
+    country: "",
+    street: "",
+    state: "",
+    city: "",
+    postalCode: "",
+  };
+
   const intialFormData = useSelector((state) => state.multiStepForm.step2);
-  const [formValues, setFormValues] = useState(
-    intialFormData || {
-      country: "",
-      street: "",
-      etat: "",
-      city: "",
-      postalCode: "",
-    }
-  );
+  const [formValues, setFormValues] = useState({
+    ...defaultFormValues,
+    ...intialFormData, // Merge initial data with defaults
+  });
 
   const handleChange = (e) => {
-    setFormValues({ ...formValues, [e.target.id]: e.target.value });
+    const { id, value } = e.target;
+    setFormValues({ ...formValues, [id]: value });
   };
 
   const handleStepUpdate = (event) => {
     event.preventDefault();
     if (!Object.values(formValues).includes("")) {
-      const formData = {
-        country: formValues.country,
-        street: formValues.street,
-        city: formValues.city,
-        state: formValues.state,
-        postalCode: formValues.postalCode,
-      };
-
-      dispatch(updateStepData({ step: "step2", data: formData }));
+      dispatch(updateStepData({ step: "step2", data: formValues }));
       navigate("/lists/3");
     }
   };
@@ -62,30 +59,50 @@ function ListTwo() {
                   onSubmit={handleStepUpdate}
                   className="country__info__form"
                 >
-                  <label htmlFor="list-form-2-country">Country/Region</label>
-                  <select id="country" onChange={handleChange}>
-                    <option>Select Region</option>
-                    <option>France</option>
-                    <option>Germany</option>
-                    <option>Spain</option>
+                  <label htmlFor="country">Country/Region</label>
+                  <select
+                    value={formValues.country || ""}
+                    id="country"
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Region</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Spain">Spain</option>
                     {/* Add more countries as needed */}
                   </select>
 
                   <label htmlFor="street">Street</label>
-                  <input onChange={handleChange} type="text" id="street" />
+                  <input
+                    value={formValues.street || ""}
+                    onChange={handleChange}
+                    type="text"
+                    id="street"
+                  />
 
                   <div className="address-group">
                     <div className="address-group-inner">
                       <label htmlFor="city">City</label>
-                      <input onChange={handleChange} type="text" id="city" />
+                      <input
+                        value={formValues.city || ""}
+                        onChange={handleChange}
+                        type="text"
+                        id="city"
+                      />
                     </div>
                     <div className="address-group-inner">
                       <label htmlFor="state">State</label>
-                      <input onChange={handleChange} type="text" id="state" />
+                      <input
+                        value={formValues.state || ""}
+                        onChange={handleChange}
+                        type="text"
+                        id="state"
+                      />
                     </div>
                     <div className="address-group-inner">
-                      <label htmlFor="postal-code">Postal code</label>
+                      <label htmlFor="postalCode">Postal code</label>
                       <input
+                        value={formValues.postalCode || ""}
                         onChange={handleChange}
                         type="text"
                         id="postalCode"
@@ -115,9 +132,7 @@ function ListTwo() {
                       Retour
                     </Link>
                     <button type="submit" className="next">
-                      {/* <Link to={"/lists/3"}> */}
                       Suivant
-                      {/* </Link> */}
                     </button>
                   </div>
                 </form>

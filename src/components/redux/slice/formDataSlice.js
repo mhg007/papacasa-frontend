@@ -17,7 +17,7 @@ const multiStepFormSlice = createSlice({
   reducers: {
     updateStepData: (state, action) => {
       const { step, data } = action.payload;
-      console.log(data)
+      console.log("HEREE")
       state[step] = data;
     },
     resetFormData: () => ({

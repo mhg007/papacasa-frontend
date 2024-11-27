@@ -22,7 +22,7 @@ export default function ListFive() {
     navigate("/lists/6");
   };
   return (
-    <body>
+    <>
       {/* <Navbar changeLang={changeLang} t={t} /> */}
       <main>
         <section className="list-form-5-background">
@@ -59,6 +59,6 @@ export default function ListFive() {
           </div>
         </section>
       </main>
-    </body>
+    </>
   );
 }

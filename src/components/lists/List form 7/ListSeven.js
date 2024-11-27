@@ -1,17 +1,50 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./listSeven.css";
-import Navbar from "../../navbar/Navbar";
-import { useTranslation } from "react-i18next";
-export default function ListSeven() {
-  // const { t, i18n } = useTranslation();
+import { useDispatch, useSelector } from "react-redux";
+import { updateStepData } from "../../redux/slice/formDataSlice";
+import { message } from "antd";
 
-  // const changeLang = (lang) => {
-  //   i18n.changeLanguage(lang);
-  //   console.log("clicked", lang);
-  // };
+export default function ListSeven() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const intialFormData = useSelector((state) => state.multiStepForm.step7);
+  const [formValues, setFormValues] = useState(
+    intialFormData || {
+      radio1: "",
+      radio2: "",
+      radio3: "",
+    }
+  );
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [id]: value, 
+    }));
+  };
+
+  const handleStepUpdate = (e) => {
+    e.preventDefault();
+
+    if (formValues.radio1 || formValues.radio2 || formValues.radio3) {
+      const formData = {
+        radio1: formValues.radio1,
+        radio2: formValues.radio2,
+        radio3: formValues.radio3,
+      };
+
+      dispatch(updateStepData({ step: "step7", data: formData }));
+
+      navigate("/lists/8");
+    } else {
+      message.error("Please fill out the form before proceeding.");
+    }
+  };
+
   return (
-    <body>
+    <>
       {/* <Navbar changeLang={changeLang} t={t} /> */}
       <main>
         <section className="list-form-7-background">
@@ -21,36 +54,68 @@ export default function ListSeven() {
               <p>07</p>
               <span>/ 10</span>
             </div>
-            <div className="form-section">
-              <h2>Vos diagnostics immobiliers</h2>
-              <p>
-                Dans le cadre d'une vente, vous devez fournir à l'acheteur des
-                diagnostics immobiliers.
-              </p>
-              <label>
-                <input type="radio" name="diagnostics" checked />
-                Je souhaite recevoir des devis au meilleur tarif du réseau
-                partenaire Papacasa
-              </label>
-              <label>
-                <input type="radio" name="diagnostics" />
-                J'ai déjà réalisé mes diagnostics, je n'ai pas besoin de devis
-              </label>
-              <label>
-                <input type="radio" name="diagnostics" />
-                Je ne souhaite pas m'en occuper maintenant
-              </label>
-            </div>
-            <div  className="list-form-2-buttons">
-                <Link to="/lists/6" type="button"  className="back">
+            <form onSubmit={handleStepUpdate}>
+              <div className="form-section">
+                <h2>Vos diagnostics immobiliers</h2>
+                <p>
+                  Dans le cadre d'une vente, vous devez fournir à l'acheteur des
+                  diagnostics immobiliers.
+                </p>
+                <label>
+                  <input
+                    onChange={handleChange}
+                    value="Je souhaite recevoir des devis au meilleur tarif du réseau partenaire Papacasa"
+                    id="radio1"
+                    type="radio"
+                    name="diagnostics"
+                    checked={
+                      formValues.radio1 ===
+                      "Je souhaite recevoir des devis au meilleur tarif du réseau partenaire Papacasa"
+                    }
+                  />
+                  Je souhaite recevoir des devis au meilleur tarif du réseau
+                  partenaire Papacasa
+                </label>
+                <label>
+                  <input
+                    onChange={handleChange}
+                    value="J'ai déjà réalisé mes diagnostics, je n'ai pas besoin de devis"
+                    id="radio2"
+                    type="radio"
+                    name="diagnostics"
+                    checked={
+                      formValues.radio2 ===
+                      "J'ai déjà réalisé mes diagnostics, je n'ai pas besoin de devis"
+                    }
+                  />
+                  J'ai déjà réalisé mes diagnostics, je n'ai pas besoin de devis
+                </label>
+                <label>
+                  <input
+                    onChange={handleChange}
+                    value="Je ne souhaite pas m'en occuper maintenant"
+                    id="radio3"
+                    type="radio"
+                    name="diagnostics"
+                    checked={
+                      formValues.radio3 ===
+                      "Je ne souhaite pas m'en occuper maintenant"
+                    }
+                  />
+                  Je ne souhaite pas m'en occuper maintenant
+                </label>
+              </div>
+              <div className="list-form-2-buttons">
+                <Link to="/lists/6" type="button" className="back">
                   Retour
                 </Link>
-                <Link  to="/lists/8">
-                <button type="submit"  className="next">
+                {/* <Link  to="/lists/8"> */}
+                <button type="submit" className="next">
                   Suivant
                 </button>
-                </Link>
+                {/* </Link> */}
               </div>
+            </form>
           </div>
         </section>
       </main>
@@ -176,6 +241,6 @@ export default function ListSeven() {
           </div>
         </section>
       </footer> */}
-    </body>
+    </>
   );
 }

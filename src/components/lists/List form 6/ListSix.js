@@ -1,22 +1,33 @@
-import React from "react";
-import Navbar from "../../navbar/Navbar";
-import { Footer } from "../../footer/Footer";
-import ".//listSix.css"
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import ".//listSix.css";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateStepData } from "../../redux/slice/formDataSlice";
 
 function ListSix() {
-  // const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const intialFormData = useSelector((state) => state.multiStepForm.step6);
+  const [formValues, setFormValues] = useState(
+    intialFormData || {
+      price: "",
+    }
+  );
 
-  // const changeLang = (lang) => {
-  //   i18n.changeLanguage(lang);
-  //   console.log("clicked", lang);
-  // };
+  const handleChange = (e) => {
+    setFormValues({ ...formValues, [e.target.id]: e.target.value });
+  };
+
+  const stepData = (e) => {
+    e.preventDefault();
+    dispatch(updateStepData({ step: "step6", data: formValues }));
+    navigate("/lists/7");
+  }
   return (
     <>
       <div>
-      {/* <Navbar changeLang={changeLang} t={t}/> */}
-      <main>
+        {/* <Navbar changeLang={changeLang} t={t}/> */}
+        <main>
           <section className="list-form-6-background">
             <div className="list-form-6-inner__container">
               <h2>Publier une annonce de vente</h2>
@@ -33,62 +44,33 @@ function ListSix() {
                 </p>
                 <div className="list-form-3-separator"></div>
 
-                <form>
+                <form onSubmit={stepData}>
                   <div className="price-input">
                     <span className="currency-symbol">€</span>
-                    <input type="text" placeholder="0.00" />
+                    <input
+                      onChange={handleChange}
+                      value={formValues.price}
+                      id="price"
+                      type="text"
+                      placeholder="0.00"
+                    />
                     <span className="currency-unit">EUR</span>
                   </div>
+                  <div className="list-form-2-buttons">
+                    <Link to="/lists/5" type="button" className="back">
+                      Retour
+                    </Link>
+                    {/* <Link  to="/lists/7"> */}
+                    <button type="submit" className="next">
+                      Suivant
+                    </button>
+                    {/* </Link> */}
+                  </div>
                 </form>
-              </div>
-              <div  className="list-form-2-buttons">
-                <Link to="/lists/5" type="button"  className="back">
-                  Retour
-                </Link>
-                <Link  to="/lists/7">
-                <button type="submit"  className="next">
-                  Suivant
-                </button>
-                </Link>
               </div>
             </div>
           </section>
         </main>
-        {/* <section className="mobile__menu__section">
-          <div className="mobile__menu__wrapper">
-            <div className="mobile__menu__item">
-              <a href="">
-                <img src="/Asessts/Images/mobile menu icons/li_home.svg" />
-                <p>Accueil</p>
-              </a>
-            </div>
-            <div className="mobile__menu__item">
-              <a href="">
-                <img src="/Asessts/Images/mobile menu icons/cart-icon.svg" />
-                <p>Acheter</p>
-              </a>
-            </div>
-            <div className="mobile__menu__item">
-              <a href="">
-                <img src="/Asessts/Images/mobile menu icons/post-ad-icon.svg" />
-                <p>Annonce</p>
-              </a>
-            </div>
-            <div className="mobile__menu__item">
-              <a href="">
-                <img src="/Asessts/Images/mobile menu icons/vendre-icon.svg" />
-                <p>Vendre</p>
-              </a>
-            </div>
-            <div className="mobile__menu__item">
-              <a href="">
-                <img src="/Asessts/Images/mobile menu icons/info-icon.svg" />
-                <p>À propos</p>
-              </a>
-            </div>
-          </div>
-        </section>
-        <Footer /> */}
       </div>
     </>
   );
