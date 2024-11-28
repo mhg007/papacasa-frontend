@@ -52,21 +52,21 @@ function ListTen() {
 
         "title": intialFormData.step6,
         "description": intialFormData.step5.textArea,
-        "price": "60",
+        "price": intialFormData.step6.price,
         "surface": "123",
         "land_area":  intialFormData.step3.surfaceTerrain,
         "usable_area":  intialFormData.step3.surfaceUtilisable,
-        "year_of_construction": "123",
+        "year_of_construction": intialFormData.step3.anneeConstruction,
         "num_of_bathrooms": intialFormData.step3.bathcount,
         "num_of_parking_spaces":  intialFormData.step3.parkingSpaceCount,
         "diagnosis": false,
         "latitude": "213",
         "longitude": "213"
       }
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "*/*",
-    };
+    // const headers = {
+    //   "Content-Type": "application/json",
+    //   Accept: "*/*",
+    // };
     try {
       const response = await submitFormData( payload ).unwrap();
       message.success("Listing Created Successfully");
