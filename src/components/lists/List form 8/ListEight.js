@@ -5,31 +5,66 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateStepData } from "../../redux/slice/formDataSlice";
 import upload_placeholder_delete_icon from "./Asessts/Images/upload_placeholder_delete_icon.svg";
 import upload_placeholder_icon from "./Asessts/Images/upload_placeholder_icon.svg";
+import { useUploadFileMutation } from "../../redux/services/services";
+import { message } from "antd";
 
 function ListEight() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [sendFile, setSendFile] = useState([]);
+  const [uploadFile, { isLoading, isSuccess, isError, data, error }] =
+    useUploadFileMutation();
+
   // Fetch initial data from Redux store
   const intialFormData = useSelector((state) => state.multiStepForm.step8);
-  const [files, setFiles] = useState(intialFormData?.files || []);
+  //   console.log(intialFormData,"jhhhhhhhhhhhhh")
+  const [files, setFiles] = useState(intialFormData?.image || []);
 
   const handleFileDrop = (e) => {
     e.preventDefault();
+    console.log(e.target.files);
+
     const droppedFiles = Array.from(e.dataTransfer.files);
     addFiles(droppedFiles);
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const selectedFiles = Array.from(e.target.files || []);
-    addFiles(selectedFiles);
+    const formData = new FormData();
+
+    try {
+      for (const file of selectedFiles) {
+        formData.append("base_path", "papacasa/listing/");
+        formData.append("artifact_type", "photos");
+        formData.append("dataFiles", file);
+        formData.append("filename", file.name);
+
+        const headers = {
+          "Content-Type": "multipart/form-data",
+          Accept: "*/*",
+        };
+
+        const response = await uploadFile({ formData, headers }).unwrap();
+        const image = {
+          url: response.files.path,
+          filename: response.files.filename,
+          file, // Include the file object for further use
+        };
+
+        setFiles((prevFiles) => [...prevFiles, image]);
+      }
+    } catch (error) {
+      console.error("Image upload failed", error);
+    }
   };
 
+  console.log("from global", files);
   const addFiles = (newFiles) => {
-    // Convert files to URLs for display
     const fileURLs = newFiles.map((file) => ({
       file,
       url: URL.createObjectURL(file),
+      filename: file.name || "", // Ensure filename is available
     }));
 
     setFiles((prevFiles) => [...prevFiles, ...fileURLs]);
@@ -42,16 +77,18 @@ function ListEight() {
   const handleStepUpdate = (event) => {
     event.preventDefault();
 
-    // Store file metadata (e.g., names or URLs) in Redux
+    // Normalize the file data
     const fileData = files.map((fileObj) => ({
-      name: fileObj.file.name,
+      filename: fileObj.filename || fileObj.file?.name || "Unknown", // Handle missing filename
       url: fileObj.url,
     }));
 
     dispatch(updateStepData({ step: "step8", data: { image: fileData } }));
-    navigate("/lists/9");
+    navigate("/lists/10");
   };
 
+  console.log(sendFile, "sendFile");
+  console.log(files, "Files");
   return (
     <>
       <main>
@@ -60,7 +97,7 @@ function ListEight() {
             <h1>Publier une annonce de vente</h1>
             <div className="progress">
               <p>08</p>
-              <span>/ 10</span>
+              <span>/ 9</span>
             </div>
             <div className="list-form-8-form-section">
               <h2>Vos photos</h2>
@@ -125,11 +162,7 @@ function ListEight() {
               <Link to="/lists/7" type="button" className="back">
                 Retour
               </Link>
-              <button
-                type="button"
-                className="next"
-                onClick={handleStepUpdate}
-              >
+              <button type="button" className="next" onClick={handleStepUpdate}>
                 Suivant
               </button>
             </div>

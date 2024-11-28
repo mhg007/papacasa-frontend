@@ -4,6 +4,7 @@ import currentLocation from "./Asessts/Images/current-location-icon.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStepData } from "../../redux/slice/formDataSlice";
+import { message } from "antd";
 
 function ListTwo() {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ function ListTwo() {
       dispatch(updateStepData({ step: "step2", data: formValues }));
       navigate("/lists/3");
     }
+    else {
+      message.error("Please fill out the form before proceeding.");
+    }
   };
 
   return (
@@ -45,7 +49,7 @@ function ListTwo() {
             <div className="list-form-2-inner__container">
               <h2>Publier une annonce de vente</h2>
               <div className="progress">
-                <span>02 / 10</span>
+                <span>02 / 9</span>
               </div>
               <div className="list-form-2-form-container">
                 <h3>Où se trouve votre maison à vendre ?</h3>

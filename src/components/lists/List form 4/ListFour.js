@@ -41,7 +41,7 @@ function ListFour() {
   // Merge intialFormData with defaultState
   const [formValues, setFormValues] = useState({
     ...defaultState,
-    ...intialFormData,
+    ...intialFormData
   });
 
   const handleChange = (e) => {
@@ -67,7 +67,7 @@ function ListFour() {
               <h2>Publier une annonce de vente</h2>
               <div className="progress">
                 <p>04</p>
-                <span>/ 10</span>
+                <span>/ 9</span>
               </div>
               <div className="list-form-4-form-container">
                 <h3>Caractéristiques</h3>

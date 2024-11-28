@@ -52,7 +52,7 @@ export default function ListSeven() {
             <h2>Publier une annonce de vente</h2>
             <div className="progress">
               <p>07</p>
-              <span>/ 10</span>
+              <span>/ 9</span>
             </div>
             <form onSubmit={handleStepUpdate}>
               <div className="form-section">

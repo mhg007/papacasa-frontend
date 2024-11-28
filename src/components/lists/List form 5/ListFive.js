@@ -30,7 +30,7 @@ export default function ListFive() {
             <h2>Publier une annonce de vente</h2>
             <div className="progress">
               <p>05</p>
-              <span>/ 10</span>
+              <span>/ 9</span>
             </div>
             <div className="list-form-5-form-container">
               <h3>Descriptif du bien</h3>

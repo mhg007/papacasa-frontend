@@ -12,7 +12,6 @@ const multiStepFormSlice = createSlice({
     step7: {},
     step8: {},
     step9: {},
-    step10: {},
   },
   reducers: {
     updateStepData: (state, action) => {
@@ -30,7 +29,6 @@ const multiStepFormSlice = createSlice({
       step7: {},
       step8: {},
       step9: {},
-      step10: {},
     }),
   },
 });

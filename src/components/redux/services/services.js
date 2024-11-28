@@ -8,6 +8,13 @@ export const papaCasaApi = createApi({
     getListings: builder.query({
       query: () => "listings/",
     }),
+    uploadFile: builder.mutation({
+      query: ({ payload }) => ({
+        url: "/uploadfiles/",
+        method: "POST",
+        body: payload
+      }),
+    }),
     favoritesIcon: builder.mutation({
       query: ({ payload }) => ({
         url: "favorites/",
@@ -45,5 +52,6 @@ export const {
   useLoginUserMutation, 
   useSignUpUserMutation ,
   useFavoritesIconMutation,
-  useSubmitFormDataMutation
+  useSubmitFormDataMutation,
+  useUploadFileMutation
 } = papaCasaApi;

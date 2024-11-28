@@ -8,7 +8,7 @@ export default function ListThree() {
   const { t, i18n } = useTranslation();
   const intialFormData = useSelector((state) => state.multiStepForm.step3);
   // const [bathcount, setBathCount] = useState(0);
-  // const [count, setCount] = useState(0);
+  // const [parkingSpaceCount, setCount] = useState(0);
   const [formValues, setFormValues] = useState(
     intialFormData || {
       superficieBrute: "",
@@ -18,7 +18,7 @@ export default function ListThree() {
       anneeConstruction: "",
       surfaceUtilisable: "",
       bathcount: 0,
-      count: 0,
+      parkingSpaceCount: 0,
     }
   );
 
@@ -32,7 +32,7 @@ export default function ListThree() {
 
   const handleCounterChange = (type, operation) => {
     setFormValues((prevFormValues) => {
-      const key = type === "bathrooms" ? "bathcount" : "count"; // Use correct keys
+      const key = type === "bathrooms" ? "bathcount" : "parkingSpaceCount"; // Use correct keys
       return {
         ...prevFormValues,
         [key]: Math.max(
@@ -55,7 +55,7 @@ export default function ListThree() {
         anneeConstruction: formValues.anneeConstruction,
         surfaceUtilisable: formValues.surfaceUtilisable,
         bathcount: formValues.bathcount,
-        count: formValues.count,
+        parkingSpace: formValues.parkingSpaceCount,
       };
       dispatch(updateStepData({ step: "step3", data: formData }));
       navigate("/lists/4");
@@ -72,7 +72,7 @@ export default function ListThree() {
               <h2>Publier une annonce de vente</h2>
               <div className="progress">
                 <p>03</p>
-                <span>/ 10</span>
+                <span>/ 9</span>
               </div>
               <div className="list-form-3-form-container">
                 <h3>Caractéristiques du bien</h3>
@@ -201,7 +201,7 @@ export default function ListThree() {
                         >
                           −
                         </button>
-                        <span>{formValues.count || 0}</span>
+                        <span>{formValues.parkingSpaceCount || 0}</span>
                         {/* Display default as 0 */}
                         <button
                           onClick={() =>

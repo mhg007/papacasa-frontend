@@ -38,7 +38,6 @@ import {
 import { message } from "antd";
 
 function HomPage() {
-  
   const {
     data: listingsData,
     error: listingsError,
@@ -134,11 +133,21 @@ function HomPage() {
                     </select>
                   </label>
                 </div>
-                <div className="search__icon">
-                  <Link>
-                    {" "}
-                    <img src={searchicon} alt="" />
-                  </Link>
+                <div className="search__icon ">
+                  {/* <Link> */}
+                  <label htmlFor="search" className="mr-4">
+                    <img
+                      src={searchicon}
+                      alt=""
+                      className="pl-2 w-44 h-9 mt-2 mr-2 cursor-pointer"
+                    />
+                  </label>
+                  <input
+                    className="outline-none rounded-full focus-within:bg-white focus-within:text-black bg-[#F03836] pl-4 text-white"
+                    id="search"
+                    type="search"
+                  />
+                  {/* </Link> */}
                 </div>
               </form>
             </div>
@@ -220,7 +229,7 @@ function HomPage() {
                   </Link>
                 </div>
               </div>
-              {(listingsData || []).map((item ,index) => (
+              {(listingsData || []).map((item, index) => (
                 <div className="properties__grid" key={index}>
                   <div className="properties">
                     <div
