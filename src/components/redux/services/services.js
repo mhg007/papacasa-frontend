@@ -24,7 +24,7 @@ export const papaCasaApi = createApi({
     }),
     loginUser: builder.mutation({
       query: ({ payload }) => ({
-        url: "token/",
+        url: "sign-in/",
         method: "POST",
         body: payload,
       }),
