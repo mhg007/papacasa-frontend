@@ -229,9 +229,10 @@ function HomPage() {
                   </Link>
                 </div>
               </div>
-              {(listingsData || []).map((item, index) => (
-                <div className="properties__grid" key={index}>
-                  <div className="properties">
+              
+                <div className="properties__grid" >
+                {(listingsData || []).map((item, index) => (
+                  <div className="properties" key={index}>
                     <div
                       style={{ backgroundImage: `url(${item.photos[0].url})` }}
                       className="properties__top__block"
@@ -263,8 +264,9 @@ function HomPage() {
                       <h5>{item.price}</h5>
                     </div>
                   </div>
+                  ))}
                 </div>
-              ))}
+              
             </div>
           </section>
         </section>

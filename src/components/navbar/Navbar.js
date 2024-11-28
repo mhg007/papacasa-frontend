@@ -4,7 +4,7 @@ import logo from "./Assets/new-logo.svg";
 import ".//navbar.css";
 
 function Navbar({ changeLang, t, i18n }) {
-  const token = JSON.parse(localStorage.getItem("token")).access;
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
   console.log(token)
   return (
     <>
