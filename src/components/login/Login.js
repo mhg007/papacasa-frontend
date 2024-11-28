@@ -23,7 +23,7 @@ function Login() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       const payload = {
-        username: e.target.username.value,
+        email: e.target.username.value,
         password: e.target.password.value,
       };
       const headers = {

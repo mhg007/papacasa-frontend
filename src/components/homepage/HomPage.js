@@ -233,7 +233,7 @@ function HomPage() {
                 <div className="properties__grid" key={index}>
                   <div className="properties">
                     <div
-                      style={{ backgroundImage: `url(${Building_front})` }}
+                      style={{ backgroundImage: `url(${item.photos[0].url})` }}
                       className="properties__top__block"
                     >
                       <div className="price__block">
@@ -250,17 +250,17 @@ function HomPage() {
                       </div>
                     </div>
                     <div className="properties__bottom__block">
-                      <p>3 lits</p>
-                      <h4>{item.titre}</h4>
+                      <h4>{item.title}</h4>
+                      <p>{item.description}</p>
                       <div className="location">
                         <img src={location_Icon} alt="" />
                         <p className="">
                           {item.adresse} <span>,</span>
                         </p>
-                        <p className="">{item.ville}</p>
+                        <p className="">{item.surface}</p>
                       </div>
                       <div className="divider"></div>
-                      <h5>{item.prix}</h5>
+                      <h5>{item.price}</h5>
                     </div>
                   </div>
                 </div>

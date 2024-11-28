@@ -106,7 +106,7 @@ export default function ListThree() {
                     </div>
                   </div>
 
-                  <div className="list-form-3-form-group">
+                  {/* <div className="list-form-3-form-group">
                     <div className="list-form-3-form-inner">
                       <label htmlFor="etat">État</label>
                       <select
@@ -132,7 +132,7 @@ export default function ListThree() {
                         <option>Choisir...</option>
                       </select>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="list-form-3-form-group">
                     <div className="list-form-3-form-inner">

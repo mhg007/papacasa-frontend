@@ -40,15 +40,18 @@ function ListEight() {
         formData.append("dataFiles", file);
         formData.append("filename", file.name);
 
-        const headers = {
-          "Content-Type": "multipart/form-data",
-          Accept: "*/*",
-        };
+        const response = await uploadFile({
+          payload:formData , 
+          headers: { headers: {
+            "Content-Type": "multipart/form-data",
+          } }
+        }).unwrap();
 
-        const response = await uploadFile({ formData, headers }).unwrap();
+        console.log(response, "response");
+
         const image = {
-          url: response.files.path,
-          filename: response.files.filename,
+          url: response.files[0].path,
+          filename: response.files[0].filename,
           file, // Include the file object for further use
         };
 
@@ -59,7 +62,6 @@ function ListEight() {
     }
   };
 
-  console.log("from global", files);
   const addFiles = (newFiles) => {
     const fileURLs = newFiles.map((file) => ({
       file,
@@ -82,6 +84,11 @@ function ListEight() {
       filename: fileObj.filename || fileObj.file?.name || "Unknown", // Handle missing filename
       url: fileObj.url,
     }));
+
+    if (fileData.length === 0) {
+      message.error("Please upload at least one image");
+      return;
+    }
 
     dispatch(updateStepData({ step: "step8", data: { image: fileData } }));
     navigate("/lists/10");
@@ -133,7 +140,6 @@ function ListEight() {
               </div>
               <div
                 className="upload-box w-full bg-white border-dashed border-2 border-black-300 p-4 text-center cursor-pointer"
-                onDrop={handleFileDrop}
                 onDragOver={(e) => e.preventDefault()}
               >
                 <img src={upload_placeholder_icon} alt="Upload Placeholder" />

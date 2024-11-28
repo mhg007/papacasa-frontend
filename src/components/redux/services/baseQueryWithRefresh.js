@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const BASE_URL = "https://papacasa.caansoft.com/api/"
+// const BASE_URL = "http://localhost:8000/api/"
 
 const baseQueryWithRefresh = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
@@ -22,7 +23,7 @@ const baseQueryWithRefresh = async (args, api, extraOptions) => {
     // Check if token is expired (optional: add logic to check expiration)
     const refreshResult = await baseQuery(
       {
-        url: `${BASE_URL}/token/refresh/`, // Refresh token endpoint
+        url: `${BASE_URL}token/refresh/`, // Refresh token endpoint
         method: 'POST',
         body: { refresh: refreshToken },
       },
@@ -41,8 +42,8 @@ const baseQueryWithRefresh = async (args, api, extraOptions) => {
       );
     } else {
       // Refresh token expired or invalid, navigate to login
-      localStorage.removeItem('token');
-      window.location.href = '/login';
+      // localStorage.removeItem('token');
+      // window.location.href = '/login';
       return { error: { status: 401, data: 'Unauthorized' } };
     }
   }

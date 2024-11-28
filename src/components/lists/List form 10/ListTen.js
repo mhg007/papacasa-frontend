@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 function ListTen() {
   const navigate = useNavigate();
   const intialFormData = useSelector((state) => state.multiStepForm);
-  console.log("FormData",intialFormData)
 //   const [formValues, setFormValues] = useState( {
 //         titre: "string",
 //         description: "string",
@@ -42,26 +41,32 @@ function ListTen() {
           "address": intialFormData.step3.street,
           "code_postal": intialFormData.step3.postalCode
         },
-        "features": [
-          {
-            "name": intialFormData.step4
-          }
-        ],
+        "features":Object.keys(intialFormData.step4)
+            .filter((key) => intialFormData.step4[key]) // Filter out falsy values
+            .map((key) => ({ name: key }))
+        ,
         "photos": intialFormData.step8.image.map((img) => {return {"name":img.name,
             "url": img.url}}),
 
-        "title": intialFormData.step6,
+        "title": "New Listing",
         "description": intialFormData.step5.textArea,
         "price": intialFormData.step6.price,
-        "surface": "123",
+        "surface": intialFormData.step3.superficieBrute,
         "land_area":  intialFormData.step3.surfaceTerrain,
         "usable_area":  intialFormData.step3.surfaceUtilisable,
         "year_of_construction": intialFormData.step3.anneeConstruction,
         "num_of_bathrooms": intialFormData.step3.bathcount,
-        "num_of_parking_spaces":  intialFormData.step3.parkingSpaceCount,
+        "num_of_parking_spaces":  intialFormData.step3.parkingSpace,
         "diagnosis": false,
         "latitude": "213",
-        "longitude": "213"
+        "longitude": "213",
+        "location":{
+          "city": intialFormData.step2.city,
+          "country": intialFormData.step2.country,
+          "state": intialFormData.step2.state,
+          "address": intialFormData.step2.street,
+          "code_postal": intialFormData.step2.postalCode
+        }
       }
     // const headers = {
     //   "Content-Type": "application/json",

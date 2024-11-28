@@ -14,11 +14,11 @@ function ListOne() {
   // Initialize the local state with step1Data or an empty array
   const handleChange = (type) => {
     if ( selectedTypes.includes(type) ){
-      const newFormValues = selectedTypes.filter( values => values !== type);
-      setSelectedTypes(newFormValues);
+      // const newFormValues = selectedTypes.filter( values => values !== type);
+      setSelectedTypes([]);
     }
 
-    setSelectedTypes([ ...selectedTypes, type ]);
+    setSelectedTypes([ type ]);
   };
 
   const handleStepUpdate = () => {

@@ -4,6 +4,8 @@ import logo from "./Assets/new-logo.svg";
 import ".//navbar.css";
 
 function Navbar({ changeLang, t, i18n }) {
+  const token = JSON.parse(localStorage.getItem("token")).access;
+  console.log(token)
   return (
     <>
       <header>
@@ -36,9 +38,15 @@ function Navbar({ changeLang, t, i18n }) {
                 </div>
               </div>
               <div className="ppc__header__btn">
-                <Link to={"/login"}>
+                {
+                  token ?  
+                  <Link to={"/lists/1"}>
+                  <button  className="header__btn">{t("Post an ad")}</button>
+                </Link> :  <Link to={"/login"}>
                   <button  className="header__btn">{t("Post an ad")}</button>
                 </Link>
+                }
+               
               </div>
               <div className="flex justify-evenly items-center gap-5 ml-4">
                 <button onClick={() => changeLang("en")}>En</button>

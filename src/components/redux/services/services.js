@@ -10,7 +10,7 @@ export const papaCasaApi = createApi({
     }),
     uploadFile: builder.mutation({
       query: ({ payload }) => ({
-        url: "/uploadfiles/",
+        url: "/uploadfiles",
         method: "POST",
         body: payload
       }),
