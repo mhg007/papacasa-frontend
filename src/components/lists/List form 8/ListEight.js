@@ -169,7 +169,7 @@ function ListEight() {
                 Retour
               </Link>
               <button type="button" className="next" onClick={handleStepUpdate}>
-                Suivant
+              Publier mon annonce
               </button>
             </div>
           </div>

@@ -18,6 +18,10 @@ import MobileNavbar from "./components/mobileNav/MobileNavbar";
 import ListEight from "./components/lists/List form 8/ListEight";
 import ListNine from "./components/lists/List form 9/ListNine";
 import ListTen from "./components/lists/List form 10/ListTen";
+import ChangePasword from "./components/Change password/ChangePasword";
+import MessagesFirstScreen from "./components/Messages with responsive 1st screen/MessagesFirstScreen";
+import Messages2ndscreen from "./components/Messages with responsive 2nd screen/Messages2ndscreen";
+import Profile from "./Profil/Profile";
 
 function App() {
   return (
@@ -30,6 +34,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
+              <Route path="/reset-password" element={<ChangePasword />} />
+              <Route path="/messages-firstScreen" element={<MessagesFirstScreen />} />
+              <Route path="/messages-2ndScreen" element={<Messages2ndscreen />} />
+              <Route path="/profile" element={<Profile />} />
           {/* </Route> */}
 
           {/* Protected Routes with Layout */}

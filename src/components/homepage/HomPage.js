@@ -43,9 +43,15 @@ function HomPage() {
     error: listingsError,
     isLoading: isListingsLoading,
   } = useGetListingsQuery();
+  console.log(
+    "listingsData",
+    listingsData?.map((data) => data.location?.map((item) => item.city))
+  );
+  console.log("listings", listingsData);
   const [favoritesIcon, {}] = useFavoritesIconMutation();
 
   const handleFavortiesIcons = async (e) => {
+    console.log(e.utilisateur);
     const payload = {
       utilisateur: e.utilisateur,
       annonce: e.id,
@@ -90,64 +96,67 @@ function HomPage() {
               </div>
             </div>
             <div className="search__bar">
-              <form className="search__form">
-                <div className="search__types-1">
-                  <h2>Type de recherche</h2>
-                  <label htmlFor="">
-                    <select className="m-0" name="" id="">
-                      <option className="" value="">
-                        Sélectionner
-                      </option>
-                    </select>
-                  </label>
+              <form className="search__form flex flex-wrap gap-4 items-center">
+                {/* Type de recherche */}
+                <div className="search__types-1 w-full md:w-auto">
+                  <h2 className="text-sm font-medium mb-1">
+                    Type de recherche
+                  </h2>
+                  <select className="m-0 w-full border border-gray-300 rounded p-2">
+                    <option value="">Sélectionner</option>
+                  </select>
                 </div>
-                <div className="search__types">
-                  <h2>Localisation</h2>
-                  <label htmlFor="">
-                    <select className="m-0" name="" id="">
-                      <option value="">Sélectionner</option>
-                    </select>
-                  </label>
+
+                {/* Localisation */}
+                <div className="search__types w-full md:w-auto">
+                  <h2 className="text-sm font-medium mb-1">Localisation</h2>
+                  <select className="m-0 w-full border border-gray-300 rounded p-2">
+                    <option value="">Sélectionner</option>
+                  </select>
                 </div>
-                <div className="search__types">
-                  <h2>Types de bien</h2>
-                  <label htmlFor="">
-                    <select className="m-0" name="" id="">
-                      <option value="">Sélectionner</option>
-                    </select>
-                  </label>
+
+                {/* Types de bien */}
+                <div className="search__types w-full md:w-auto">
+                  <h2 className="text-sm font-medium mb-1">Types de bien</h2>
+                  <select className="m-0 w-full border border-gray-300 rounded p-2">
+                    <option value="">Sélectionner</option>
+                  </select>
                 </div>
-                <div className="search__types">
-                  <h2>Pièces</h2>
-                  <label htmlFor="">
-                    <select className="m-0" name="" id="">
-                      <option value="">Sélectionner</option>
-                    </select>
-                  </label>
+
+                {/* Pièces */}
+                <div className="search__types w-full md:w-auto">
+                  <h2 className="text-sm font-medium mb-1">Pièces</h2>
+                  <select className="m-0 w-full border border-gray-300 rounded p-2">
+                    <option value="">Sélectionner</option>
+                  </select>
                 </div>
-                <div className="search__types">
-                  <h2>Prix maximum</h2>
-                  <label htmlFor="">
-                    <select className="m-0" name="" id="">
-                      <option value="">Ajouter Prix (€)</option>
-                    </select>
-                  </label>
+
+                {/* Prix maximum */}
+                <div className="search__types w-full md:w-auto">
+                  <h2 className="text-sm font-medium mb-1">Prix maximum</h2>
+                  <select className="m-0 w-full border border-gray-300 rounded p-2">
+                    <option value="">Ajouter Prix (€)</option>
+                  </select>
                 </div>
-                <div className="search__icon ">
-                  {/* <Link> */}
-                  <label htmlFor="search" className="mr-4">
-                    <img
-                      src={searchicon}
-                      alt=""
-                      className="pl-2 w-44 h-9 mt-2 mr-2 cursor-pointer"
-                    />
-                  </label>
+
+                {/* Search Icon */}
+                <div className="search__icon relative w-full md:w-auto flex items-center">
+                  <img
+                    src={searchicon}
+                    alt="Search Icon"
+                    className="w-10 h-10 cursor-pointer bg-[#F03836] p-2 rounded-full"
+                    onClick={() =>
+                      document
+                        .getElementById("search")
+                        .classList.toggle("hidden")
+                    }
+                  />
                   <input
-                    className="outline-none rounded-full focus-within:bg-white focus-within:text-black bg-[#F03836] pl-4 text-white"
                     id="search"
                     type="search"
+                    placeholder="Rechercher"
+                    className="hidden outline-none rounded-full bg-white text-black border border-gray-300 p-2 ml-2 w-full md:w-64 transition-all"
                   />
-                  {/* </Link> */}
                 </div>
               </form>
             </div>
@@ -229,17 +238,16 @@ function HomPage() {
                   </Link>
                 </div>
               </div>
-              
-                <div className="properties__grid" >
+
+              <div className="properties__grid w-full">
                 {(listingsData || []).map((item, index) => (
                   <div className="properties" key={index}>
                     <div
                       style={{ backgroundImage: `url(${item.photos[0].url})` }}
                       className="properties__top__block"
                     >
-                      <div className="price__block">
-                        <p>-10% aujourd'hui</p>
-                      </div>
+                      <div className=""></div>
+
                       <div className="favorite__icon">
                         <img
                           name="favIcon"
@@ -251,22 +259,21 @@ function HomPage() {
                       </div>
                     </div>
                     <div className="properties__bottom__block">
-                      <h4>{item.title}</h4>
+                      <h4>{item.type.name}</h4>
                       <p>{item.description}</p>
                       <div className="location">
                         <img src={location_Icon} alt="" />
                         <p className="">
                           {item.adresse} <span>,</span>
                         </p>
-                        <p className="">{item.surface}</p>
+                        <p className="">{parseFloat(item.surface)} m² </p>
                       </div>
                       <div className="divider"></div>
-                      <h5>{item.price}</h5>
+                      <h5>{parseFloat(item.price)} €</h5>
                     </div>
                   </div>
-                  ))}
-                </div>
-              
+                ))}
+              </div>
             </div>
           </section>
         </section>

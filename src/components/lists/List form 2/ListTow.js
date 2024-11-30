@@ -35,8 +35,7 @@ function ListTwo() {
     if (!Object.values(formValues).includes("")) {
       dispatch(updateStepData({ step: "step2", data: formValues }));
       navigate("/lists/3");
-    }
-    else {
+    } else {
       message.error("Please fill out the form before proceeding.");
     }
   };
@@ -63,7 +62,7 @@ function ListTwo() {
                   onSubmit={handleStepUpdate}
                   className="country__info__form"
                 >
-                  <label htmlFor="country">Country/Region</label>
+                  <label htmlFor="country">Pays</label>
                   <select
                     value={formValues.country || ""}
                     id="country"
@@ -76,7 +75,7 @@ function ListTwo() {
                     {/* Add more countries as needed */}
                   </select>
 
-                  <label htmlFor="street">Street</label>
+                  <label htmlFor="street">Numéro et rue</label>
                   <input
                     value={formValues.street || ""}
                     onChange={handleChange}
@@ -86,7 +85,7 @@ function ListTwo() {
 
                   <div className="address-group">
                     <div className="address-group-inner">
-                      <label htmlFor="city">City</label>
+                      <label htmlFor="city">Ville</label>
                       <input
                         value={formValues.city || ""}
                         onChange={handleChange}
@@ -95,7 +94,7 @@ function ListTwo() {
                       />
                     </div>
                     <div className="address-group-inner">
-                      <label htmlFor="state">State</label>
+                      <label htmlFor="state">Région</label>
                       <input
                         value={formValues.state || ""}
                         onChange={handleChange}
@@ -104,7 +103,7 @@ function ListTwo() {
                       />
                     </div>
                     <div className="address-group-inner">
-                      <label htmlFor="postalCode">Postal code</label>
+                      <label htmlFor="postalCode"> Code postal</label>
                       <input
                         value={formValues.postalCode || ""}
                         onChange={handleChange}
@@ -115,7 +114,7 @@ function ListTwo() {
                   </div>
 
                   <div className="detailed-address">
-                    <h5>Detailed address</h5>
+                    <h5>Cartographie</h5>
                     <h4>New Road, 42 Rue de Rivoli, 75001 Paris</h4>
                   </div>
 
