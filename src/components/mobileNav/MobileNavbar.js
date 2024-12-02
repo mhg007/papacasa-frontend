@@ -3,6 +3,7 @@ import li_home from "./mobile menu icons/li_home.svg";
 import cart_icon from "./mobile menu icons/cart-icon.svg";
 import post_ad_icon from "./mobile menu icons/post-ad-icon.svg";
 
+
 function MobileNavbar() {
   return (
     <>

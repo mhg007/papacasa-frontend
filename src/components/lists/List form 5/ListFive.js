@@ -7,6 +7,8 @@ export default function ListFive() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
+
   const intialFormData = useSelector((state)=> state.multiStepForm.step5)
 
   const [formValues, setFormValues] = useState(intialFormData||{
@@ -29,8 +31,17 @@ export default function ListFive() {
           <div className="list-form-5-inner__container">
             <h2>Publier une annonce de vente</h2>
             <div className="progress">
-              <p>05</p>
-              <span>/ 9</span>
+            {token ? (
+              <>
+                <p>05</p>
+                <span>/ 9</span>
+              </>
+            ) : (
+              <>
+                <p>05</p>
+                <span>/10</span>
+              </>
+            )}
             </div>
             <div className="list-form-5-form-container">
               <h3>Descriptif du bien</h3>

@@ -12,11 +12,12 @@ const multiStepFormSlice = createSlice({
     step7: {},
     step8: {},
     step9: {},
+    step10: {},
   },
   reducers: {
     updateStepData: (state, action) => {
       const { step, data } = action.payload;
-      console.log("HEREE")
+    //   console.log("HEREE")
       state[step] = data;
     },
     resetFormData: () => ({
@@ -29,6 +30,7 @@ const multiStepFormSlice = createSlice({
       step7: {},
       step8: {},
       step9: {},
+      step10: {},
     }),
   },
 });

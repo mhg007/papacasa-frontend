@@ -7,6 +7,7 @@ import { updateStepData } from "../../redux/slice/formDataSlice";
 function ListFour() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
 
   // Default state for all checkboxes
   const defaultState = {
@@ -66,8 +67,17 @@ function ListFour() {
             <div className="list-form-4-inner__container">
               <h2>Publier une annonce de vente</h2>
               <div className="progress">
+              {token ? (
+              <>
                 <p>04</p>
                 <span>/ 9</span>
+              </>
+            ) : (
+              <>
+                <p>04</p>
+                <span>/10</span>
+              </>
+            )}
               </div>
               <div className="list-form-4-form-container">
                 <h3>Caractéristiques</h3>

@@ -11,6 +11,8 @@ import { message } from "antd";
 function ListEight() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
+
 
   const [sendFile, setSendFile] = useState([]);
   const [uploadFile, { isLoading, isSuccess, isError, data, error }] =
@@ -91,7 +93,12 @@ function ListEight() {
     }
 
     dispatch(updateStepData({ step: "step8", data: { image: fileData } }));
-    navigate("/lists/10");
+    if(token){
+        navigate("/lists/10");
+    }
+    else{
+        navigate("/lists/9");
+    }
   };
 
   console.log(sendFile, "sendFile");
@@ -103,8 +110,17 @@ function ListEight() {
           <div className="list-form-8-inner__container">
             <h1>Publier une annonce de vente</h1>
             <div className="progress">
-              <p>08</p>
-              <span>/ 9</span>
+            {token ? (
+              <>
+                <p>08</p>
+                <span>/ 9</span>
+              </>
+            ) : (
+              <>
+                <p>08</p>
+                <span>/10</span>
+              </>
+            )}
             </div>
             <div className="list-form-8-form-section">
               <h2>Vos photos</h2>
@@ -113,7 +129,10 @@ function ListEight() {
                 Pas d'inquiétude : vos photos peuvent être ajoutées ou modifiées
                 plus tard gratuitement.
               </p>
+              {isLoading?
+              <>Loading</>:
               <span className="photo-label">Photo de couverture</span>
+            }
 
               {/* Photo Gallery */}
               <div className="photo-gallery">

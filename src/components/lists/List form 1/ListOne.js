@@ -8,31 +8,31 @@ function ListOne() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const step1Data = useSelector((state) => state.multiStepForm.step1);
-  const [formValues, setFormValues] = useState( step1Data || {});
+  const [formValues, setFormValues] = useState(step1Data || {});
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
 
-  const [selectedTypes, setSelectedTypes] = useState(step1Data?.propertyType || []);
+  const [selectedTypes, setSelectedTypes] = useState(
+    step1Data?.propertyType || []
+  );
   // Initialize the local state with step1Data or an empty array
   const handleChange = (type) => {
-    if ( selectedTypes.includes(type) ){
+    if (selectedTypes.includes(type)) {
       // const newFormValues = selectedTypes.filter( values => values !== type);
       setSelectedTypes([]);
     }
 
-    setSelectedTypes([ type ]);
+    setSelectedTypes([type]);
   };
 
   const handleStepUpdate = () => {
-  
-
     // Dispatch the updated list to Redux
-    if (selectedTypes.length !== 0){
+    if (selectedTypes.length !== 0) {
       const formData = {
-        propertyType: selectedTypes
+        propertyType: selectedTypes,
       };
       dispatch(updateStepData({ step: "step1", data: formData }));
-      navigate('/lists/2')
+      navigate("/lists/2");
     }
-  
   };
 
   return (
@@ -41,8 +41,17 @@ function ListOne() {
         <div className="list-form-1__inner__container">
           <h2>Publier une annonce de vente</h2>
           <div className="progress">
-            <p>01</p>
-            <span>/ 9</span>
+            {token ? (
+              <>
+                <p>01</p>
+                <span>/ 9</span>
+              </>
+            ) : (
+              <>
+                <p>01</p>
+                <span>/10</span>
+              </>
+            )}
           </div>
           <form>
             <div className="list-form-1-form-container">
@@ -59,7 +68,7 @@ function ListOne() {
                   "Autres",
                 ].map((type) => (
                   <button
-                  id="dummyData"
+                    id="dummyData"
                     key={type}
                     type="button"
                     className={`property-button ${
@@ -78,7 +87,11 @@ function ListOne() {
                   Retour
                 </button>
               </Link>
-              <button className="next" type="button" onClick={() => handleStepUpdate()}>
+              <button
+                className="next"
+                type="button"
+                onClick={() => handleStepUpdate()}
+              >
                 Suivant
               </button>
             </div>

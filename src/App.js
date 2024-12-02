@@ -55,7 +55,7 @@ function App() {
               <Route path="/lists/6" element={<ListSix />} />
               <Route path="/lists/7" element={<ListSeven />} />
               <Route path="/lists/8" element={<ListEight />} />
-              {/* <Route path="/lists/9" element={<ListNine />} /> */}
+              <Route path="/lists/9" element={<ListNine />} />
               <Route path="/lists/10" element={<ListTen />} />
             </Route>
           </Route>

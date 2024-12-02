@@ -13,6 +13,8 @@ function ListSix() {
       price: "",
     }
   );
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
+
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value });
@@ -32,8 +34,17 @@ function ListSix() {
             <div className="list-form-6-inner__container">
               <h2>Publier une annonce de vente</h2>
               <div className="progress">
+              {token ? (
+              <>
                 <p>06</p>
                 <span>/ 9</span>
+              </>
+            ) : (
+              <>
+                <p>06</p>
+                <span>/10</span>
+              </>
+            )}
               </div>
               <div className="list-form-6-form-container">
                 <h3>Prix de vente</h3>

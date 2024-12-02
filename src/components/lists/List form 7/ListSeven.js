@@ -16,6 +16,7 @@ export default function ListSeven() {
       radio3: "",
     }
   );
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -51,8 +52,17 @@ export default function ListSeven() {
           <div className="list-form-7-inner__container">
             <h2>Publier une annonce de vente</h2>
             <div className="progress">
-              <p>07</p>
-              <span>/ 9</span>
+            {token ? (
+              <>
+                <p>07</p>
+                <span>/ 9</span>
+              </>
+            ) : (
+              <>
+                <p>07</p>
+                <span>/10</span>
+              </>
+            )}
             </div>
             <form onSubmit={handleStepUpdate}>
               <div className="form-section">

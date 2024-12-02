@@ -9,6 +9,8 @@ import { message } from "antd";
 function ListTwo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
+
 
   // Default values for form fields
   const defaultFormValues = {
@@ -48,7 +50,17 @@ function ListTwo() {
             <div className="list-form-2-inner__container">
               <h2>Publier une annonce de vente</h2>
               <div className="progress">
-                <span>02 / 9</span>
+              {token ? (
+              <>
+                <p>02</p>
+                <span>/ 9</span>
+              </>
+            ) : (
+              <>
+                <p>02</p>
+                <span>/10</span>
+              </>
+            )}
               </div>
               <div className="list-form-2-form-container">
                 <h3>Où se trouve votre maison à vendre ?</h3>

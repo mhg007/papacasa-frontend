@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./Assets/new-logo.svg";
 import ".//navbar.css";
 
 function Navbar({ changeLang, t, i18n }) {
+  const navigate = useNavigate()
   const token = JSON.parse(localStorage.getItem("token"))?.access;
   console.log(token)
   return (
@@ -38,14 +39,13 @@ function Navbar({ changeLang, t, i18n }) {
                 </div>
               </div>
               <div className="ppc__header__btn">
-                {
-                  token ?  
-                  <Link to={"/lists/1"}>
-                  <button  className="header__btn">{t("Post an ad")}</button>
-                </Link> :  <Link to={"/login"}>
-                  <button  className="header__btn">{t("Post an ad")}</button>
+
+                  <Link to={"/login"}>
+                  <button className="header__btn">{t("Log in")}</button>
                 </Link>
-                }
+                  <Link to={"/lists/1"}>
+                  <button className="header__btn">{t("Post an ad")}</button>
+                </Link>
                
               </div>
               <div className="flex justify-evenly items-center gap-5 ml-4">

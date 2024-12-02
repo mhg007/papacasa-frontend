@@ -7,8 +7,6 @@ import { updateStepData } from "../../redux/slice/formDataSlice";
 export default function ListThree() {
   const { t, i18n } = useTranslation();
   const intialFormData = useSelector((state) => state.multiStepForm.step3);
-  // const [bathcount, setBathCount] = useState(0);
-  // const [parkingSpaceCount, setCount] = useState(0);
   const [formValues, setFormValues] = useState(
     intialFormData || {
       superficieBrute: "",
@@ -25,6 +23,8 @@ export default function ListThree() {
   // console.log(intialFormData)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
+
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value });
@@ -32,7 +32,7 @@ export default function ListThree() {
 
   const handleCounterChange = (type, operation) => {
     setFormValues((prevFormValues) => {
-      const key = type === "bathrooms" ? "bathcount" : "parkingSpaceCount"; // Use correct keys
+      const key = type === "bathcount" ? "bathcount" : "parkingSpaceCount"; // Use correct keys
       return {
         ...prevFormValues,
         [key]: Math.max(
@@ -55,7 +55,7 @@ export default function ListThree() {
         anneeConstruction: formValues.anneeConstruction,
         surfaceUtilisable: formValues.surfaceUtilisable,
         bathcount: formValues.bathcount,
-        parkingSpace: formValues.parkingSpaceCount,
+        parkingSpaceCount: formValues.parkingSpaceCount,
       };
       dispatch(updateStepData({ step: "step3", data: formData }));
       navigate("/lists/4");
@@ -71,8 +71,17 @@ export default function ListThree() {
             <div className="container">
               <h2>Publier une annonce de vente</h2>
               <div className="progress">
+              {token ? (
+              <>
                 <p>03</p>
                 <span>/ 9</span>
+              </>
+            ) : (
+              <>
+                <p>03</p>
+                <span>/10</span>
+              </>
+            )}
               </div>
               <div className="list-form-3-form-container">
                 <h3>Caractéristiques du bien</h3>
@@ -168,7 +177,7 @@ export default function ListThree() {
                       <div className="counter">
                         <button
                           onClick={() =>
-                            handleCounterChange("bathrooms", "decrement")
+                            handleCounterChange("bathcount", "decrement")
                           }
                           type="button"
                           className="minus"
@@ -179,7 +188,7 @@ export default function ListThree() {
                         {/* Display default as 0 */}
                         <button
                           onClick={() =>
-                            handleCounterChange("bathrooms", "increment")
+                            handleCounterChange("bathcount", "increment")
                           }
                           type="button"
                           className="plus"
@@ -194,7 +203,7 @@ export default function ListThree() {
                       <div className="counter">
                         <button
                           onClick={() =>
-                            handleCounterChange("parkingSpaces", "decrement")
+                            handleCounterChange("parkingSpaceCount", "decrement")
                           }
                           type="button"
                           className="minus"
@@ -205,7 +214,7 @@ export default function ListThree() {
                         {/* Display default as 0 */}
                         <button
                           onClick={() =>
-                            handleCounterChange("parkingSpaces", "increment")
+                            handleCounterChange("parkingSpaceCount", "increment")
                           }
                           type="button"
                           className="plus"

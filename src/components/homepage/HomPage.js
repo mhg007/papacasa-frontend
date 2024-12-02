@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./css/homepage.css";
 import newlogo from "./Assests/Images/new-logo.svg";
@@ -43,10 +43,11 @@ function HomPage() {
     error: listingsError,
     isLoading: isListingsLoading,
   } = useGetListingsQuery();
-  console.log(
-    "listingsData",
-    listingsData?.map((data) => data.location?.map((item) => item.city))
-  );
+  const [listData ,setListingsData]= useState(listingsData)
+  // console.log(
+  //   "listingsData",
+  //   listingsData?.map((data) => data.location?.map((item) => item.city))
+  // );
   console.log("listings", listingsData);
   const [favoritesIcon, {}] = useFavoritesIconMutation();
 
@@ -70,6 +71,13 @@ function HomPage() {
       console.log("Favorites Failed", error);
     }
   };
+  const handleShowMore = (index) => {
+    const updatedListings = [...listData];
+    updatedListings[index].isExpanded = !updatedListings[index].isExpanded;
+  
+    setListingsData(updatedListings);
+  };
+  
   return (
     <>
       {/* <Navbar changeLang={changeLang} t={t}/> */}
@@ -239,15 +247,16 @@ function HomPage() {
                 </div>
               </div>
 
-              <div className="properties__grid w-full">
+              <div className="properties__grid w-full ">
                 {(listingsData || []).map((item, index) => (
-                  <div className="properties" key={index}>
+                  <div
+                    className="cards w-full"
+                    key={index}
+                  >
                     <div
                       style={{ backgroundImage: `url(${item.photos[0].url})` }}
                       className="properties__top__block"
                     >
-                      <div className=""></div>
-
                       <div className="favorite__icon">
                         <img
                           name="favIcon"
@@ -260,13 +269,25 @@ function HomPage() {
                     </div>
                     <div className="properties__bottom__block">
                       <h4>{item.type.name}</h4>
-                      <p>{item.description}</p>
+                      <p className="description">
+                        {item.description.length > 100 ? (
+                          <>
+                            {item.description.slice(0, 100)}...
+                            <button
+                              className="show-more"
+                              onClick={() => handleShowMore(index)}
+                            >
+                              Show More
+                            </button>
+                          </>
+                        ) : (
+                          item.description
+                        )}
+                      </p>
                       <div className="location">
                         <img src={location_Icon} alt="" />
-                        <p className="">
-                          {item.adresse} <span>,</span>
-                        </p>
-                        <p className="">{parseFloat(item.surface)} m² </p>
+                        <p>{item.adresse}</p>
+                        <p>{parseFloat(item.surface)} m²</p>
                       </div>
                       <div className="divider"></div>
                       <h5>{parseFloat(item.price)} €</h5>

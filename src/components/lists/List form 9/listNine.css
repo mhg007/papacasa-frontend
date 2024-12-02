@@ -8,6 +8,19 @@
 
 }
 
+.password-wrapper {
+    position: relative;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    top: 30%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
 
 .list-form-9-background {
 
