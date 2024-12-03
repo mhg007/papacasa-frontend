@@ -619,7 +619,7 @@ a {
   
   .properties__top__block {
     margin: 0;
-    background-color: #B91C1C;
+    /* background-color: #B91C1C; */
     height: 200px;
     background-size: cover;
     background-position: center;

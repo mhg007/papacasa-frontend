@@ -54,13 +54,14 @@ export default function ListThree() {
         classeEnergetique: formValues.classeEnergetique,
         anneeConstruction: formValues.anneeConstruction,
         surfaceUtilisable: formValues.surfaceUtilisable,
-        bathcount: formValues.bathcount,
-        parkingSpaceCount: formValues.parkingSpaceCount,
+        bathcount: formValues.bathcount?formValues.bathcount:0,
+        parkingSpaceCount: formValues.parkingSpaceCount? formValues.parkingSpaceCount:0,
       };
       dispatch(updateStepData({ step: "step3", data: formData }));
       navigate("/lists/4");
     }
   };
+  
 
   return (
     <>

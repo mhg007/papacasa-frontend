@@ -6,7 +6,7 @@ import ".//navbar.css";
 function Navbar({ changeLang, t, i18n }) {
   const navigate = useNavigate()
   const token = JSON.parse(localStorage.getItem("token"))?.access;
-  console.log(token)
+  // console.log(token)
   return (
     <>
       <header>
@@ -15,7 +15,7 @@ function Navbar({ changeLang, t, i18n }) {
             <div className="header__main__wrapper w-[100%] flex min-w-[60%]">
               <div className="ppc__logo__menu  min-w-[60%]">
                 <div className="ppc__logo ">
-                  <Link>
+                  <Link to={"/"}>
                     <img src={logo} alt="" />
                   </Link>
                 </div>
@@ -39,13 +39,15 @@ function Navbar({ changeLang, t, i18n }) {
                 </div>
               </div>
               <div className="ppc__header__btn">
-
+                
+                {!token ?
                   <Link to={"/login"}>
                   <button className="header__btn">{t("Log in")}</button>
-                </Link>
+                </Link>:
                   <Link to={"/lists/1"}>
                   <button className="header__btn">{t("Post an ad")}</button>
                 </Link>
+              }
                
               </div>
               <div className="flex justify-evenly items-center gap-5 ml-4">

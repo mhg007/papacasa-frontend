@@ -37,7 +37,7 @@ function Login() {
         // const refreshToken = response.refresh; 
         if (response) {
           
-          console.log("Token saved successfully:", response);
+          // console.log("Token saved successfully:", response);
           localStorage.setItem("token", JSON.stringify(response)); 
           navigate("/"); // Redirect after successful login
         }

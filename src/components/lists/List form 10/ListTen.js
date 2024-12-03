@@ -10,118 +10,123 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetFormData } from "../../redux/slice/formDataSlice";
 
 function ListTen() {
-    const navigate = useNavigate();
-    const intialFormData = useSelector((state) => state.multiStepForm);
-    const dispatch = useDispatch(); // For resetting the form state
-    console.log("intialFormData", intialFormData);
-    
-    const [
-      loginUser,
-      {
-        isLoading: loginLoading,
-        isSuccess: loginSuccess,
-        isError: isLoginError,
-        data: loginData,
-        error: loginError,
-      },
-    ] = useLoginUserMutation();
-    
-    const token = JSON.parse(localStorage.getItem("token"))?.access;
-    
-    const [submitFormData, { isLoading, isSuccess, isError, data, error }] =
-      useSubmitFormDataMutation();
-    
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-      
-        // Login logic if no token
-        if (!token) {
-          const loginPayload = {
-            email: intialFormData.step9.email,
-            password: intialFormData.step9.password,
-          };
-          const headers = {
-            "Content-Type": "application/json",
-            Accept: "*/*",
-          };
-      
-          try {
-            const response = await loginUser({ payload: loginPayload, headers }).unwrap();
-            if (response) {
-              console.log("Token saved successfully:", response);
-              localStorage.setItem("token", JSON.stringify(response));
-              navigate("/"); // Redirect after successful login
-            }
-          } catch (err) {
-            console.error("Login Failed:", err);
-            message.error(err?.data?.message || "Login failed. Please check your credentials.");
-            return; // Stop further execution if login fails
-          }
-        }
-      
-        // Listing creation payload
-        const payload = {
-          type: {
-            name: intialFormData.step1.propertyType[0],
-          },
-          location: {
-            city: intialFormData.step3.city,
-            country: intialFormData.step3.country,
-            state: intialFormData.step3.state,
-            address: intialFormData.step3.street,
-            code_postal: intialFormData.step3.postalCode,
-          },
-          features: Object.keys(intialFormData.step4)
-            .filter((key) => intialFormData.step4[key]) // Filter out falsy values
-            .map((key) => ({ name: key })),
-          photos: intialFormData.step8.image.map((img) => {
-            return { name: img.name, url: img.url };
-          }),
-      
-          title: "New Listing",
-          description: intialFormData.step5.textArea,
-          price: intialFormData.step6.price,
-          surface: intialFormData.step3.superficieBrute,
-          land_area: intialFormData.step3.surfaceTerrain,
-          usable_area: intialFormData.step3.surfaceUtilisable,
-          year_of_construction: intialFormData.step3.anneeConstruction,
-          num_of_bathrooms: intialFormData.step3.bathcount,
-          num_of_parking_spaces: intialFormData.step3.parkingSpaceCount,
-          diagnosis: false,
-          latitude: "213",
-          longitude: "213",
-          location: {
-            city: intialFormData.step2.city,
-            country: intialFormData.step2.country,
-            state: intialFormData.step2.state,
-            address: intialFormData.step2.street,
-            code_postal: intialFormData.step2.postalCode,
-          },
-        };
-      
-        try {
-          const response = await submitFormData( payload, token ).unwrap();
-          message.success("Listing Created Successfully");
-          console.log("Listing Created Successfully", response);
-      
-          // Reset the form
-          dispatch(resetFormData()); // Use the `resetFormData` action from the slice
-          navigate("/"); // Redirect after successful listing creation
-        } catch (error) {
-          message.error("Listing Creation Failed");
-          console.error("Listing Failed", error);
-        }
+  const navigate = useNavigate();
+  const intialFormData = useSelector((state) => state.multiStepForm);
+  const dispatch = useDispatch(); // For resetting the form state
+  console.log("intialFormData", intialFormData);
+
+  const [
+    loginUser,
+    {
+      isLoading: loginLoading,
+      isSuccess: loginSuccess,
+      isError: isLoginError,
+      data: loginData,
+      error: loginError,
+    },
+  ] = useLoginUserMutation();
+
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
+
+  const [submitFormData, { isLoading, isSuccess, isError, data, error }] =
+    useSubmitFormDataMutation();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Login logic if no token
+    if (!token) {
+      const loginPayload = {
+        email: intialFormData.step9.email,
+        password: intialFormData.step9.password,
       };
-      
-    
-    // Retour navigation logic
-    const handleRetour = () => {
-      if (token) {
-        navigate("/lists/8"); // If token exists, go to step 8
-      } else {
-        navigate("/lists/9"); // If no token, go to step 9
+      const headers = {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+      };
+
+      try {
+        const response = await loginUser({
+          payload: loginPayload,
+          headers,
+        }).unwrap();
+        if (response) {
+          console.log("Token saved successfully:", response);
+          localStorage.setItem("token", JSON.stringify(response));
+          navigate("/"); 
+        }
+      } catch (err) {
+        console.error("Login Failed:", err);
+        message.error(
+          err?.data?.message || "Login failed. Please check your credentials."
+        );
+        return; 
       }
+    }
+
+    // Listing creation payload
+    const payload = {
+      type: {
+        name: intialFormData.step1.propertyType[0],
+      },
+      location: {
+        city: intialFormData.step3.city,
+        country: intialFormData.step3.country,
+        state: intialFormData.step3.state,
+        address: intialFormData.step3.street,
+        code_postal: intialFormData.step3.postalCode,
+      },
+      features: Object.keys(intialFormData.step4)
+        .filter((key) => intialFormData.step4[key]) // Filter out falsy values
+        .map((key) => ({ name: key })),
+      photos: intialFormData.step8.image.map((img) => {
+        return [{ name: img.filename, url: img.url }];
+      }),
+
+      title: "New Listing",
+      description: intialFormData.step5.textArea,
+      price: intialFormData.step6.price,
+      surface: intialFormData.step3.superficieBrute,
+      land_area: intialFormData.step3.surfaceTerrain,
+      usable_area: intialFormData.step3.surfaceUtilisable,
+      year_of_construction: intialFormData.step3.anneeConstruction,
+      num_of_bathrooms: intialFormData.step3.bathcount,
+      num_of_parking_spaces: intialFormData.step3.parkingSpaceCount,
+      diagnosis: false,
+      latitude: "213",
+      longitude: "213",
+      location: {
+        city: intialFormData.step2.city,
+        country: intialFormData.step2.country,
+        state: intialFormData.step2.state,
+        address: intialFormData.step2.street,
+        code_postal: intialFormData.step2.postalCode,
+      },
     };
+
+    try {
+      const response = await submitFormData(payload, token).unwrap();
+      message.success("Listing Created Successfully");
+      console.log("Listing Created Successfully", response);
+
+      // Reset the form
+      if (response) {
+        dispatch(resetFormData());
+        navigate("/");
+      }
+    } catch (error) {
+      message.error("Listing Creation Failed");
+      console.error("Listing Failed", error);
+    }
+  };
+
+  const handleRetour = () => {
+    if (token) {
+      navigate("/lists/8"); 
+    } else {
+      navigate("/lists/9"); 
+    }
+  };
 
   return (
     <>

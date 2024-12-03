@@ -8,7 +8,7 @@ import { useSignUpUserMutation } from "../../redux/services/services";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 
 function ErrorAlertMessage(props) {
-  const { error = {}, field = null } = props;
+  const { error = {}, field = {} } = props;
   return (
     error?.data && field &&
     error?.data[field] &&
@@ -62,12 +62,12 @@ function ListNine() {
     e.preventDefault();
   
     if (
-      !formValues.civilite ||
-      !formValues.first_name ||
-      !formValues.last_name ||
-      !formValues.email ||
-      !formValues.telephone ||
-      !formValues.password ||
+      !formValues.civilite &&
+      !formValues.first_name &&
+      !formValues.last_name &&
+      !formValues.email &&
+      !formValues.telephone &&
+      !formValues.password &&
       !formValues.confirmPassword
     ) {
       showError("All fields marked with * are required.");
@@ -213,14 +213,14 @@ function ListNine() {
                           className="password-toggle"
                         />
                       )}
-                    <ErrorAlertMessage error={error} field="password" />  
+                    {/* <ErrorAlertMessage error={error} field="password" />   */}
                     </div>
                   </div>
                   <div className="list-form-9-form-group">
+                    <div className="password-wrapper">
                     <label htmlFor="confirmPassword">
                       Confirmer le mot de passe*
                     </label>
-                    <div className="password-wrapper">
                       <input
                         value={formValues.confirmPassword}
                         onChange={handleChange}
@@ -230,15 +230,16 @@ function ListNine() {
                       />
                       {showConfirmPassword ? (
                         <MdOutlineVisibilityOff
-                          onClick={() => setShowConfirmPassword(false)}
-                          className="password-toggle"
+                        onClick={() => setShowConfirmPassword(false)}
+                        className="password-toggle"
                         />
                       ) : (
                         <MdOutlineVisibility
-                          onClick={() => setShowConfirmPassword(true)}
-                          className="password-toggle"
+                        onClick={() => setShowConfirmPassword(true)}
+                        className="password-toggle"
                         />
                       )}
+                      {/* <ErrorAlertMessage error={error} field="confirmPassword" />   */}
                     </div>
                   </div>
                 </div>

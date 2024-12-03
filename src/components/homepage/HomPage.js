@@ -34,8 +34,9 @@ import searchicon from "./Assests/Images/search-icon.svg";
 import {
   useFavoritesIconMutation,
   useGetListingsQuery,
+  useSearchFilterQuery,
 } from "../redux/services/services";
-import { message } from "antd";
+import { Carousel, message } from "antd";
 
 function HomPage() {
   const {
@@ -43,12 +44,14 @@ function HomPage() {
     error: listingsError,
     isLoading: isListingsLoading,
   } = useGetListingsQuery();
-  const [listData ,setListingsData]= useState(listingsData)
+  // const {data:filterData,error:filterError,isLoading:filterLoading} = useSearchFilterQuery()
+  const [listData, setListingsData] = useState(listingsData);
   // console.log(
   //   "listingsData",
   //   listingsData?.map((data) => data.location?.map((item) => item.city))
   // );
-  console.log("listings", listingsData);
+  console.log("listingsData", listingsData);
+  // console.log("data");
   const [favoritesIcon, {}] = useFavoritesIconMutation();
 
   const handleFavortiesIcons = async (e) => {
@@ -74,10 +77,17 @@ function HomPage() {
   const handleShowMore = (index) => {
     const updatedListings = [...listData];
     updatedListings[index].isExpanded = !updatedListings[index].isExpanded;
-  
+
     setListingsData(updatedListings);
   };
-  
+  const contentStyle = {
+    margin: 0,
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+  };
   return (
     <>
       {/* <Navbar changeLang={changeLang} t={t}/> */}
@@ -97,7 +107,9 @@ function HomPage() {
                   un bien immobilier de Particulier à Particulier, sans
                   commission.
                 </p>
-                <button className="hero__btn">Publier une annonce</button>
+                <Link to="/lists/1">
+                  <button className="hero__btn">Publier une annonce</button>
+                </Link>
               </div>
               <div className="hero__right">
                 <img src={Hero_image} alt="" className="hero__image" />
@@ -153,18 +165,18 @@ function HomPage() {
                     src={searchicon}
                     alt="Search Icon"
                     className="w-10 h-10 cursor-pointer bg-[#F03836] p-2 rounded-full"
-                    onClick={() =>
-                      document
-                        .getElementById("search")
-                        .classList.toggle("hidden")
-                    }
+                    // onClick={() =>
+                    //   document
+                    //     .getElementById("search")
+                    //     // .classList.toggle("hidden")
+                    // }
                   />
-                  <input
+                  {/* <input
                     id="search"
                     type="search"
                     placeholder="Rechercher"
                     className="hidden outline-none rounded-full bg-white text-black border border-gray-300 p-2 ml-2 w-full md:w-64 transition-all"
-                  />
+                  /> */}
                 </div>
               </form>
             </div>
@@ -247,54 +259,63 @@ function HomPage() {
                 </div>
               </div>
 
-              <div className="properties__grid w-full ">
-                {(listingsData || []).map((item, index) => (
-                  <div
-                    className="cards w-full"
-                    key={index}
-                  >
-                    <div
-                      style={{ backgroundImage: `url(${item.photos[0].url})` }}
-                      className="properties__top__block"
-                    >
-                      <div className="favorite__icon">
-                        <img
-                          name="favIcon"
-                          onClick={() => handleFavortiesIcons(item)}
-                          src={heart_Icon}
-                          alt=""
-                          className="cursor-pointer"
-                        />
-                      </div>
-                    </div>
-                    <div className="properties__bottom__block">
-                      <h4>{item.type.name}</h4>
-                      <p className="description">
-                        {item.description.length > 100 ? (
-                          <>
-                            {item.description.slice(0, 100)}...
-                            <button
-                              className="show-more"
-                              onClick={() => handleShowMore(index)}
-                            >
-                              Show More
-                            </button>
-                          </>
-                        ) : (
-                          item.description
-                        )}
-                      </p>
-                      <div className="location">
-                        <img src={location_Icon} alt="" />
-                        <p>{item.adresse}</p>
-                        <p>{parseFloat(item.surface)} m²</p>
-                      </div>
-                      <div className="divider"></div>
-                      <h5>{parseFloat(item.price)} €</h5>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <div className="properties__grid w-full">
+  {(listingsData || []).map((item, index) => (
+    <div className="cards w-full" key={index}>
+      <div className="properties__top__block">
+        {/* Carousel for Multiple Images */}
+        <Carousel arrows infinite={false}>
+          {item.photos?.map((photo, photoIndex) => (
+            <div key={photoIndex} className="carousel-slide">
+              <img
+                src={photo.url} // Access the `url` key for each photo object
+                alt={`Property ${index + 1} - Image ${photoIndex + 1}`}
+                className="property-image"
+              />
+            </div>
+          ))}
+        </Carousel>
+
+        <div className="favorite__icon">
+          <img
+            name="favIcon"
+            onClick={() => handleFavortiesIcons(item)}
+            src={heart_Icon}
+            alt="Favorite Icon"
+            className="cursor-pointer"
+          />
+        </div>
+      </div>
+      <div className="properties__bottom__block">
+        <h4>{item.type?.name || "Property Type"}</h4>
+        <p className="description">
+          {item.description?.length > 100 ? (
+            <>
+              {item.description.slice(0, 100)}...
+              <button
+                className="show-more"
+                onClick={() => handleShowMore(index)}
+              >
+                Show More
+              </button>
+            </>
+          ) : (
+            item.description || "No description available."
+          )}
+        </p>
+        <div className="location">
+          <img src={location_Icon} alt="Location Icon" />
+          <p>{item.location?.city}</p>
+          <p>, {item.location?.country}</p>
+          <p>, {item.location?.code_postal}</p>
+        </div>
+        <div className="divider"></div>
+        <h5>{item.price} €</h5>
+      </div>
+    </div>
+  ))}
+</div>
+
             </div>
           </section>
         </section>
