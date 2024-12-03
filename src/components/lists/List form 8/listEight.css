@@ -376,7 +376,24 @@ a {
     background-color: #e63939;
 }
 
-@media (max-width:767px) {
+.upload-box {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: 300px; 
+    border: 2px dashed #ccc; 
+    text-align: center; 
+}
+
+.image-box {
+    width: 100px; 
+    height: auto; 
+    margin-bottom: 10px; 
+}
+
+
+@media (max-width:768px) {
     .main-menu {
         display: none;
     }
@@ -384,6 +401,23 @@ a {
     .mobile__menu__section {
         display: block;
     }
+
+    .upload-box {
+        display: flex;
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        height: 300px; 
+        border: 2px dashed #ccc; 
+        text-align: center; 
+    }
+    
+    .image-box {
+        width: 100px; 
+        height: auto; 
+        margin-bottom: 10px; 
+    }
+    
 
     .ppc__logo__menu {
         max-width: 50%;
@@ -393,6 +427,7 @@ a {
         max-width: 100%;
         margin: 0;
     }
+    
 
     .ppc__logo img {
         max-width: 86px;

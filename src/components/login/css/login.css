@@ -492,7 +492,14 @@ form {
     }
 
     .social-login .facebook {
-        font-size: 14px;
+        font-size: 13px;
+        
+    }
+
+    
+
+    .button-content{
+        display: flex;
     }
 
     .facebook img {
@@ -546,6 +553,44 @@ form {
         align-items: center;
     }
 
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  gap: 10px; 
+  width: 100%; 
+  text-align: left;
+}
+
+.social-button img.icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.facebook {
+  background-color: #e7f3ff; 
+}
+
+.google {
+  background-color: #fff4f4; 
+}
+
+.twitter {
+  background-color: #eaf4ff; 
+}
 
 
 }

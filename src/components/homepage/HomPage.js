@@ -91,6 +91,7 @@ function HomPage() {
   return (
     <>
       {/* <Navbar changeLang={changeLang} t={t}/> */}
+      <div className="home-container">
       <main>
         <section className="hero__banner">
           <div className="container">
@@ -494,6 +495,7 @@ function HomPage() {
           </div>
         </section>
       </main>
+      </div>
       {/* <MobileNavbar/> */}
       {/* <section className="mobile__menu__section">
         <div className="mobile__menu__wrapper">

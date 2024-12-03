@@ -121,29 +121,45 @@ function MessagesFirstScreen() {
                   </div>
                 </div>
 
-                {/* <!-- Chat Messages --> */}
-                <div className="messages">
-                  <span className="timestamp">Jeudi, 4 janvier - 18:21</span>
+{/* <!-- Chat Messages --> */}
+<div className="messages">
+  <div className="content-scroll">
+    <span className="timestamp">Jeudi, 4 janvier - 18:21</span>
 
-                  <div className="message received">
-                    <p>Bonjour?</p>
-                  </div>
-                  <div className="message received-2">
-                    <img
-                      src={messageReceivedAvatar}
-                      className="message-received-avatar"
-                    />
-                    <p>Besoin de plus de détails pour la maison</p>
-                  </div>
-                  <div className="message-sent-wrapper">
-                    <div className="message sent">
-                      <p>Oui s’il vous plaît vous pouvez demander</p>
-                    </div>
-                    <div className="message sent-2">
-                      <p>Je répondrai à tout</p>
-                    </div>
-                  </div>
-                </div>
+    <div className="message received">
+      <p>Bonjour?</p>
+    </div>
+    <div className="message received-2">
+      <img src={messageReceivedAvatar} className="message-received-avatar" />
+      <p>Besoin de plus de détails pour la maison</p>
+    </div>
+    <div className="message received-2">
+      <img src={messageReceivedAvatar} className="message-received-avatar" />
+      <p>Besoin de plus de détails pour la maison</p>
+    </div>
+    <div className="message received-2">
+      <img src={messageReceivedAvatar} className="message-received-avatar" />
+      <p>Besoin de plus de détails pour la maison</p>
+    </div>
+    <div className="message received-2">
+      <img src={messageReceivedAvatar} className="message-received-avatar" />
+      <p>Besoin de plus de détails pour la maison</p>
+    </div>
+    <div className="message received-2">
+      <img src={messageReceivedAvatar} className="message-received-avatar" />
+      <p>Besoin de plus de détails pour la maison</p>
+    </div>
+    <div className="message-sent-wrapper">
+      <div className="message sent">
+        <p>Oui s’il vous plaît vous pouvez demander</p>
+      </div>
+      <div className="message sent-2">
+        <p>Je répondrai à tout</p>
+      </div>
+    </div>
+  </div>
+</div>
+
                 <div className="chat-footer">
                   <input
                     type="text"

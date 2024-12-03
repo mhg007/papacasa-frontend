@@ -305,10 +305,14 @@ a {
   background-color: #e63939;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .main-menu {
     display: none;
   }
+
+  .list-form-1-form-container{
+    margin-top: -12px;
+  } 
 
   .mobile__menu__section {
     display: block;
@@ -403,7 +407,7 @@ a {
 
   .list-form-1__inner__container h2 {
     font-size: 24px;
-    line-height: 36px;
+    line-height: 24px;
     margin-bottom: 16px;
   }
 
@@ -439,16 +443,20 @@ a {
 
   .progress {
     align-items: center;
+      
   }
 
   .progress p {
-    font-size: 16px;
+    font-size: 3px;
     line-height: 24px;
   }
 
   .progress span {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 2px;
+    line-height: 37px;
+    margin-top: 19px;
+    font-size: small;
+    color: blueviolet;
   }
 
   .back {
