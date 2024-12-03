@@ -2,6 +2,8 @@ import React from 'react'
 import li_home from "./mobile menu icons/li_home.svg";
 import cart_icon from "./mobile menu icons/cart-icon.svg";
 import post_ad_icon from "./mobile menu icons/post-ad-icon.svg";
+import Vendre from "./mobile menu icons/vendre-icon.svg"
+import info_icon from "./mobile menu icons/info-icon.svg"
 
 
 function MobileNavbar() {
@@ -29,13 +31,13 @@ function MobileNavbar() {
             </div>
             <div  className="mobile__menu__item">
               <a href="">
-                <img src="/Asessts/Images/mobile menu icons/vendre-icon.svg" />
+                <img src={Vendre} />
                 <p>Vendre</p>
               </a>
             </div>
             <div  className="mobile__menu__item">
               <a href="">
-                <img src="/Asessts/Images/mobile menu icons/info-icon.svg" />
+                <img src={info_icon} />
                 <p>À propos</p>
               </a>
             </div>

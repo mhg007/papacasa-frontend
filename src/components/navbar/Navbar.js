@@ -47,14 +47,16 @@ function Navbar({ changeLang, t, i18n }) {
                   <button className="header__btn">{t("Post an ad")}</button>
                 </Link>
                
-              </div>
+              </div >
+              <div className="en-navbar">
               <div className="flex justify-evenly items-center gap-5 ml-4">
                 <button onClick={() => changeLang("en")}>En</button>
                 <button onClick={() => changeLang("fr")}>Fr</button>
               </div>
+              </div>
               <div className="ppc__header__mobile__btn">
                   <Link>
-                    <button className="header__mobile__btn text-black font-extrabold text-8xl">Se connecters</button>
+                    <button className="header__mobile__btn text-black font-extrabold text-2xl">Se connecter</button>
                   </Link>
                 </div>
             </div>

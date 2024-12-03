@@ -4,6 +4,10 @@ import "./signUp.css";
 import { useTranslation } from "react-i18next";
 import { useSignUpUserMutation } from "../redux/services/services";
 import { message } from "antd";
+import facebook_coloured from "./Asessts/Images/facebook-colored-logo.svg"
+import google_colored from "./Asessts/Images/google-colored-icon.svg"
+import twitter_colored from "./Asessts/Images/twitter-colored-icon.svg"
+
 function SignUp() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -116,15 +120,15 @@ function SignUp() {
 
               <div className="social-login">
                 <button className="facebook">
-                  <img src="/Asessts/Images/facebook-colored-logo.svg" alt="" />
+                  <img src={facebook_coloured} alt="" />
                   {t("Continuer avec Facebook")}
                 </button>
                 <button className="google">
-                  <img src="/Asessts/Images/google-colored-icon.svg" alt="" />
+                  <img src={google_colored} alt="" />
                   {t("Continuer avec Google")}
                 </button>
                 <button className="twitter">
-                  <img src="/Asessts/Images/twitter-colored-icon.svg" alt="" />
+                  <img src={twitter_colored} alt="" />
                   {t("Continuer avec Twitter")}
                 </button>
               </div>
