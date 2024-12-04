@@ -7,8 +7,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-
-
 .container {
   max-width: 1380px;
   margin: 0 auto;
@@ -380,6 +378,10 @@ form {
     display: none;
   }
 
+  .hideDiv {
+    display: none;
+  }
+
   .mobile__menu__section {
     display: block;
   }
@@ -389,7 +391,8 @@ form {
   }
 
   .ppc__logo {
-    max-width: 80%; /* Adjust the logo size on smaller screens */ }
+    max-width: 80%; /* Adjust the logo size on smaller screens */
+  }
 
   .ppc__logo img {
     max-width: 86px;
@@ -404,15 +407,14 @@ form {
     justify-content: flex-end;
     align-items: center; /* Ensure buttons align horizontally in the center */
     width: 100%; /* Ensure the container takes full width */
-    max-width: 100%; 
+    max-width: 100%;
   }
-  
-  .ppc__header__mobile__btn button {
-    margin-left: 30px; 
-  }
-  
 
-  .en-navbar{
+  .ppc__header__mobile__btn button {
+    margin-left: 30px;
+  }
+
+  .en-navbar {
     display: none;
   }
 
@@ -420,18 +422,17 @@ form {
     padding: 4px;
     display: flex;
     justify-content: flex-end;
-    align-items: center; 
-    width: 100%; 
+    align-items: center;
+    width: 100%;
     flex-wrap: nowrap;
   }
-  
+
   .ppc__header__mobile__btn button {
-    margin-left: 8px; 
+    margin-left: 8px;
     padding: 13px;
-    margin-top: 3px ;
-    white-space: nowrap; 
+    margin-top: 3px;
+    white-space: nowrap;
   }
-  
 
   .header__main__wrapper {
     padding: 17px 24px;

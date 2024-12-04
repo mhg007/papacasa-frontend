@@ -45,7 +45,7 @@ function App() {
             {/* Secured Route */}
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<HomPage />} />
-              <Route path="/navbar" element={<Navbar />} />
+              {/* <Route path="/navbar" element={<Navbar />} /> */}
               <Route path="/mobile-nav" element={<MobileNavbar />} />
               <Route path="/lists/1" element={<ListOne />} />
               <Route path="/lists/2" element={<ListTwo />} />
