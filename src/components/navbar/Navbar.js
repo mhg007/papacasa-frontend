@@ -66,7 +66,7 @@ function Navbar({ changeLang, t, i18n }) {
               {!token?
               <div className="ppc__header__mobile__btn">
                   <Link to={"/login"}>
-                    <button className="header__mobile__btn text-black font-extrabold text-8xl">Se connecters</button>
+                    <button className="header__mobile__btn text-black font-extrabold text-8xl">Se connecter</button>
                   </Link>
                 </div>:null
               }
