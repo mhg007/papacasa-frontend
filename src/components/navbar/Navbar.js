@@ -38,8 +38,8 @@ function Navbar({ changeLang, t, i18n }) {
                   </nav>
                 </div>
               </div>
-              <div className="ppc__header__btn">
-                
+              <div className="hideDiv w-full flex flex-row justify-between">
+              <div className="flex w-[100%] justify-center items-center gap-9 ">
                 {!token ?
                   <Link to={"/login"}>
                   <button className="header__btn">{t("Log in")}</button>
@@ -49,18 +49,27 @@ function Navbar({ changeLang, t, i18n }) {
                 </Link>
               }
                
-              </div >
-              <div className="en-navbar">
-              <div className="flex justify-evenly items-center gap-5 ml-4">
+              <div className=" flex gap-5 ">
                 <button onClick={() => changeLang("en")}>En</button>
                 <button onClick={() => changeLang("fr")}>Fr</button>
               </div>
               </div>
+              <div class="flex justify-center items-center gap-3 w-[130px] ">
+                        <Link >
+                            {/* <img src={bellIcon}  /> */}
+                        </Link>
+                        <Link >
+                            {/* <img src={userIcon}  /> */}
+                        </Link>
+                    </div>
+              </div>
+              {!token?
               <div className="ppc__header__mobile__btn">
-                  <Link>
-                    <button className="header__mobile__btn text-black font-extrabold text-2xl">Se connecter</button>
+                  <Link to={"/login"}>
+                    <button className="header__mobile__btn text-black font-extrabold text-8xl">Se connecter</button>
                   </Link>
-                </div>
+                </div>:null
+              }
             </div>
           </div>
         </section>
