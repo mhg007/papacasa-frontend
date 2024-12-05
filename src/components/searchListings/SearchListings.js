@@ -120,7 +120,17 @@ function SearchListings() {
   console.log("listingsData",listingsData)
 
   const [listData, setListingsData] = useState(listingsData);
-
+  useEffect(() => {
+    if (listingsData && Array.isArray(listingsData)) {
+      const sortedData = [...listingsData].sort((a, b) => {
+        const dateA = a.created_at ? new Date(a.created_at) : new Date(0); // Fallback to earliest date
+        const dateB = b.created_at ? new Date(b.created_at) : new Date(0);
+        return dateB - dateA;
+      });
+      setListingsData(sortedData);
+    }
+  }, [listingsData]);
+  
   return (
     <>
       <div className="container flex flex-col gap-5">
@@ -222,7 +232,7 @@ function SearchListings() {
         </div>
 
         <div className="properties__grid w-full mt-8">
-          {(listingsData || []).map((item, index) => (
+          {(listData|| []).map((item, index) => (
             <div className="cards w-full" key={index}>
               <div className="properties__top__block">
                 <Carousel arrows infinite={false}>
