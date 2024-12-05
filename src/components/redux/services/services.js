@@ -6,23 +6,37 @@ export const papaCasaApi = createApi({
   baseQuery: baseQueryWithRefresh,
   endpoints: (builder) => ({
     getListings: builder.query({
-      query: () => "listings/",
+      query: (params) => {
+        const queryString = new URLSearchParams(params).toString();
+        console.log('dsdasdaas', params)
+        if(params.city || params.max_price || params.min_price|| params.no_of_rooms || params.type || params.searchType)
+        return `listings/?${queryString}`;
+      else{
+        return `listings/`
+      }
+      },
     }),
     userData: builder.query({
       query: () => "users/",
+    }),
+    listOneData: builder.query({
+      query: () => "listing-types",
+    }),
+    dropDownData: builder.query({ // Uncommented this endpoint
+      query: () => "dropdown-data/",
     }),
     uploadFile: builder.mutation({
       query: ({ payload }) => ({
         url: "/uploadfiles",
         method: "POST",
-        body: payload
+        body: payload,
       }),
     }),
     favoritesIcon: builder.mutation({
       query: ({ payload }) => ({
         url: "favorites/",
         method: "POST",
-        body: payload
+        body: payload,
       }),
     }),
     loginUser: builder.mutation({
@@ -39,7 +53,7 @@ export const papaCasaApi = createApi({
         body: payload,
       }),
     }),
-      submitFormData: builder.mutation({
+    submitFormData: builder.mutation({
       query: (formData) => ({
         url: "listings/",
         method: "POST",
@@ -49,13 +63,14 @@ export const papaCasaApi = createApi({
   }),
 });
 
-
 export const { 
   useGetListingsQuery, 
   useLoginUserMutation, 
-  useSignUpUserMutation ,
+  useSignUpUserMutation,
   useFavoritesIconMutation,
   useSubmitFormDataMutation,
   useUploadFileMutation,
-  useUserDataQuery
+  useUserDataQuery,
+  useListOneDataQuery,
+  useDropDownDataQuery, // Ensure this is exported
 } = papaCasaApi;

@@ -4,18 +4,18 @@ import footericonsyoutube from "./footer-icons/youtube (2).svg";
 import footericonstwitter from "./footer-icons/twitter (2).svg";
 import footericonsinsta from "./footer-icons/insta.svg";
 import footericonsfacebook from "./footer-icons/facebook.svg";
+import logo from "../homepage/Assests/Images/new-logo.svg";
 import { useTranslation } from "react-i18next";
 export const Footer = () => {
   const { t, i18n } = useTranslation();
   return (
     <footer>
-      <section>
-        <div className="footer__container">
-          <section className="main__footer__wrapper">
-            <div className="ppc__logo__social flex flex-col gap-5 pb-10 ">
+        <div className="footer__container flex justify-center items-center ">
+          <section className="main__footer__wrapper flex justify-center items-center">
+            <div className=" flex flex-col gap-5 pb-10  w-[300px]">
               <Link>
                 <img
-                  src="/Asessts/Images/new-logo.svg"
+                  src={logo}
                   alt=""
                   className="footer__logo"
                 />
@@ -62,7 +62,7 @@ export const Footer = () => {
                 </div>
               </Link>
             </div>
-            <div className="ppc__pages">
+            <div className="flex flex-col gap-2 pb-10  w-[300px]">
               <h2>Pages</h2>
               <Link href="#">
                 <li className="footer__pages">{t("Real estate price")}</li>
@@ -82,7 +82,6 @@ export const Footer = () => {
             </div>
           </section>
         </div>
-      </section>
     </footer>
   );
 };

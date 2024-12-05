@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/homepage.css";
 import newlogo from "./Assests/Images/new-logo.svg";
 import Hero_image from "./Assests/Images/Hero_image.webp";
@@ -18,40 +18,74 @@ import why_papacasa_image from "./Assests/Images/why_papacasa_image.png";
 import comas from "./Assests/Images/comas.png";
 import previous_icon from "./Assests/Images/previous_icon.svg";
 import next_icon from "./Assests/Images/next-icon.svg";
-import Building_front from "./Assests/Images/Buildingfront.png";
-import grid_2 from "./Assests/Images/grid_2.png";
-import grid_3 from "./Assests/Images/grid_3.png";
-import grid_4 from "./Assests/Images/grid_4.png";
-import grid_5 from "./Assests/Images/grid_5.png";
-import grid_6 from "./Assests/Images/grid_6.png";
-import grid_7 from "./Assests/Images/grid_7.png";
-import grid_8 from "./Assests/Images/grid_8.png";
 import Farm_house from "./Assests/Images/Farm house.png";
 import Scenic_home from "./Assests/Images/Scenic home.png";
 import Apartments from "./Assests/Images/Apartments.png";
 import home_pictures from "./Assests/Images/home pictures.png";
 import searchicon from "./Assests/Images/search-icon.svg";
 import {
+  useDropDownDataQuery,
   useFavoritesIconMutation,
   useGetListingsQuery,
+  useListOneDataQuery,
   useSearchFilterQuery,
 } from "../redux/services/services";
-import { Carousel, message } from "antd";
-
+import { Carousel, Dropdown, message } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { filterListings } from "../redux/slice/filterCardsList";
 function HomPage() {
-  const {
-    data: listingsData,
-    error: listingsError,
-    isLoading: isListingsLoading,
-  } = useGetListingsQuery();
-  // const {data:filterData,error:filterError,isLoading:filterLoading} = useSearchFilterQuery()
-  const [listData, setListingsData] = useState(listingsData);
-  // console.log(
-  //   "listingsData",
-  //   listingsData?.map((data) => data.location?.map((item) => item.city))
-  // );
+  const [formValues, setFormValues] = useState({
+    searchType: "",
+    citys: "",
+    minMaxPrice: "",
+    pieces: "",
+    type: "",
+  });
+
+  const getFilters = useMemo(() => {
+    const { searchType, citys, minMaxPrice, pieces, type } = formValues;
+    const [minPrice, maxPrice] = minMaxPrice
+      ? minMaxPrice.split("-").map(Number)
+      : [null, null];
+  
+    const filters = {};
+  
+    if (searchType) filters.searchType = searchType;
+    if (citys) filters.city = citys;
+    if (minPrice !== null) filters.min_price = minPrice;
+    if (maxPrice !== null) filters.max_price = maxPrice;
+    if (pieces) filters.no_of_rooms = pieces;
+    if (type) filters.type = type;
+  
+    return filters;
+  }, [formValues]);
+
+  const { data: listingsData, isLoading: isListingsLoading } =
+    useGetListingsQuery(getFilters);
   console.log("listingsData", listingsData);
+  const intialFilterData = useSelector(
+    (state) => state.filterCardsList?.filterList || {}
+  );
+
+  const { data: filterData, isError, isLoading } = useListOneDataQuery();
+  useEffect(() => {
+    if (
+      intialFilterData &&
+      JSON.stringify(intialFilterData) !== JSON.stringify(formValues)
+    ) {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        ...intialFilterData,
+      }));
+    }
+  }, [intialFilterData]);
+
+  const [listData, setListingsData] = useState(listingsData);
+  // console.log("filterData", filterData);
+  // console.log("filterData.localisation.citys", filterData?.localisation?.citys);
   // console.log("data");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [favoritesIcon, {}] = useFavoritesIconMutation();
 
   const handleFavortiesIcons = async (e) => {
@@ -82,11 +116,38 @@ function HomPage() {
   };
   const contentStyle = {
     margin: 0,
-    height: '160px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
+    height: "160px",
+    color: "#fff",
+    lineHeight: "160px",
+    textAlign: "center",
+    background: "#364d79",
+  };
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [id]: value, // Update the relevant field dynamically
+    }));
+    console.log("e", e);
+    console.log("formValues", formValues);
+  };
+  const handleSelect = () => {
+    const [minPrice, maxPrice] = formValues.minMaxPrice
+      ? formValues.minMaxPrice.split("-").map(Number)
+      : [null, null];
+
+    const filterDropData = {
+      ...formValues,
+      minPrice,
+      maxPrice,
+    };
+    console.log("filterDropData", filterDropData);
+
+    // Dispatch to Redux store
+    dispatch(
+      filterListings({ filterCard: "filterList", data: filterDropData })
+    );
+    navigate("/search-listings");
   };
   return (
     <>
@@ -115,71 +176,104 @@ function HomPage() {
                 <img src={Hero_image} alt="" className="hero__image" />
               </div>
             </div>
-            <div className="search__bar">
-              <form className="search__form flex flex-wrap gap-4 items-center">
-                {/* Type de recherche */}
-                <div className="search__types-1 w-full md:w-auto">
-                  <h2 className="text-sm font-medium mb-1">
-                    Type de recherche
-                  </h2>
-                  <select className="m-0 w-full border border-gray-300 rounded p-2">
-                    <option value="">Sélectionner</option>
-                  </select>
-                </div>
+          </div>
+          <div className="search__bar">
+            <form className="search__form flex flex-wrap gap-4 items-center">
+              {/* Type de recherche */}
+              <div className="search__types-1 w-full md:w-auto">
+                <h2 className="text-sm font-medium mb-1">Type de recherche</h2>
+                <select
+                  id="searchType"
+                  className="m-0 w-full border border-gray-300 rounded p-2"
+                  onChange={handleChange}
+                >
+                  <option value="">Sélectionner</option>
+                  <option value="achat">Achat</option>
+                  {/* <option value="location">Location</option> */}
+                </select>
+              </div>
 
-                {/* Localisation */}
-                <div className="search__types w-full md:w-auto">
-                  <h2 className="text-sm font-medium mb-1">Localisation</h2>
-                  <select className="m-0 w-full border border-gray-300 rounded p-2">
-                    <option value="">Sélectionner</option>
-                  </select>
-                </div>
+              {/* Localisation */}
+              <div className="search__types w-full md:w-auto">
+                <h2 className="text-sm font-medium mb-1">Localisation</h2>
+                <select
+                  id="citys"
+                  className="m-0 w-full border border-gray-300 rounded p-2"
+                  onChange={handleChange}
+                >
+                  <option value="">Sélectionner</option>
+                  {/* {filterData?.localisation?.citys?.map((city) => ( */}
+                  <option value="karachi">
+                    {/* {city.name} */}
+                    Karachi
+                  </option>
+                  {/* ))} */}
+                </select>
+              </div>
 
-                {/* Types de bien */}
-                <div className="search__types w-full md:w-auto">
-                  <h2 className="text-sm font-medium mb-1">Types de bien</h2>
-                  <select className="m-0 w-full border border-gray-300 rounded p-2">
-                    <option value="">Sélectionner</option>
-                  </select>
-                </div>
+              {/* Types de bien */}
+              <div className="search__types w-full md:w-auto">
+                <h2 className="text-sm font-medium mb-1">Types de bien</h2>
+                <select
+                  id="propType"
+                  className="m-0 w-full border border-gray-300 rounded p-2"
+                  onChange={handleChange}
+                >
+                  <option value="">Sélectionner</option>
+                  {filterData?.map((type) => (
+                    <option key={type.id} value={type.name}>
+                      {type.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                {/* Pièces */}
-                <div className="search__types w-full md:w-auto">
-                  <h2 className="text-sm font-medium mb-1">Pièces</h2>
-                  <select className="m-0 w-full border border-gray-300 rounded p-2">
-                    <option value="">Sélectionner</option>
-                  </select>
-                </div>
+              {/* Pièces */}
+              <div className="search__types w-full md:w-auto">
+                <h2 className="text-sm font-medium mb-1">Pièces</h2>
+                <select
+                  id="pieces"
+                  className="m-0 w-full border border-gray-300 rounded p-2"
+                  onChange={handleChange}
+                >
+                  <option value="">Sélectionner</option>
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((piece) => (
+                    <option key={piece} value={piece}>
+                      {piece}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                {/* Prix maximum */}
-                <div className="search__types w-full md:w-auto">
-                  <h2 className="text-sm font-medium mb-1">Prix maximum</h2>
-                  <select className="m-0 w-full border border-gray-300 rounded p-2">
-                    <option value="">Ajouter Prix (€)</option>
-                  </select>
-                </div>
+              {/* Prix maximum */}
+              <div className="search__types w-full md:w-auto">
+                <h2 className="text-sm font-medium mb-1">Prix maximum</h2>
+                <select
+                  id="minMaxPrice"
+                  className="m-0 w-full border border-gray-300 rounded p-2"
+                  onChange={handleChange}
+                >
+                  <option value="">Ajouter Prix (€)</option>
+                  <option value="100-200">€100 - €200</option>
+                  <option value="200-500">€200 - €500</option>
+                  <option value="500-1000">€500 - €1000</option>
+                  <option value="1000-2000">€1000 - €2000</option>
 
-                {/* Search Icon */}
-                <div className="search__icon relative w-full md:w-auto flex items-center">
-                  <img
-                    src={searchicon}
-                    alt="Search Icon"
-                    className="w-10 h-10 cursor-pointer bg-[#F03836] p-2 rounded-full"
-                    // onClick={() =>
-                    //   document
-                    //     .getElementById("search")
-                    //     // .classList.toggle("hidden")
-                    // }
-                  />
-                  {/* <input
-                    id="search"
-                    type="search"
-                    placeholder="Rechercher"
-                    className="hidden outline-none rounded-full bg-white text-black border border-gray-300 p-2 ml-2 w-full md:w-64 transition-all"
-                  /> */}
-                </div>
-              </form>
-            </div>
+                  <option value="10000-200000">€10000 - €200000</option>
+                  <option value="80000-200000">€80000 - €200000</option>
+                </select>
+              </div>
+
+              {/* Search Button */}
+              <div className="search__icon relative w-full md:w-auto flex items-center">
+                <img
+                  src={searchicon}
+                  onClick={handleSelect}
+                  alt="Search Icon"
+                  className="w-10 h-10 cursor-pointer bg-[#F03836] p-2 rounded-full"
+                />
+              </div>
+            </form>
 
             <form action="" className="mobile__search__btn">
               <div className="mbl__Srch__btn__wrapper">
@@ -260,62 +354,63 @@ function HomPage() {
               </div>
 
               <div className="properties__grid w-full">
-  {(listingsData || []).map((item, index) => (
-    <div className="cards w-full" key={index}>
-      <div className="properties__top__block">
-        {/* Carousel for Multiple Images */}
-        <Carousel arrows infinite={false}>
-          {item.photos?.map((photo, photoIndex) => (
-            <div key={photoIndex} className="carousel-slide">
-              <img
-                src={photo.url} // Access the `url` key for each photo object
-                alt={`Property ${index + 1} - Image ${photoIndex + 1}`}
-                className="property-image"
-              />
-            </div>
-          ))}
-        </Carousel>
+                {(listingsData || []).map((item, index) => (
+                  <div className="cards w-full" key={index}>
+                    <div className="properties__top__block">
+                      {/* Carousel for Multiple Images */}
+                      <Carousel arrows infinite={false}>
+                        {item.photos?.map((photo, photoIndex) => (
+                          <div key={photoIndex} className="carousel-slide">
+                            <img
+                              src={photo.url} // Access the `url` key for each photo object
+                              alt={`Property ${index + 1} - Image ${
+                                photoIndex + 1
+                              }`}
+                              className="property-image"
+                            />
+                          </div>
+                        ))}
+                      </Carousel>
 
-        <div className="favorite__icon">
-          <img
-            name="favIcon"
-            onClick={() => handleFavortiesIcons(item)}
-            src={heart_Icon}
-            alt="Favorite Icon"
-            className="cursor-pointer"
-          />
-        </div>
-      </div>
-      <div className="properties__bottom__block">
-        <h4>{item.type?.name || "Property Type"}</h4>
-        <p className="description">
-          {item.description?.length > 100 ? (
-            <>
-              {item.description.slice(0, 100)}...
-              <button
-                className="show-more"
-                onClick={() => handleShowMore(index)}
-              >
-                Show More
-              </button>
-            </>
-          ) : (
-            item.description || "No description available."
-          )}
-        </p>
-        <div className="location">
-          <img src={location_Icon} alt="Location Icon" />
-          <p>{item.location?.city}</p>
-          <p>, {item.location?.country}</p>
-          <p>, {item.location?.code_postal}</p>
-        </div>
-        <div className="divider"></div>
-        <h5>{item.price} €</h5>
-      </div>
-    </div>
-  ))}
-</div>
-
+                      <div className="favorite__icon">
+                        <img
+                          name="favIcon"
+                          onClick={() => handleFavortiesIcons(item)}
+                          src={heart_Icon}
+                          alt="Favorite Icon"
+                          className="cursor-pointer"
+                        />
+                      </div>
+                    </div>
+                    <div className="properties__bottom__block">
+                      <h4>{item.type?.name || "Property Type"}</h4>
+                      <p className="description">
+                        {item.description?.length > 100 ? (
+                          <>
+                            {item.description.slice(0, 100)}...
+                            <button
+                              className="show-more"
+                              onClick={() => handleShowMore(index)}
+                            >
+                              Show More
+                            </button>
+                          </>
+                        ) : (
+                          item.description || "No description available."
+                        )}
+                      </p>
+                      <div className="location">
+                        <img src={location_Icon} alt="Location Icon" />
+                        <p>{item.location?.city}</p>
+                        <p>, {item.location?.country}</p>
+                        <p>, {item.location?.code_postal}</p>
+                      </div>
+                      <div className="divider"></div>
+                      <h5>{item.price} €</h5>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
         </section>
@@ -494,117 +589,6 @@ function HomPage() {
           </div>
         </section>
       </main>
-      {/* <MobileNavbar/> */}
-      {/* <section className="mobile__menu__section">
-        <div className="mobile__menu__wrapper">
-          <div className="mobile__menu__item">
-            <Link>
-              <img src={li_home} alt="" />
-              <p>Accueil</p>
-            </Link>
-          </div>
-          <div className="mobile__menu__item">
-            <Link>
-              <img src={cart_icon} alt="" />
-              <p>Acheter</p>
-            </Link>
-          </div>
-          <div className="mobile__menu__item">
-            <Link>
-              <img src={post_ad_icon} alt="" />
-              <p>Annonce</p>
-            </Link>
-          </div>
-          <div className="mobile__menu__item">
-            <Link>
-              <img src={vendre_icon} alt="" />
-              <p>Vendre</p>
-            </Link>
-          </div>
-          <div className="mobile__menu__item">
-            <Link>
-              <img src={info_icon} alt="" />
-              <p>À propos</p>
-            </Link>
-          </div>
-        </div>
-      </section> */}
-      {/* <footer>
-        <section>
-          <div className="footer__container">
-            <section className="main__footer__wrapper">
-              <div className="ppc__logo__social flex flex-col gap-5 pb-10 ">
-                <Link>
-                  <img
-                    src="/Asessts/Images/new-logo.svg"
-                    alt=""
-                    className="footer__logo"
-                  />
-                </Link>
-
-                <Link href="#">
-                  <div className="links">
-                    <img
-                      src={footericonsfacebook}
-                      alt=""
-                      className="social-icons"
-                    />
-                    <p className="social__text">Facebook</p>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div className="links">
-                    <img
-                      src={footericonstwitter}
-                      alt=""
-                      className="social-icons"
-                    />
-                    <p className="social__text">Twitter</p>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div className="links">
-                    <img
-                      src={footericonsinsta}
-                      alt=""
-                      className=" social-icons"
-                    />
-                    <p className="social__text">Instagram</p>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div className="links">
-                    <img
-                      src={footericonsyoutube}
-                      alt=""
-                      className="social-icons"
-                    />
-                    <p className="social__text">Youtube</p>
-                  </div>
-                </Link>
-              </div>
-              <div className="ppc__pages">
-                <h2>Pages</h2>
-                <Link href="#">
-                  <li className="footer__pages">{t("Real estate price")}</li>
-                </Link>
-                <Link href="#">
-                  <li className="footer__pages">{t("Buy")}</li>
-                </Link>
-                <Link href="#">
-                  <li className="footer__pages">{t("To rent out")}</li>
-                </Link>
-                <Link href="#">
-                  <li className="footer__pages">{t("Vacation")}</li>
-                </Link>
-                <Link href="#">
-                  <li className="footer__pages">{t("My space")}</li>
-                </Link>
-              </div>
-            </section>
-          </div>
-        </section>
-      </footer> */}
     </>
   );
 }
