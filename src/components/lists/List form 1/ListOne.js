@@ -21,17 +21,16 @@ function ListOne() {
   const handleChange = (type) => {
     setSelectedTypes((prevSelectedTypes) => {
       if (prevSelectedTypes.includes(type)) {
-        return prevSelectedTypes.filter((t) => t !== type);
+        return [];
       } else {
-        return [...prevSelectedTypes, type];
+        return [type];
       }
     });
-    console.log(selectedTypes)
   };
 
   const handleStepUpdate = () => {
     // Dispatch the updated list to Redux
-    if (selectedTypes.length !== 0) {
+    if (selectedTypes.length === 1) {
       const formData = {
         propertyType: selectedTypes,
       };
