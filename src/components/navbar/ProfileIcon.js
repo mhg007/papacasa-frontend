@@ -56,8 +56,8 @@ function ProfileIcon() {
         pointAtCenter: true,
       }}
     >
-      <button>
-        <img src={userIcon} alt="User Icon" />
+      <button className="rounded-full">
+        <img src={"https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"} width={50} className="rounded-full" alt="User Icon" />
       </button>
     </Dropdown>
   );

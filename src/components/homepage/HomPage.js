@@ -30,10 +30,11 @@ import {
   useListOneDataQuery,
   useSearchFilterQuery,
 } from "../redux/services/services";
-import { Carousel, Dropdown, message } from "antd";
+import { Carousel, Dropdown, message, Slider } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { filterListings } from "../redux/slice/filterCardsList";
 function HomPage() {
+  const [priceRange, setPriceRange] = useState([0, 20000]);
   const [formValues, setFormValues] = useState({
     searchType: "",
     citys: "",
@@ -42,23 +43,53 @@ function HomPage() {
     type: "",
   });
 
+  const handleChange = (e) => {
+    const { id, value } = e.target || {}; // Get the target id and value
+    const isSlider = Array.isArray(value); // Check if the value is from the slider
+
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [id]: isSlider ? `${value[0]}-${value[1]}` : value, // Handle slider and other inputs
+    }));
+
+    console.log("Updated formValues:", formValues);
+  };
+
   const getFilters = useMemo(() => {
-    const { searchType, citys, minMaxPrice, pieces, type } = formValues;
+    const { searchType, citys, minMaxPrice, pieces, propType } = formValues;
     const [minPrice, maxPrice] = minMaxPrice
       ? minMaxPrice.split("-").map(Number)
       : [null, null];
-  
+
     const filters = {};
-  
+
     if (searchType) filters.searchType = searchType;
     if (citys) filters.city = citys;
     if (minPrice !== null) filters.min_price = minPrice;
     if (maxPrice !== null) filters.max_price = maxPrice;
     if (pieces) filters.no_of_rooms = pieces;
-    if (type) filters.type = type;
-  
+    if (propType) filters.type = propType;
+
     return filters;
   }, [formValues]);
+
+  // const filteredCards = useMemo(() => {
+  //   return cards.filter((card) => {
+  //     const { min_price, max_price } = getFilters;
+  //     const isWithinPriceRange =
+  //       (!min_price || card.price >= min_price) &&
+  //       (!max_price || card.price <= max_price);
+
+  //     return (
+  //       isWithinPriceRange &&
+  //       (getFilters.city ? card.city === getFilters.city : true) &&
+  //       (getFilters.no_of_rooms
+  //         ? card.rooms === parseInt(getFilters.no_of_rooms, 10)
+  //         : true) &&
+  //       (getFilters.type ? card.type === getFilters.type : true)
+  //     );
+  //   });
+  // }, [cards, getFilters]);
 
   const { data: listingsData, isLoading: isListingsLoading } =
     useGetListingsQuery(getFilters);
@@ -68,22 +99,8 @@ function HomPage() {
   );
 
   const { data: filterData, isError, isLoading } = useListOneDataQuery();
-  useEffect(() => {
-    if (
-      intialFilterData &&
-      JSON.stringify(intialFilterData) !== JSON.stringify(formValues)
-    ) {
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        ...intialFilterData,
-      }));
-    }
-  }, [intialFilterData]);
 
   const [listData, setListingsData] = useState(listingsData);
-  // console.log("filterData", filterData);
-  // console.log("filterData.localisation.citys", filterData?.localisation?.citys);
-  // console.log("data");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [favoritesIcon, {}] = useFavoritesIconMutation();
@@ -122,15 +139,7 @@ function HomPage() {
     textAlign: "center",
     background: "#364d79",
   };
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [id]: value, // Update the relevant field dynamically
-    }));
-    console.log("e", e);
-    console.log("formValues", formValues);
-  };
+
   const handleSelect = () => {
     const [minPrice, maxPrice] = formValues.minMaxPrice
       ? formValues.minMaxPrice.split("-").map(Number)
@@ -149,6 +158,14 @@ function HomPage() {
     );
     navigate("/search-listings");
   };
+
+  const formatNumber = (value) => {
+    return new Intl.NumberFormat("de-DE", {
+      style: "currency",
+      currency: "EUR",
+    }).format(value);
+  };
+
   return (
     <>
       {/* <Navbar changeLang={changeLang} t={t}/> */}
@@ -177,8 +194,8 @@ function HomPage() {
               </div>
             </div>
           </div>
-          <div className="search__bar">
-            <form className="search__form flex flex-wrap gap-4 items-center">
+          <div className="search__bar m-auto">
+            <form className="search__form flex flex-wrap items-center">
               {/* Type de recherche */}
               <div className="search__types-1 w-full md:w-auto">
                 <h2 className="text-sm font-medium mb-1">Type de recherche</h2>
@@ -194,21 +211,18 @@ function HomPage() {
               </div>
 
               {/* Localisation */}
-              <div className="search__types w-full md:w-auto">
-                <h2 className="text-sm font-medium mb-1">Localisation</h2>
-                <select
-                  id="citys"
-                  className="m-0 w-full border border-gray-300 rounded p-2"
-                  onChange={handleChange}
-                >
-                  <option value="">Sélectionner</option>
-                  {/* {filterData?.localisation?.citys?.map((city) => ( */}
-                  <option value="karachi">
-                    {/* {city.name} */}
-                    Karachi
-                  </option>
-                  {/* ))} */}
-                </select>
+              <div className="search__types flex justify-end items-center w-full md:w-auto ">
+                {/* <div className=" flex justify-center items-center bg-slate-500"> 
+                </div> */}
+                <div className=" h-36 flex flex-col items-center justify-end ">
+                  <h2 className="text-sm font-medium">Localisation</h2>
+                  <input
+                    id="citys"
+                    className="w-full border focus:border-gray-300 rounded"
+                    onChange={handleChange}
+                    type="text"
+                  />
+                </div>
               </div>
 
               {/* Types de bien */}
@@ -248,20 +262,28 @@ function HomPage() {
               {/* Prix maximum */}
               <div className="search__types w-full md:w-auto">
                 <h2 className="text-sm font-medium mb-1">Prix maximum</h2>
-                <select
-                  id="minMaxPrice"
-                  className="m-0 w-full border border-gray-300 rounded p-2"
-                  onChange={handleChange}
-                >
-                  <option value="">Ajouter Prix (€)</option>
-                  <option value="100-200">€100 - €200</option>
-                  <option value="200-500">€200 - €500</option>
-                  <option value="500-1000">€500 - €1000</option>
-                  <option value="1000-2000">€1000 - €2000</option>
-
-                  <option value="10000-200000">€10000 - €200000</option>
-                  <option value="80000-200000">€80000 - €200000</option>
-                </select>
+                <div className="m-0 w-[15vw]">
+                  <Slider
+                    range
+                    min={0}
+                    max={20000}
+                    step={100}
+                    value={
+                      formValues.minMaxPrice
+                        ? formValues.minMaxPrice.split("-").map(Number) // Parse stored price range
+                        : [0, 20000]
+                    }
+                    onChange={
+                      (value) =>
+                        handleChange({ target: { id: "minMaxPrice", value } }) // Pass a compatible event-like object
+                    }
+                    tooltip={{ formatter: (value) => formatNumber(value) }}
+                  />
+                  <p className="text-sm mt-2">
+                    {formatNumber(priceRange[0])} -{" "}
+                    {formatNumber(priceRange[1])}
+                  </p>
+                </div>
               </div>
 
               {/* Search Button */}

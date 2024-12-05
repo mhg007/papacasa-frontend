@@ -41,14 +41,7 @@ function SearchListings() {
     propType: "",
   });
   console.log('***',intialFilterData)
-  useEffect(() => {
-    if (intialFilterData && JSON.stringify(intialFilterData) !== JSON.stringify(formValues)) {
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        ...intialFilterData,
-      }));
-    }
-  }, [intialFilterData]);
+ 
   
 
   const handleFavortiesIcons = async (item) => {
@@ -121,10 +114,12 @@ function SearchListings() {
 
   const [listData, setListingsData] = useState(listingsData);
 
+  
+
   return (
     <>
-      <div className="container flex flex-col gap-5">
-        <div className="search__list w-[85vw] max-w-[1280px] p-[20px] rounded-[130px] bg-[#FFFFFFCC]">
+      <div className="container flex flex-wrap gap-5">
+        <div className="search__list w-[85vw] max-w-[1280px] p-[10px] rounded-[130px] bg-[#FFFFFFCC]">
           <form className="search__form flex flex-wrap gap-4 items-center">
             {/* Type de recherche */}
             <div className="search__types-1 w-full md:w-auto">
@@ -141,18 +136,19 @@ function SearchListings() {
             </div>
 
             {/* Localisation */}
-            <div className="search__types w-full md:w-auto">
-              <h2 className="text-sm font-medium mb-1">Localisation</h2>
-              <select
-                id="citys"
-                value={formValues.citys}
-                className="m-0 w-full border border-gray-300 rounded p-2"
-                onChange={handleChange}
-              >
-                <option value="">Sélectionner</option>
-                <option value="karachi">Karachi</option>
-              </select>
-            </div>
+            <div className="search__types flex justify-end items-center w-full md:w-auto ">
+                {/* <div className=" flex justify-center items-center bg-slate-500"> 
+                </div> */}
+                <div className=" h-36 flex flex-col items-center justify-end ">
+                <h2 className="text-sm font-medium">Localisation</h2>
+                  <input
+                  id="citys"
+                  className="w-full border focus:border-gray-300 rounded"
+                  onChange={handleChange}
+                   type="text" />
+                </div>
+               
+              </div>
 
             {/* Types de bien */}
             <div className="search__types w-full md:w-auto">
