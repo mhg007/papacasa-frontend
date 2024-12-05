@@ -1,8 +1,6 @@
 import React from 'react'
 import ".//changePassword.css"
-import  newlogo from "./Asessts/Images/new-logo.svg"
-import  bellicon from "./Asessts/Images/bell-icon.png"
-import  userIageIcon from "./Asessts/Images/user-image-icon.svg"
+
 
 function ChangePasword() {
   return (

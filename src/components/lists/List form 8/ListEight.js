@@ -187,9 +187,15 @@ function ListEight() {
               <Link to="/lists/7" type="button" className="back">
                 Retour
               </Link>
+              {!token?
+              <button type="button" className="next" onClick={handleStepUpdate}>
+              Suivant
+              </button>:
               <button type="button" className="next" onClick={handleStepUpdate}>
               Publier mon annonce
               </button>
+
+              }
             </div>
           </div>
         </section>

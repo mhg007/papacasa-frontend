@@ -34,41 +34,45 @@ function ListTen() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Login logic if no token
-    if (!token) {
-      const loginPayload = {
-        email: intialFormData.step9.email,
-        password: intialFormData.step9.password,
-      };
-      const headers = {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      };
+    // // Login logic if no token
+    // if (!token) {
+    //   const loginPayload = {
+    //     email: intialFormData.step9.email,
+    //     password: intialFormData.step9.password,
+    //   };
+    //   const headers = {
+    //     "Content-Type": "application/json",
+    //     Accept: "*/*",
+    //   };
 
-      try {
-        const response = await loginUser({
-          payload: loginPayload,
-          headers,
-        }).unwrap();
-        if (response) {
-          console.log("Token saved successfully:", response);
-          localStorage.setItem("token", JSON.stringify(response));
-          navigate("/"); 
-        }
-      } catch (err) {
-        console.error("Login Failed:", err);
-        message.error(
-          err?.data?.message || "Login failed. Please check your credentials."
-        );
-        return; 
-      }
-    }
+    //   try {
+    //     const response = await loginUser({
+    //       payload: loginPayload,
+    //       headers,
+    //     }).unwrap();
+    //     if (response) {
+    //       console.log("Token saved successfully:", response);
+    //       localStorage.setItem("token", JSON.stringify(response));
+    //       navigate("/"); 
+    //     }
+    //   } catch (err) {
+    //     console.error("Login Failed:", err);
+    //     message.error(
+    //       err?.data?.message || "Login failed. Please check your credentials."
+    //     );
+    //     return; 
+    //   }
+    // }
 
     // Listing creation payload
+    // if(!token){
+    //  const email = intialFormData.step9.email
+    // }
     const payload = {
-      type: {
-        name: intialFormData.step1.propertyType[0],
+      user: {
+        email: intialFormData.step9.email? intialFormData.step9.email:null,
       },
+      type:  intialFormData.step1.propertyType[0],
       location: {
         city: intialFormData.step3.city,
         country: intialFormData.step3.country,
@@ -79,9 +83,7 @@ function ListTen() {
       features: Object.keys(intialFormData.step4)
         .filter((key) => intialFormData.step4[key]) // Filter out falsy values
         .map((key) => ({ name: key })),
-      photos: intialFormData.step8.image.map((img) => {
-        return [{ name: img.filename, url: img.url }];
-      }),
+     photos: intialFormData.step8.image.map((img) => ({ name: img.filename, url: img.url})),
 
       title: "New Listing",
       description: intialFormData.step5.textArea,
@@ -106,7 +108,7 @@ function ListTen() {
 
     try {
       const response = await submitFormData(payload, token).unwrap();
-      message.success("Listing Created Successfully");
+      message.success("Listing Created Successfully but Your Add will be visible after email varifications");
       console.log("Listing Created Successfully", response);
 
       // Reset the form

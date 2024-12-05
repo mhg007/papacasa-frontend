@@ -78,19 +78,19 @@ a {
 }
 
 .ppc__header__btn {
-  width: 100%;
-  max-width: 40%;
+  /* width:; */
+  max-width: 50%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
 }
 
 .header__btn {
-  padding: 13px 25px;
+  padding: 6px 11px;
   background-color: #f03836;
-  font-size: 16px;
+  font-size: 6px;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 10px;
   color: #fff;
   border-radius: 999px;
   border: none;

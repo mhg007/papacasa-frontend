@@ -22,6 +22,7 @@ import ChangePasword from "./components/Change password/ChangePasword";
 import MessagesFirstScreen from "./components/Messages with responsive 1st screen/MessagesFirstScreen";
 import Messages2ndscreen from "./components/Messages with responsive 2nd screen/Messages2ndscreen";
 import Profile from "./Profil/Profile";
+import SearchListings from "./components/searchListings/SearchListings";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
               <Route path="/" element={<HomPage />} />
               {/* <Route path="/navbar" element={<Navbar />} /> */}
               <Route path="/mobile-nav" element={<MobileNavbar />} />
+              <Route path="/search-listings" element={<SearchListings />} />
               <Route path="/lists/1" element={<ListOne />} />
               <Route path="/lists/2" element={<ListTwo />} />
               <Route path="/lists/3" element={<ListThree />} />

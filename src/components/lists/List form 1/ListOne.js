@@ -3,25 +3,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { updateStepData } from "../../redux/slice/formDataSlice";
 import "./listOne.css";
+import { useListOneDataQuery } from "../../redux/services/services";
 
 function ListOne() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const step1Data = useSelector((state) => state.multiStepForm.step1);
-  const [formValues, setFormValues] = useState(step1Data || {});
-  const token = JSON.parse(localStorage.getItem("token"))?.access;
-
   const [selectedTypes, setSelectedTypes] = useState(
     step1Data?.propertyType || []
   );
-  // Initialize the local state with step1Data or an empty array
-  const handleChange = (type) => {
-    if (selectedTypes.includes(type)) {
-      // const newFormValues = selectedTypes.filter( values => values !== type);
-      setSelectedTypes([]);
-    }
 
-    setSelectedTypes([type]);
+  const token = JSON.parse(localStorage.getItem("token"))?.access;
+
+  const { data, isError, isLoading } = useListOneDataQuery();
+  console.log("userListingsData", data);
+
+  const handleChange = (type) => {
+    setSelectedTypes((prevSelectedTypes) => {
+      if (prevSelectedTypes.includes(type)) {
+        return prevSelectedTypes.filter((t) => t !== type);
+      } else {
+        return [...prevSelectedTypes, type];
+      }
+    });
+    console.log(selectedTypes)
   };
 
   const handleStepUpdate = () => {
@@ -57,26 +62,16 @@ function ListOne() {
             <div className="list-form-1-form-container">
               <h3>Choisissez votre type de bien</h3>
               <div className="property-types">
-                {[
-                  "Appartement",
-                  "Maison",
-                  "Garage / Parking",
-                  "Terrain",
-                  "Immeuble",
-                  "Fonds de commerce",
-                  "Local commercial",
-                  "Autres",
-                ].map((type) => (
+                {(data || []).map((type) => (
                   <button
-                    id="dummyData"
-                    key={type}
+                    key={type.name} // Ensure unique key
                     type="button"
                     className={`property-button ${
                       selectedTypes.includes(type) ? "selected" : ""
                     }`}
                     onClick={() => handleChange(type)}
                   >
-                    {type}
+                    {type.name}
                   </button>
                 ))}
               </div>
@@ -90,7 +85,7 @@ function ListOne() {
               <button
                 className="next"
                 type="button"
-                onClick={() => handleStepUpdate()}
+                onClick={handleStepUpdate}
               >
                 Suivant
               </button>
