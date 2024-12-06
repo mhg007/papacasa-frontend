@@ -34,7 +34,7 @@ import { Carousel, Dropdown, message, Slider } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { filterListings } from "../redux/slice/filterCardsList";
 function HomPage() {
-  const [priceRange, setPriceRange] = useState([0, 20000]);
+  const [priceRange, setPriceRange] = useState([0, 20000000]);
   const [formValues, setFormValues] = useState({
     searchType: "",
     citys: "",
@@ -51,9 +51,9 @@ function HomPage() {
       ...prevValues,
       [id]: isSlider ? `${value[0]}-${value[1]}` : value, // Handle slider and other inputs
     }));
-    if(isSlider) {
+    if (isSlider) {
       setPriceRange(value);
-  }
+    }
     console.log("Updated formValues:", formValues);
   };
 
@@ -176,9 +176,12 @@ function HomPage() {
 
   const formatNumber = (value) => {
     return new Intl.NumberFormat("de-DE", {
-      style: "currency",
-      currency: "EUR",
-    }).format(value);
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    })
+      .format(value)
+      .replace(/\./g, " ") // Replace dots with spaces for thousands separator
+      .concat("€"); // Append the euro sign directly
   };
 
   return (
@@ -281,12 +284,12 @@ function HomPage() {
                   <Slider
                     range
                     min={0}
-                    max={20000}
+                    max={20000000}
                     step={100}
                     value={
                       formValues.minMaxPrice
                         ? formValues.minMaxPrice.split("-").map(Number) // Parse stored price range
-                        : [0, 20000]
+                        : [0, 20000000]
                     }
                     onChange={
                       (value) =>
@@ -295,8 +298,9 @@ function HomPage() {
                     tooltip={{ formatter: (value) => formatNumber(value) }}
                   />
                   <p className="text-sm mt-2">
-                    {formatNumber(priceRange[0])} -{" "}
-                    {formatNumber(priceRange[1])}
+                    {`${formatNumber(priceRange[0])} to ${formatNumber(
+                      priceRange[1]
+                    )}`}
                   </p>
                 </div>
               </div>
@@ -379,11 +383,10 @@ function HomPage() {
             <div className="container">
               <div className="featured__heading__text__btn__wrapper">
                 <div className="featured__heading__text">
-                  <h2>Lieux en Vedette</h2>
-                  <p>Lieux populaires à Vendre</p>
+                  <h2>Nos dernières annonces</h2>
                 </div>
-                <div className="featured__btn">
-                  <button>Rechercher plus</button>
+                <div className="featured__btn w-[200px]">
+                  <button>Voir plus d'annonces</button>
                   <Link>
                     <img src={blk_right_arrow} alt="" />
                   </Link>

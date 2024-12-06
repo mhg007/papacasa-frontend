@@ -19,34 +19,30 @@ function Login() {
   const [loginUser, { isLoading, isSuccess, isError, data, error }] =
     useLoginUserMutation();
 
-
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      const payload = {
-        email: e.target.username.value,
-        password: e.target.password.value,
-      };
-      const headers = {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      };
-      try {
-        const response = await loginUser({ payload, headers }).unwrap();
-    
-        // const token = response.access; 
-        // const refreshToken = response.refresh; 
-        if (response) {
-          
-          // console.log("Token saved successfully:", response);
-          localStorage.setItem("token", JSON.stringify(response)); 
-          navigate("/"); // Redirect after successful login
-        }
-      } catch (err) {
-        console.error("Login Failed:", err);
-      }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const payload = {
+      email: e.target.username.value,
+      password: e.target.password.value,
     };
-    
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+    };
+    try {
+      const response = await loginUser({ payload, headers }).unwrap();
 
+      // const token = response.access;
+      // const refreshToken = response.refresh;
+      if (response) {
+        // console.log("Token saved successfully:", response);
+        localStorage.setItem("token", JSON.stringify(response));
+        navigate("/"); // Redirect after successful login
+      }
+    } catch (err) {
+      console.error("Login Failed:", err);
+    }
+  };
 
   // useEffect(() => {
 
@@ -68,7 +64,7 @@ function Login() {
                     type="text"
                     name="username"
                     id="userName"
-                    placeholder="you@example.com"
+                    placeholder="papa@casa.com"
                     required
                     className="ppc__login__email"
                   />

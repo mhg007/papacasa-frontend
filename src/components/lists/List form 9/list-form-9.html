@@ -1,224 +1,269 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Publier une annonce de vente</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body>
+  <body>
     <header>
-        <section>
-            <div class="container">
-                <div class="header__main__wrapper">
-                    <div class="ppc__logo__menu">
-                        <div class="ppc__logo">
-                            <a href="/"> <img src="/Asessts/Images/new-logo.svg" alt=""></a>
-                        </div>
-                        <div class="main-menu">
-                            <nav>
-                                <ul>
-                                    <a href="">
-                                        <li>Accueil</li>
-                                    </a>
-                                    <a href="">
-                                        <li>Acheter</li>
-                                    </a>
-                                    <a href="">
-                                        <li>Vendre</li>
-                                    </a>
-                                    <a href="">
-                                        <li>À propos</li>
-                                    </a>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="ppc__header__btn">
-                        <a href="#"><button class="header__btn">Publier une annonce</button></a>
-                    </div>
-                    <div class="ppc__header__mobile__btn">
-                        <a href="#"><button class="header__mobile__btn">Se connecters</button></a>
-                    </div>
-                </div>
+      <section>
+        <div class="container">
+          <div class="header__main__wrapper">
+            <div class="ppc__logo__menu">
+              <div class="ppc__logo">
+                <a href="/">
+                  <img src="/Asessts/Images/new-logo.svg" alt=""
+                /></a>
+              </div>
+              <div class="main-menu">
+                <nav>
+                  <ul>
+                    <a href="">
+                      <li>Accueil</li>
+                    </a>
+                    <a href="">
+                      <li>Acheter</li>
+                    </a>
+                    <a href="">
+                      <li>Vendre</li>
+                    </a>
+                    <a href="">
+                      <li>À propos</li>
+                    </a>
+                  </ul>
+                </nav>
+              </div>
             </div>
-        </section>
+            <div class="ppc__header__btn">
+              <a href="#"
+                ><button class="header__btn">Publier une annonce</button></a
+              >
+            </div>
+            <div class="ppc__header__mobile__btn">
+              <a href="#"
+                ><button class="header__mobile__btn">Se connecters</button></a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
     </header>
     <main>
-        <section class="list-form-9-background">
-            <div class="list-form-9-inner__container">
-                <h1>Publier une annonce de vente</h1>
-                <div class="progress">
-                    <p>09</p>
-                    <span>/ 10</span>
+      <section class="list-form-9-background">
+        <div class="list-form-9-inner__container">
+          <h1>Publier une annonce de vente</h1>
+          <div class="progress">
+            <p>09</p>
+            <span>/ 10</span>
+          </div>
+          <div class="list-form-9-form-card">
+            <form>
+              <fieldset>
+                <legend>Vos coordonnées</legend>
+                <p class="info">
+                  Ces informations sont confidentielles, elles ne seront pas
+                  publiées dans l'annonce ni communiquées à des tiers.
+                </p>
+                <div class="list-form-9-separator"></div>
+                <div class="row">
+                  <div class="list-form-9-form-group-first-field">
+                    <label for="civilite">Civilité*</label>
+                    <input type="text" id="civilite" name="civilite" required />
+                  </div>
                 </div>
-                <div class="list-form-9-form-card">
-                    <form>
-                        <fieldset>
-                            <legend>Vos coordonnées</legend>
-                            <p class="info">
-                                Ces informations sont confidentielles, elles ne seront pas publiées dans l'annonce ni
-                                communiquées à des tiers.
-                            </p>
-                            <div class="list-form-9-separator"></div>
-                            <div class="row">
-                                <div class="list-form-9-form-group-first-field">
-                                    <label for="civilite">Civilité*</label>
-                                    <input type="text" id="civilite" name="civilite" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="list-form-9-form-group">
-                                    <label for="nom">Nom*</label>
-                                    <input type="text" id="nom" name="nom" required>
-                                </div>
-                                <div class="list-form-9-form-group">
-                                    <label for="prenom">Prénom*</label>
-                                    <input type="text" id="prenom" name="prenom" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="list-form-9-form-group">
-                                    <label for="email">Email*</label>
-                                    <input type="email" id="email" name="email" required>
-                                </div>
-                                <div class="list-form-9-form-group">
-                                    <label for="telephone">Téléphone*</label>
-                                    <input type="tel" id="telephone" name="telephone" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="list-form-9-form-group">
-                                    <label for="password">Mot de passe*</label>
-                                    <input type="password" id="password" name="password" required>
-                                </div>
-                                <div class="list-form-9-form-group">
-                                    <label for="confirm-password">Confirmer le mot de passe*</label>
-                                    <input type="password" id="confirm-password" name="confirm-password" required>
-                                </div>
-                            </div>
-                            <div class="checkbox-group">
-                                <div class="checkbox__inner">
-                                    <input type="checkbox" id="cgu" name="cgu" required>
-                                    <label for="cgu">CGU/CGV/Vie privée</label>
-                                </div>
-                                <div class="checkbox__inner">
-                                    <input type="checkbox" id="data" name="data" required>
-                                    <label for="data">récupération de data de l'utilisateur et la partager avec
-                                        partenaires</label>
-                                </div>
-                                <div class="checkbox__inner">
-                                    <input type="checkbox" id="newsletter" name="newsletter">
-                                    <label for="newsletter">inscription à la newsletter</label>
-                                </div>
-                            </div>
-
-                        </fieldset>
-
-                    </form>
-
+                <div class="row">
+                  <div class="list-form-9-form-group">
+                    <label for="nom">Nom*</label>
+                    <input type="text" id="nom" name="nom" required />
+                  </div>
+                  <div class="list-form-9-form-group">
+                    <label for="prenom">Prénom*</label>
+                    <input type="text" id="prenom" name="prenom" required />
+                  </div>
                 </div>
-                <div class="list-form-9-form-buttons">
-                    <button type="button" class="back">Retour</button>
-                    <button type="submit" class="next">Suivant</button>
+                <div class="row">
+                  <div class="list-form-9-form-group">
+                    <label for="email">Email*</label>
+                    <input type="email" id="email" name="email" required />
+                  </div>
+                  <div class="list-form-9-form-group">
+                    <label for="telephone">Téléphone*</label>
+                    <input
+                      type="tel"
+                      id="telephone"
+                      name="telephone"
+                      required
+                    />
+                  </div>
                 </div>
-            </div>
-        </section>
+                <div class="row">
+                  <div class="list-form-9-form-group">
+                    <label for="password">Mot de passe*</label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      required
+                    />
+                  </div>
+                  <div class="list-form-9-form-group">
+                    <label for="confirm-password"
+                      >Confirmer le mot de passe*</label
+                    >
+                    <input
+                      type="password"
+                      id="confirm-password"
+                      name="confirm-password"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="checkbox-group">
+                  <div class="checkbox__inner">
+                    <input type="checkbox" id="cgu" name="cgu" required />
+                    <label for="cgu">Conditions générales de vente.</label>
+                  </div>
+                  <div class="checkbox__inner">
+                    <input type="checkbox" id="data" name="data" required />
+                    <label for="data"
+                      >Politique de protection des données personnelles.</label
+                    >
+                  </div>
+                  <div class="checkbox__inner">
+                    <input type="checkbox" id="newsletter" name="newsletter" />
+                    <label for="newsletter"
+                      >Je souhaite m'inscrire à la newsletter et me tenir au
+                      courant des actualités Papacasa.</label
+                    >
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <div class="list-form-9-form-buttons">
+            <button type="button" class="back">Retour</button>
+            <button type="submit" class="next">Suivant</button>
+          </div>
+        </div>
+      </section>
     </main>
     <section class="mobile__menu__section">
-        <div class="mobile__menu__wrapper">
-            <div class="mobile__menu__item">
-                <a href="">
-                    <img src="/Asessts/Images/mobile menu icons/li_home.svg" alt="">
-                    <p>Accueil</p>
-                </a>
-            </div>
-            <div class="mobile__menu__item">
-                <a href="">
-                    <img src="/Asessts/Images/mobile menu icons/cart-icon.svg" alt="">
-                    <p>Acheter</p>
-                </a>
-            </div>
-            <div class="mobile__menu__item">
-                <a href="">
-                    <img src="/Asessts/Images/mobile menu icons/post-ad-icon.svg" alt="">
-                    <p>Annonce</p>
-                </a>
-            </div>
-            <div class="mobile__menu__item">
-                <a href="">
-                    <img src="/Asessts/Images/mobile menu icons/vendre-icon.svg" alt="">
-                    <p>Vendre</p>
-                </a>
-            </div>
-            <div class="mobile__menu__item">
-                <a href="">
-                    <img src="/Asessts/Images/mobile menu icons/info-icon.svg" alt="">
-                    <p>À propos</p>
-                </a>
-            </div>
-
+      <div class="mobile__menu__wrapper">
+        <div class="mobile__menu__item">
+          <a href="">
+            <img src="/Asessts/Images/mobile menu icons/li_home.svg" alt="" />
+            <p>Accueil</p>
+          </a>
         </div>
+        <div class="mobile__menu__item">
+          <a href="">
+            <img src="/Asessts/Images/mobile menu icons/cart-icon.svg" alt="" />
+            <p>Acheter</p>
+          </a>
+        </div>
+        <div class="mobile__menu__item">
+          <a href="">
+            <img
+              src="/Asessts/Images/mobile menu icons/post-ad-icon.svg"
+              alt=""
+            />
+            <p>Annonce</p>
+          </a>
+        </div>
+        <div class="mobile__menu__item">
+          <a href="">
+            <img
+              src="/Asessts/Images/mobile menu icons/vendre-icon.svg"
+              alt=""
+            />
+            <p>Vendre</p>
+          </a>
+        </div>
+        <div class="mobile__menu__item">
+          <a href="">
+            <img src="/Asessts/Images/mobile menu icons/info-icon.svg" alt="" />
+            <p>À propos</p>
+          </a>
+        </div>
+      </div>
     </section>
     <footer>
-        <section>
-            <div class="footer__container">
+      <section>
+        <div class="footer__container">
+          <section class="main__footer__wrapper">
+            <div class="ppc__logo__social">
+              <a href="/"
+                ><img
+                  src="/Asessts/Images/new-logo.svg"
+                  alt=""
+                  class="footer__logo"
+              /></a>
 
-                <section class="main__footer__wrapper">
-                    <div class="ppc__logo__social">
-                        <a href="/"><img src="/Asessts/Images/new-logo.svg" alt="" class="footer__logo"></a>
-
-                        <a href="#">
-                            <div class="links">
-                                <img src="/Asessts/Images/footer-icons/facebook.svg" alt="" class="social-icons">
-                                <p class="social__text">Facebook</p>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="links">
-                                <img src="/Asessts/Images/footer-icons/twitter (2).svg" alt="" class="social-icons">
-                                <p class="social__text">Twitter</p>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="links">
-                                <img src="/Asessts/Images/footer-icons/insta.svg" alt="" class=" social-icons">
-                                <p class="social__text">Instagram</p>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="links">
-                                <img src="/Asessts/Images/footer-icons/youtube (2).svg" alt="" class="social-icons">
-                                <p class="social__text">Youtube</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="ppc__pages">
-                        <h2>Pages</h2>
-                        <a href="#">
-                            <li class="footer__pages">Prix immo</li>
-                        </a>
-                        <a href="#">
-                            <li class="footer__pages">Acheter</li>
-                        </a>
-                        <a href="#">
-                            <li class="footer__pages">Louer</li>
-                        </a>
-                        <a href="#">
-                            <li class="footer__pages">Vacances</li>
-                        </a>
-                        <a href="#">
-                            <li class="footer__pages">Mon espace</li>
-                        </a>
-                    </div>
-
-                </section>
-
+              <a href="#">
+                <div class="links">
+                  <img
+                    src="/Asessts/Images/footer-icons/facebook.svg"
+                    alt=""
+                    class="social-icons"
+                  />
+                  <p class="social__text">Facebook</p>
+                </div>
+              </a>
+              <a href="#">
+                <div class="links">
+                  <img
+                    src="/Asessts/Images/footer-icons/twitter (2).svg"
+                    alt=""
+                    class="social-icons"
+                  />
+                  <p class="social__text">Twitter</p>
+                </div>
+              </a>
+              <a href="#">
+                <div class="links">
+                  <img
+                    src="/Asessts/Images/footer-icons/insta.svg"
+                    alt=""
+                    class="social-icons"
+                  />
+                  <p class="social__text">Instagram</p>
+                </div>
+              </a>
+              <a href="#">
+                <div class="links">
+                  <img
+                    src="/Asessts/Images/footer-icons/youtube (2).svg"
+                    alt=""
+                    class="social-icons"
+                  />
+                  <p class="social__text">Youtube</p>
+                </div>
+              </a>
             </div>
-        </section>
+            <div class="ppc__pages">
+              <h2>Pages</h2>
+              <a href="#">
+                <li class="footer__pages">Prix immo</li>
+              </a>
+              <a href="#">
+                <li class="footer__pages">Acheter</li>
+              </a>
+              <a href="#">
+                <li class="footer__pages">Louer</li>
+              </a>
+              <a href="#">
+                <li class="footer__pages">Vacances</li>
+              </a>
+              <a href="#">
+                <li class="footer__pages">Mon espace</li>
+              </a>
+            </div>
+          </section>
+        </div>
+      </section>
     </footer>
-</body>
-
+  </body>
 </html>

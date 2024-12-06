@@ -56,19 +56,19 @@ function SignUp() {
               <div>
                 <form className="flex" onSubmit={handleSubmit}>
                   <div className=" sign-up__nom__premon__wrapper flex  gap-3 p-0 m-0">
-                    <div className="sign-up__nom text-start">
-                      <label htmlFor="text">{t("Nom*")}</label>
+                    <div className="sign-up__prenom text-start">
+                      <label htmlFor="text">{t("Prénom*")}</label>
                       <input
-                        name="first_name"
+                        name="last_name"
                         type="text"
                         required
                         className="ppc__sign-up__names w-[100%] outline-none"
                       />
                     </div>
-                    <div className="sign-up__prenom text-start">
-                      <label htmlFor="text">{t("Prénom*")}</label>
+                    <div className="sign-up__nom text-start">
+                      <label htmlFor="text">{t("Nom*")}</label>
                       <input
-                        name="last_name"
+                        name="first_name"
                         type="text"
                         required
                         className="ppc__sign-up__names w-[100%] outline-none"
@@ -81,7 +81,7 @@ function SignUp() {
                       name="email"
                       type="email"
                       id="email"
-                      placeholder="you@example.com"
+                      placeholder="papa@casa.com"
                       required
                       className="ppc__login__email"
                     />
@@ -92,7 +92,7 @@ function SignUp() {
                       name="telephone"
                       type="tel"
                       id="number"
-                      placeholder="+1 (123) 456 - 7890"
+                      placeholder="+351 (0) 123 456 789"
                       required
                       className="ppc__login__pwd"
                     />
@@ -100,36 +100,35 @@ function SignUp() {
                   <div className="flex flex-col relative max-h-20 ">
                     <label htmlFor="password">{t("Mot de passe")}</label>
                     {/* <div className="w-full"> */}
-                      <input
-                        name="password"
-                        type={
-                          type === "password"
-                            ? showPassword
-                              ? "text"
-                              : "password"
-                            : type || "text"
-                        }
-                        id="password"
-                        placeholder="********"
-                        required
-                        className="ppc__login__pwd " // Added padding-right for icon space
-                      />
-                      {/* Icon positioning fixed without affecting layout */}
-                      {type === "password" && (
-                        <div className="absolute top-[60%] right-4 transform -translate-y-1/2 cursor-pointer z-10">
-                          {showPassword ? (
-                            <MdOutlineVisibility
-                              onClick={() => setShowPassword(false)}
-                              />
-                            ) : (
-                            <MdOutlineVisibilityOff
-                              onClick={() => setShowPassword(true)}
-                            />
-                            
-                          )}
-                        </div>
-                      )}
-                    </div>
+                    <input
+                      name="password"
+                      type={
+                        type === "password"
+                          ? showPassword
+                            ? "text"
+                            : "password"
+                          : type || "text"
+                      }
+                      id="password"
+                      placeholder="********"
+                      required
+                      className="ppc__login__pwd " // Added padding-right for icon space
+                    />
+                    {/* Icon positioning fixed without affecting layout */}
+                    {type === "password" && (
+                      <div className="absolute top-[60%] right-4 transform -translate-y-1/2 cursor-pointer z-10">
+                        {showPassword ? (
+                          <MdOutlineVisibility
+                            onClick={() => setShowPassword(false)}
+                          />
+                        ) : (
+                          <MdOutlineVisibilityOff
+                            onClick={() => setShowPassword(true)}
+                          />
+                        )}
+                      </div>
+                    )}
+                  </div>
                   {/* </div> */}
                 </form>
                 <div>
@@ -145,7 +144,7 @@ function SignUp() {
                   </div>
                   <p className="register-link">
                     {t("Nouvel utilisateur ?")}{" "}
-                    <Link href="#">{t("Créer un compte")}</Link>
+                    <Link to="/login">{t("Créer un compte")}</Link>
                   </p>
 
                   <div className="separator">
