@@ -81,6 +81,16 @@ function HomPage() {
   }, [intialFilterData]);
 
   const [listData, setListingsData] = useState(listingsData);
+  useEffect(() => {
+    if (listingsData && Array.isArray(listingsData)) {
+      const sortedData = [...listingsData].sort((a, b) => {
+        const dateA = a.created_at ? new Date(a.created_at) : new Date(0); // Fallback to earliest date
+        const dateB = b.created_at ? new Date(b.created_at) : new Date(0);
+        return dateB - dateA;
+      });
+      setListingsData(sortedData);
+    }
+  }, [listingsData]);
   // console.log("filterData", filterData);
   // console.log("filterData.localisation.citys", filterData?.localisation?.citys);
   // console.log("data");
@@ -354,7 +364,7 @@ function HomPage() {
               </div>
 
               <div className="properties__grid w-full">
-                {(listingsData || []).map((item, index) => (
+                {(listData || []).map((item, index) => (
                   <div className="cards w-full" key={index}>
                     <div className="properties__top__block">
                       {/* Carousel for Multiple Images */}
