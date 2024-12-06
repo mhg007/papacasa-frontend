@@ -10,7 +10,8 @@ import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 function ErrorAlertMessage(props) {
   const { error = {}, field = {} } = props;
   return (
-    error?.data && field &&
+    error?.data &&
+    field &&
     error?.data[field] &&
     Array.isArray(error.data[field]) &&
     error.data[field]?.length > 0 && (
@@ -60,7 +61,7 @@ function ListNine() {
 
   const handleStepUpdate = async (e) => {
     e.preventDefault();
-  
+
     if (
       !formValues.civilite &&
       !formValues.first_name &&
@@ -73,12 +74,12 @@ function ListNine() {
       showError("All fields marked with * are required.");
       return;
     }
-  
+
     if (formValues.password !== formValues.confirmPassword) {
       showError("Passwords do not match.");
       return;
     }
-  
+
     const payload = {
       civilite: formValues.civilite,
       first_name: formValues.first_name,
@@ -91,9 +92,9 @@ function ListNine() {
       data: formValues.data,
       cgu: formValues.cgu,
     };
-  
+
     try {
-      const response = await signUpUser({payload}).unwrap();
+      const response = await signUpUser({ payload }).unwrap();
       if (response) {
         dispatch(updateStepData({ step: "step9", data: payload }));
         navigate("/lists/10");
@@ -102,7 +103,6 @@ function ListNine() {
       console.error(error);
     }
   };
-  
 
   useEffect(() => {
     showError(isError && error?.data?.detail ? error.data.detail : null);
@@ -194,7 +194,7 @@ function ListNine() {
                 <div className="row">
                   <div className="list-form-9-form-group">
                     <div className="password-wrapper">
-                    <label htmlFor="password">Mot de passe*</label>
+                      <label htmlFor="password">Mot de passe*</label>
                       <input
                         value={formValues.password}
                         onChange={handleChange}
@@ -213,14 +213,14 @@ function ListNine() {
                           className="password-toggle"
                         />
                       )}
-                    {/* <ErrorAlertMessage error={error} field="password" />   */}
+                      {/* <ErrorAlertMessage error={error} field="password" />   */}
                     </div>
                   </div>
                   <div className="list-form-9-form-group">
                     <div className="password-wrapper">
-                    <label htmlFor="confirmPassword">
-                      Confirmer le mot de passe*
-                    </label>
+                      <label htmlFor="confirmPassword">
+                        Confirmer le mot de passe*
+                      </label>
                       <input
                         value={formValues.confirmPassword}
                         onChange={handleChange}
@@ -230,13 +230,13 @@ function ListNine() {
                       />
                       {showConfirmPassword ? (
                         <MdOutlineVisibilityOff
-                        onClick={() => setShowConfirmPassword(false)}
-                        className="password-toggle"
+                          onClick={() => setShowConfirmPassword(false)}
+                          className="password-toggle"
                         />
                       ) : (
                         <MdOutlineVisibility
-                        onClick={() => setShowConfirmPassword(true)}
-                        className="password-toggle"
+                          onClick={() => setShowConfirmPassword(true)}
+                          className="password-toggle"
                         />
                       )}
                       {/* <ErrorAlertMessage error={error} field="confirmPassword" />   */}
@@ -252,7 +252,7 @@ function ListNine() {
                       id="cgu"
                       name="cgu"
                     />
-                    <label htmlFor="cgu">CGU/CGV/Vie privée</label>
+                    <label htmlFor="cgu">Conditions générales de vente.</label>
                   </div>
                   <div className="checkbox__inner">
                     <input
@@ -263,8 +263,7 @@ function ListNine() {
                       name="data"
                     />
                     <label htmlFor="data">
-                      récupération de data de l'utilisateur et la partager avec
-                      partenaires
+                      Politique de protection des données personnelles.
                     </label>
                   </div>
                   <div className="checkbox__inner">
@@ -276,7 +275,8 @@ function ListNine() {
                       name="newsletter"
                     />
                     <label htmlFor="newsletter">
-                      inscription à la newsletter
+                      Je souhaite m'inscrire à la newsletter et me tenir au
+                      courant des actualités Papacasa.
                     </label>
                   </div>
                 </div>
