@@ -130,8 +130,6 @@ function SignUp() {
                     )}
                   </div>
                   {/* </div> */}
-                </form>
-                <div>
                   <div className="w-full mt-2">
                     <button
                       type="submit"
@@ -142,6 +140,8 @@ function SignUp() {
                       {t("S'inscrire")}
                     </button>
                   </div>
+                </form>
+                <div>
                   <p className="register-link">
                     {t("Nouvel utilisateur ?")}{" "}
                     <Link to="/login">{t("Créer un compte")}</Link>
