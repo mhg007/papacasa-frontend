@@ -51,7 +51,9 @@ function HomPage() {
       ...prevValues,
       [id]: isSlider ? `${value[0]}-${value[1]}` : value, // Handle slider and other inputs
     }));
-
+    if(isSlider) {
+      setPriceRange(value);
+  }
     console.log("Updated formValues:", formValues);
   };
 
