@@ -346,8 +346,8 @@ a {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap; */
-    width: 95vw;
-    max-width: 1480px;
+    width: 85vw;
+    max-width: 1380px;
     /* min-width: 1200px; */
     /* background: #864343; */
     padding: 20px;
@@ -601,8 +601,9 @@ a {
 .properties__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 16px;
-    padding: 16px;
+    gap: 18px;
+    padding: 10px;
+    /* justify-content: space-around; */
   }
   
   .cards {

@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./signUp.css";
 import { useTranslation } from "react-i18next";
 import { useSignUpUserMutation } from "../redux/services/services";
 import { message } from "antd";
-import facebook_coloured from "./Asessts/Images/facebook-colored-logo.svg"
-import google_colored from "./Asessts/Images/google-colored-icon.svg"
-import twitter_colored from "./Asessts/Images/twitter-colored-icon.svg"
+import facebook_coloured from "./Asessts/Images/facebook-colored-logo.svg";
+import google_colored from "./Asessts/Images/google-colored-icon.svg";
+import twitter_colored from "./Asessts/Images/twitter-colored-icon.svg";
+import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 
 function SignUp() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [type, setType] = useState("password");
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
@@ -20,11 +23,11 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
-      "first_name": e.target.first_name.value,
-      "last_name": e.target.last_name.value,
-      "email": e.target.email.value,
-      "telephone": e.target.telephone.value,
-      "password": e.target.password.value,
+      first_name: e.target.first_name.value,
+      last_name: e.target.last_name.value,
+      email: e.target.email.value,
+      telephone: e.target.telephone.value,
+      password: e.target.password.value,
     };
     const headers = {
       "Content-Type": "application/json",
@@ -50,87 +53,119 @@ function SignUp() {
             <div className="login-inner-container">
               <h2>{t("Inscrivez-vous")}</h2>
               <p>{t("Bienvenue chez Papacasa")}</p>
-              <form className="flex" onSubmit={handleSubmit}>
-                <div className=" sign-up__nom__premon__wrapper flex  gap-3 p-0 m-0">
-                  <div className="sign-up__nom text-start">
-                    <label htmlFor="text">{t("Nom*")}</label>
+              <div>
+                <form className="flex" onSubmit={handleSubmit}>
+                  <div className=" sign-up__nom__premon__wrapper flex  gap-3 p-0 m-0">
+                    <div className="sign-up__nom text-start">
+                      <label htmlFor="text">{t("Nom*")}</label>
+                      <input
+                        name="first_name"
+                        type="text"
+                        required
+                        className="ppc__sign-up__names w-[100%] outline-none"
+                      />
+                    </div>
+                    <div className="sign-up__prenom text-start">
+                      <label htmlFor="text">{t("Prénom*")}</label>
+                      <input
+                        name="last_name"
+                        type="text"
+                        required
+                        className="ppc__sign-up__names w-[100%] outline-none"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <label htmlFor="email">{t("Courriel")}</label>
                     <input
-                      name="first_name"
-                      type="text"
+                      name="email"
+                      type="email"
+                      id="email"
+                      placeholder="you@example.com"
                       required
-                      className="ppc__sign-up__names w-[100%] outline-none"
+                      className="ppc__login__email"
                     />
                   </div>
-                  <div className="sign-up__prenom text-start">
-                    <label htmlFor="text">{t("Prénom*")}</label>
+                  <div className="flex flex-col">
+                    <label htmlFor="number">{t("Téléphone")}</label>
                     <input
-                      name="last_name"
-                      type="text"
+                      name="telephone"
+                      type="tel"
+                      id="number"
+                      placeholder="+1 (123) 456 - 7890"
                       required
-                      className="ppc__sign-up__names w-[100%] outline-none"
+                      className="ppc__login__pwd"
                     />
                   </div>
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="email">{t("Courriel")}</label>
-                  <input
-                    name="email"
-                    type="email"
-                    id="email"
-                    placeholder="you@example.com"
-                    required
-                    className="ppc__login__email"
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="number">{t("Téléphone")}</label>
-                  <input
-                    name="telephone"
-                    type="tel"
-                    id="number"
-                    placeholder="+1 (123) 456 - 7890"
-                    required
-                    className="ppc__login__pwd"
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="password">{t("Mot de passe")}</label>
-                  <input
-                    name="password"
-                    // autoComplete="off"
-                    type="password"
-                    id="password"
-                    placeholder="********"
-                    required
-                    className="ppc__login__pwd"
-                  />
-                </div>
-                 <button type="submit" className="sign-up-button" disabled={isLoading}> {t("S'inscrire")}</button>
-                
-                 
-              </form>
-              <p className="register-link">
-                {t("Nouvel utilisateur ?")}{" "}
-                <Link href="#">{t("Créer un compte")}</Link>
-              </p>
+                  <div className="flex flex-col relative max-h-20 ">
+                    <label htmlFor="password">{t("Mot de passe")}</label>
+                    {/* <div className="w-full"> */}
+                      <input
+                        name="password"
+                        type={
+                          type === "password"
+                            ? showPassword
+                              ? "text"
+                              : "password"
+                            : type || "text"
+                        }
+                        id="password"
+                        placeholder="********"
+                        required
+                        className="ppc__login__pwd " // Added padding-right for icon space
+                      />
+                      {/* Icon positioning fixed without affecting layout */}
+                      {type === "password" && (
+                        <div className="absolute top-[60%] right-4 transform -translate-y-1/2 cursor-pointer z-10">
+                          {showPassword ? (
+                            <MdOutlineVisibility
+                              onClick={() => setShowPassword(false)}
+                              />
+                            ) : (
+                            <MdOutlineVisibilityOff
+                              onClick={() => setShowPassword(true)}
+                            />
+                            
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  {/* </div> */}
+                </form>
+                <div>
+                  <div className="w-full mt-2">
+                    <button
+                      type="submit"
+                      className="sign-up-button w-full"
+                      disabled={isLoading}
+                    >
+                      {" "}
+                      {t("S'inscrire")}
+                    </button>
+                  </div>
+                  <p className="register-link">
+                    {t("Nouvel utilisateur ?")}{" "}
+                    <Link href="#">{t("Créer un compte")}</Link>
+                  </p>
 
-              <div className="separator">
-                <p>{t("OU")}</p>
-              </div>
-
-              <div className="social-login">
-                <button className="facebook">
-                  <img src={facebook_coloured} alt="" />
-                  {t("Continuer avec Facebook")}
-                </button>
-                <button className="google">
-                  <img src={google_colored} alt="" />
-                  {t("Continuer avec Google")}
-                </button>
-                <button className="twitter">
-                  <img src={twitter_colored} alt="" />
-                  {t("Continuer avec Twitter")}
-                </button>
+                  <div className="separator">
+                    <p>{t("OU")}</p>
+                  </div>
+                </div>
+                <div className="social-login">
+                  <button className="facebook">
+                    <img src={facebook_coloured} alt="" />
+                    {t("Continuer avec Facebook")}
+                  </button>
+                  <button className="google">
+                    <img src={google_colored} alt="" />
+                    {t("Continuer avec Google")}
+                  </button>
+                  <button className="twitter">
+                    <img src={twitter_colored} alt="" />
+                    {t("Continuer avec Twitter")}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
