@@ -34,7 +34,7 @@ function ListOne() {
       const formData = {
         propertyType: selectedTypes,
       };
-      dispatch(updateStepData({ step: "step1", data: formData }));
+      dispatch(updateStepData({ step: "step1", data: formData.propertyType }));
       navigate("/lists/2");
     }
   };

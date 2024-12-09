@@ -7,23 +7,30 @@ export const papaCasaApi = createApi({
   endpoints: (builder) => ({
     getListings: builder.query({
       query: (params) => {
+        const userId = params.userId
         const queryString = new URLSearchParams(params).toString();
-        console.log('dsdasdaas', params)
         if(params.city || params.max_price || params.min_price|| params.no_of_rooms || params.type || params.searchType)
         return `listings/?${queryString}`;
+      else if (userId){
+        return `listings/?user=${userId}`;
+      }
       else{
-        return `listings/`
+        return `listings/`;
       }
       },
     }),
+
     userData: builder.query({
       query: () => "users/",
     }),
     listOneData: builder.query({
       query: () => "listing-types",
     }),
-    dropDownData: builder.query({ // Uncommented this endpoint
+    dropDownData: builder.query({ 
       query: () => "dropdown-data/",
+    }),
+    listingFeatures: builder.query({ 
+      query: () => "listing-features",
     }),
     uploadFile: builder.mutation({
       query: ({ payload }) => ({
@@ -72,5 +79,6 @@ export const {
   useUploadFileMutation,
   useUserDataQuery,
   useListOneDataQuery,
-  useDropDownDataQuery, // Ensure this is exported
+  useDropDownDataQuery,
+  useListingFeaturesQuery,
 } = papaCasaApi;

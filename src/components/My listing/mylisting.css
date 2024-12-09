@@ -183,7 +183,7 @@ a {
     max-width: 100%;
     padding: 40px 0;
     border-radius: 50px;
-    background-image: url(/Assests/Images/hero_background_image.png);
+    background-image: url(./Assests/Images/hero_background_image.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: top left;

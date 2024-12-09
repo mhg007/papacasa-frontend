@@ -23,6 +23,7 @@ import MessagesFirstScreen from "./components/Messages with responsive 1st scree
 import Messages2ndscreen from "./components/Messages with responsive 2nd screen/Messages2ndscreen";
 import Profile from "./Profil/Profile";
 import SearchListings from "./components/searchListings/SearchListings";
+import { MyListing } from "./components/My listing/MyListing";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route element={<FirstLayOut />}>
             {/* Secured Route */}
             <Route element={<ProtectedRoute />}>
+              <Route path="/mylisting" element={<MyListing />} />
               <Route path="/" element={<HomPage />} />
               {/* <Route path="/navbar" element={<Navbar />} /> */}
               <Route path="/mobile-nav" element={<MobileNavbar />} />

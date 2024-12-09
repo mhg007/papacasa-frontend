@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./listFour.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStepData } from "../../redux/slice/formDataSlice";
+import { useListingFeaturesQuery } from "../../redux/services/services";
 
 function ListFour() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"))?.access;
-
+  const { data, isLoading, isError } = useListingFeaturesQuery();
+  const [selectedIds, setSelectedIds] = useState([]);
   // Default state for all checkboxes
   const defaultState = {
     climatisation: false,
@@ -39,14 +41,24 @@ function ListFour() {
 
   const intialFormData = useSelector((state) => state.multiStepForm.step4);
 
-  // Merge intialFormData with defaultState
+  useEffect(() => {
+    if (intialFormData) {
+      const selectedIds = Object.keys(intialFormData).filter((key) => intialFormData[key] === true).map(Number);
+      setSelectedIds(selectedIds);
+    }
+  }, [intialFormData]);
+
   const [formValues, setFormValues] = useState({
-    ...defaultState,
     ...intialFormData
   });
 
   const handleChange = (e) => {
     const { id, checked } = e.target;
+    setSelectedIds((prevSelectedIds) =>
+      checked
+        ? [...prevSelectedIds, Number(id)]
+        : prevSelectedIds.filter((selectedId) => selectedId !== Number(id))
+    );
     setFormValues((prevValues) => ({
       ...prevValues,
       [id]: checked,
@@ -85,15 +97,15 @@ function ListFour() {
 
                 <form onSubmit={stepData}>
                   <div className="checkbox-group">
-                    {Object.keys(formValues).map((key, index) => (
+                    {data?.map((key, index) => (
                       <label key={index}>
                         <input
                           type="checkbox"
-                          id={key}
-                          checked={!!formValues[key]}
+                          id={key.id.toString()}
+                          checked={selectedIds.includes(key.id)}
                           onChange={handleChange}
                         />
-                        {key.charAt(0).toUpperCase() + key.slice(1)}
+                        {key.name.charAt(0).toUpperCase() + key.name.slice(1)}
                       </label>
                     ))}
                   </div>
