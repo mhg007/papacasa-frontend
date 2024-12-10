@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./listFive.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +23,9 @@ export default function ListFive() {
     dispatch(updateStepData({ step: "step5", data: formValues }));
     navigate("/lists/6");
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       {/* <Navbar changeLang={changeLang} t={t} /> */}

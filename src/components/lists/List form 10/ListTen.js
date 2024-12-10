@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import "./listTen.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -14,7 +14,9 @@ function ListTen() {
   const intialFormData = useSelector((state) => state.multiStepForm);
   const dispatch = useDispatch(); // For resetting the form state
   console.log("intialFormData", intialFormData);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [
     loginUser,
     {
@@ -68,11 +70,13 @@ function ListTen() {
     // if(!token){
     //  const email = intialFormData.step9.email
     // }
+    const id = JSON.parse(localStorage.getItem("id"));
+    console.log("idsssssssssss",id)
     const payload = {
-      user: {
-        email: intialFormData.step9.email? intialFormData.step9.email:null,
+      user:id,
+      type: {
+       name: intialFormData?.step1?.propertyType[0].name,
       },
-      type:  intialFormData.step1.propertyType[0],
       location: {
         city: intialFormData.step3.city,
         country: intialFormData.step3.country,
@@ -81,7 +85,7 @@ function ListTen() {
         code_postal: intialFormData.step3.postalCode,
       },
       features: Object.keys(intialFormData.step4)
-        .filter((key) => intialFormData.step4[key]) // Filter out falsy values
+        .filter((key) => intialFormData.step4[key]) 
         .map((key) => ({ name: key })),
      photos: intialFormData.step8.image.map((img) => ({ name: img.filename, url: img.url})),
 

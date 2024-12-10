@@ -137,7 +137,7 @@ function ListEight() {
               {/* Photo Gallery */}
               <div className="photo-gallery">
                 {files.map((fileObj, index) => (
-                  <div className="photo" key={index}>
+                  <div className="photo" key={fileObj.filename || index}>
                     <img
                       src={fileObj.url}
                       alt={`Uploaded ${index + 1}`}

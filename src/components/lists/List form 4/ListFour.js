@@ -11,33 +11,6 @@ function ListFour() {
   const token = JSON.parse(localStorage.getItem("token"))?.access;
   const { data, isLoading, isError } = useListingFeaturesQuery();
   const [selectedIds, setSelectedIds] = useState([]);
-  // Default state for all checkboxes
-  const defaultState = {
-    climatisation: false,
-    alarme: false,
-    armoires: false,
-    balcon: false,
-    ascenseur: false,
-    cuisine: false,
-    meublé: false,
-    double: false,
-    chauffage: false,
-    vidéosurveillance: false,
-    résidence: false,
-    garage: false,
-    proche: false,
-    procheDuMétro: false,
-    finitions: false,
-    penthouse: false,
-    kitchenette: false,
-    terrasse: false,
-    bonEnsoleillement: false,
-    suite: false,
-    cellier: false,
-    piscine: false,
-    débarras: false,
-    jardin: false,
-  };
 
   const intialFormData = useSelector((state) => state.multiStepForm.step4);
 
@@ -51,7 +24,9 @@ function ListFour() {
   const [formValues, setFormValues] = useState({
     ...intialFormData
   });
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleChange = (e) => {
     const { id, checked } = e.target;
     setSelectedIds((prevSelectedIds) =>

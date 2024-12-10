@@ -37,6 +37,7 @@ function Login() {
       if (response) {
         // console.log("Token saved successfully:", response);
         localStorage.setItem("token", JSON.stringify(response));
+        localStorage.setItem("id", JSON.stringify(response.id));
         navigate("/"); // Redirect after successful login
       }
     } catch (err) {

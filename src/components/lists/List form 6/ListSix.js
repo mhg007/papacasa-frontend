@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ".//listSix.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,9 @@ function ListSix() {
   );
   const token = JSON.parse(localStorage.getItem("token"))?.access;
 
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value });
   };
