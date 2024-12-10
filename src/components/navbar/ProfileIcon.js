@@ -2,9 +2,19 @@ import { Button, Dropdown, message } from "antd";
 import React from "react";
 import userIcon from "./Assets/user-image-icon.svg";
 import { Link, useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "../redux/services/services";
 
 function ProfileIcon() {
+  const [loginUser, { isLoading, isSuccess, isError, data, error }] =
+  useLoginUserMutation();
+  const id = JSON.parse(localStorage.getItem("id"));
+
+  console.log("🚀 ~ Login ~ data:", id)
   const navigate = useNavigate();
+  const goToProfle = (id)=>{
+    console.log(id)
+    navigate(`profile/${id}`)
+  }
 
   const handleLogout = () => {
     // Clear user data from localStorage
@@ -21,9 +31,9 @@ function ProfileIcon() {
     {
       key: "1",
       label: (
-        <Link to="/profile" rel="noopener noreferrer">
+        <div className="cursor-pointer" onClick={()=>goToProfle(id)}  rel="noopener noreferrer">
           My Profile
-        </Link>
+        </div>
       ),
     },
     {

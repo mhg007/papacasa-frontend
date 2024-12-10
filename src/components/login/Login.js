@@ -17,7 +17,10 @@ function Login() {
   const { t } = useTranslation();
 
   const [loginUser, { isLoading, isSuccess, isError, data, error }] =
-    useLoginUserMutation();
+  useLoginUserMutation();
+  console.log("🚀 ~ Login ~ data:", data)
+
+    
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +47,7 @@ function Login() {
       console.error("Login Failed:", err);
     }
   };
+
 
   // useEffect(() => {
 

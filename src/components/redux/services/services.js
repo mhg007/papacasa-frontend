@@ -21,7 +21,10 @@ export const papaCasaApi = createApi({
     }),
 
     userData: builder.query({
-      query: () => "users/",
+      query: (params) => {
+        console.log("🚀 ~ params:", params)
+        return `users/${params}/`
+      },
     }),
     listOneData: builder.query({
       query: () => "listing-types",
@@ -67,6 +70,13 @@ export const papaCasaApi = createApi({
         body: formData,
       }),
     }),
+      profileUpdate: builder.mutation({
+      query: ({payload}) => ({
+        url: "user/profile/",
+        method: "PATCH",
+        body: payload,
+      }),
+    })
   }),
 });
 
@@ -80,5 +90,6 @@ export const {
   useUserDataQuery,
   useListOneDataQuery,
   useDropDownDataQuery,
+  useProfileUpdateMutation,
   useListingFeaturesQuery,
 } = papaCasaApi;
