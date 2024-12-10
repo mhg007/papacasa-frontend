@@ -37,8 +37,9 @@ function App() {
             <Route path="/forget-password" element={<ForgetPassword />} />
               <Route path="/reset-password" element={<ChangePasword />} />
               <Route path="/messages-2ndScreen" element={<Messages2ndscreen />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:id" element={<Profile />} />
               <Route path="/messages-firstScreen" element={<MessagesFirstScreen />} />  
+              
           {/* </Route> */}
 
           {/* Protected Routes with Layout */}

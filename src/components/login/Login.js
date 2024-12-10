@@ -17,7 +17,10 @@ function Login() {
   const { t } = useTranslation();
 
   const [loginUser, { isLoading, isSuccess, isError, data, error }] =
-    useLoginUserMutation();
+  useLoginUserMutation();
+  console.log("🚀 ~ Login ~ data:", data)
+
+    
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,12 +40,15 @@ function Login() {
       if (response) {
         // console.log("Token saved successfully:", response);
         localStorage.setItem("token", JSON.stringify(response));
+        localStorage.setItem("id", JSON.stringify(response.id));
+
         navigate("/"); // Redirect after successful login
       }
     } catch (err) {
       console.error("Login Failed:", err);
     }
   };
+
 
   // useEffect(() => {
 
