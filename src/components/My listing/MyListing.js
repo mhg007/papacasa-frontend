@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import location_Icon from "./Assests/Images/location_Icon.svg";
 import heart_Icon from "./Assests/Images/heart_Icon.svg";
 import announceIcon from "./Asessts/Images/mobile menu icons/announce-icon.svg";
@@ -23,6 +23,7 @@ export const MyListing = () => {
     useGetListingsQuery({ userId: 1 });
   const [listData, setListingsData] = useState(listingsData);
   console.log("listingsData", listingsData);
+  const navigate = useNavigate();
   const [favoritesIcon, {}] = useFavoritesIconMutation();
   useEffect(() => {
     if (listingsData && Array.isArray(listingsData)) {
@@ -60,6 +61,10 @@ export const MyListing = () => {
 
     setListingsData(updatedListings);
   };
+  const goToDetailsPage = (id) => {
+    navigate(`/details/${id}`);
+    console.log(id)
+  };
   return (
     <>
       <body>
@@ -79,7 +84,7 @@ export const MyListing = () => {
 
                 <div className="properties__grid">
                   {(listData || []).map((item, index) => (
-                    <div className="cards w-full" key={index}>
+                    <div onClick={()=>goToDetailsPage(item.id)} className="cards w-full" key={index}>
                       <div className="properties__top__block">
                         {/* Carousel for Multiple Images */}
                         <Carousel arrows infinite={false}>
