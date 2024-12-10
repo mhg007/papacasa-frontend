@@ -155,7 +155,8 @@ function HomPage() {
     background: "#364d79",
   };
 
-  const handleSelect = () => {
+  const handleSelect = (e) => {
+    e.preventDefault();
     const [minPrice, maxPrice] = formValues.minMaxPrice
       ? formValues.minMaxPrice.split("-").map(Number)
       : [null, null];
@@ -172,6 +173,7 @@ function HomPage() {
       filterListings({ filterCard: "filterList", data: filterDropData })
     );
     navigate("/search-listings");
+
   };
 
   const formatNumber = (value) => {
@@ -212,8 +214,11 @@ function HomPage() {
               </div>
             </div>
           </div>
-          <div className="search__bar m-auto">
-            <form className="search__form flex flex-wrap items-center">
+          <div className="divHide flex justify-center  ">
+          <div className="search__list_home_page w-[100%] max-w-[1280px] rounded-[130px] bg-[#ffffffb3]">
+            <form
+            onSubmit={handleSelect}
+            className="search__form flex flex-wrap items-center">
               {/* Type de recherche */}
               <div className="search__types-1 w-full md:w-auto">
                 <h2 className="text-sm font-medium mb-1">Type de recherche</h2>
@@ -306,15 +311,17 @@ function HomPage() {
               </div>
 
               {/* Search Button */}
-              <div className="search__icon relative w-full md:w-auto flex items-center">
+              <button type="submit" className="search__icon relative w-full md:w-auto flex items-center">
                 <img
                   src={searchicon}
-                  onClick={handleSelect}
+                  height={"100%"}
+                  width={"100%"}
                   alt="Search Icon"
                   className="w-10 h-10 cursor-pointer bg-[#F03836] p-2 rounded-full"
                 />
-              </div>
+              </button>
             </form>
+            </div>
 
             <form action="" className="mobile__search__btn">
               <div className="mbl__Srch__btn__wrapper">

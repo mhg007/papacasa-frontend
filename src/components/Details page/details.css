@@ -10,15 +10,19 @@
 
 .background__image__section {
     padding: 40px 0;
-    background-image: url(/Asessts/Images/hero_background_image.png);
+    /* background-image: url("./Asessts/Images/hero_background_image.png"); */
     background-repeat: no-repeat;
     background-size: auto;
     background-position: top left;
+    /* background-color: #e63946; */
 }
 
 .container {
-    max-width: 1280px;
-    margin: 0 auto;
+    max-width: 1180px;
+    /* background-color: #0a3c82; */
+    /* margin: 0 auto; */
+    display: flex;
+    justify-content: flex-end;
 }
 
 .hero__container {
@@ -45,7 +49,11 @@
 
 .inner__container {
     width: 100%;
-    max-width: 816px;
+    max-width: 716px;
+    /* background: #5e3e3e; */
+    display: flex;
+    justify-content: start;
+    align-items: center;
 }
 
 .mobile__menu__section {
@@ -216,31 +224,40 @@ a {
 
 .second__section {
     display: flex;
-    gap: 32px;
+    gap: 22px;
+    /* justify-content: space-between; */
     padding-bottom: 20px;
     margin-bottom: 20px;
+    width: 100%;
+    max-width: 1270px;
+    /* background-color: #484C52; */
 }
 
 .left-section {
     width: 100%;
-    max-width: 816px;
+    max-width: 810px;
     border: 1px solid #E5E7EB;
-    padding: 32px;
+    padding: 15px;
     border-radius: 16px;
+    /* background-color: #F03836; */
 }
 
 .right-section {
+    display: flex;
+    flex-direction: column;
+    height: 28%;
     width: 100%;
     max-width: 428px;
     border: 1px solid #E5E7EB;
-    padding: 32px;
+    padding: 10px;
     border-radius: 16px;
+    /* background-color: #e63946; */
 }
 
 .left__inner__section {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 24px;
+    margin-bottom: 34px;
 
 }
 
@@ -256,14 +273,14 @@ a {
     gap: 10px;
     list-style: none;
     color: #6B7280;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
-    line-height: 20px;
+    line-height: 10px;
 }
 
 .upload-wrapper li:nth-child(1)::before {
     content: '';
-    background-image: url('/Asessts/Images/upload-property-icon.svg');
+    background-image: url('./Asessts/Images/upload-property-icon.svg');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -275,7 +292,7 @@ a {
 
 .upload-wrapper li:nth-child(2)::before {
     content: '';
-    background-image: url('/Asessts/Images/gray-like-icon.svg');
+    background-image: url('./Asessts/Images/gray-like-icon.svg');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -322,27 +339,28 @@ a {
     font-size: 16px;
     font-weight: 400;
     line-height: 16px;
+    
 
 }
 
 .location-wrapper li:nth-child(1)::before {
     content: '';
-    background-image: url('/Asessts/Images/location.svg');
+    background-image: url('./Asessts/Images/location.svg');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     width: 24px;
     height: 14px;
     display: block;
-    position: relative;
+    position: relative; 
 }
 
 .location-wrapper li:nth-child(2)::before {
     content: '';
-    background-image: url('/Asessts/Images/author.png');
-    background-size: contain;
+    /* background-image: url('./Asessts/Images/author.png'); */
+    /* background-size: contain;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
     width: 40px;
     height: 40px;
     display: block;
@@ -350,9 +368,12 @@ a {
 }
 
 .features {
+
+    width: 100%;
+    /* max-width: 700px; */
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 10px;
     border-top: 1px solid #E5E7EB;
     margin-top: 24px;
     padding-top: 24px;
@@ -374,7 +395,7 @@ a {
 
 .features li:nth-child(1)::before {
     content: '';
-    background-image: url('/Asessts/Images/bed.svg');
+    background-image: url('./Asessts/Images/bed.svg');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -387,7 +408,7 @@ a {
 
 .features li:nth-child(2)::before {
     content: '';
-    background-image: url('/Asessts/Images/1st\ -icon.png');
+    background-image: url('./Asessts/Images/1st\ -icon.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -400,7 +421,7 @@ a {
 
 .features li:nth-child(3)::before {
     content: '';
-    background-image: url('/Asessts/Images/2nd\ Icon\ .png');
+    background-image: url('./Asessts/Images/2nd\ Icon\ .png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -413,7 +434,7 @@ a {
 
 .features li:nth-child(4)::before {
     content: '';
-    background-image: url('/Asessts/Images/3rd\ icon.png');
+    background-image: url('./Asessts/Images/3rd\ icon.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -426,7 +447,7 @@ a {
 
 .features li:nth-child(5)::before {
     content: '';
-    background-image: url('/Asessts/Images/4th\ icon.png');
+    background-image: url('./Asessts/Images/4th\ icon.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -595,7 +616,7 @@ a {
 .map-placeholder iframe {
     border: 0;
     min-height: 365px;
-    min-width: 752px;
+    min-width: 652px;
     border-radius: 16px;
 }
 

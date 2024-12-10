@@ -78,8 +78,8 @@ function ListTen() {
        name: intialFormData?.step1?.propertyType[0].name,
       },
       location: {
-        city: intialFormData.step3.city,
-        country: intialFormData.step3.country,
+        city: intialFormData?.step3?.city,
+        country: intialFormData?.step3?.country,
         state: intialFormData.step3.state,
         address: intialFormData.step3.street,
         code_postal: intialFormData.step3.postalCode,

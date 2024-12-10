@@ -234,6 +234,7 @@ a {
     width: 100%;
     max-width: 56px;
     margin-bottom: 32px;
+    background-color: #6B7280;
 }
 
 .list-form-9-form-card {
@@ -261,8 +262,10 @@ a {
 
 .row {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 20px;
+    width: 100%;
 }
 
 .list-form-9-form-group {
@@ -284,8 +287,11 @@ a {
 }
 
 .list-form-9-form-group-first-field {
-    width: 100%;
-    max-width: 353px;
+    display: flex;
+    flex-direction: column;
+    width: 48.4%;
+    /* max-width: 353px; */
+    /* background-color: #71acff; */
 }
 
 .list-form-9-form-group-first-field input {

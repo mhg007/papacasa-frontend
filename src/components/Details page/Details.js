@@ -1,146 +1,227 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Image } from "antd";
+import { useParams, useSearchParams } from "react-router-dom";
+import {
+  useGetDetailQuery,
+  useGetListingsQuery,
+} from "../redux/services/services";
+import "./details.css";
+import ProfileLogo from "../profileLogo/ProfileLogo";
 
 function Details() {
+  const { id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  // console.log("🚀 ~ Details ~ id:", id);
+  // const { data, setData } = useState(null);
+  const { data: cardData, isLoading: isCardDataLoading } =
+    useGetDetailQuery(id);
+  console.log("🚀 ~ Details ~ cardData:", cardData);
+  // useGetListingsQuery()
+  // console.log(cardData);
+  // return <></>
+  const formatNumber = (value) => {
+    return new Intl.NumberFormat("de-DE", {
+      style: "currency",
+      currency: "EUR",
+    }).format(value);
+  };
   return (
     <main>
-    <section class="background__image__section">
-        <div class="hero__section">
-            <div class="hero__container">
-                <div class="hero__first__block">
-                    <img src="/Asessts/Images/House with lawn1.png" />
-                </div>
-                <div class="hero__second__block">
-                    <div class="hero__second__inner__block">
-                        <img src="/Asessts/Images/house with lawn 2.png" />
-                        <img src="/Asessts/Images/house with lawn 3.png" />
-                    </div>
-                    <div class="hero__second__inner__block">
-                        <img src="/Asessts/Images/4th image.png" />
-                        <img src="/Asessts/Images/5th image.png" />
-                    </div>
-                </div>
+      {/* {cardData?.map((item)=>( */}
+      <section className="background__image__section">
+        {/* {cardData?.photos.map((item, index) => ( */}
+        <div className="hero__section">
+          <div className=" w-[100%]  flex items-center  h-[100%]  justify-center">
+            <div className="flex justify-end w-[50%] p-6 ">
+              <img
+                className="rounded-xl"
+                width={"100%"}
+                src={cardData?.photos[0]?.url}
+                alt=""
+              />
             </div>
-
+            <div className=" flex items-end justify-center flex-col w-[43%] h-[31vw] ">
+              <div className=" flex space-x-2 p-2 w-[100%] ">
+                <img
+                  className="rounded-xl"
+                  width={"50%"}
+                  src={cardData?.photos[1]?.url}
+                  alt=""
+                />
+                <img
+                  className="rounded-2xl"
+                  width={"50%"}
+                  src={cardData?.photos[2]?.url}
+                  alt=""
+                />
+              </div>
+              <div className=" flex  p-2 w-[100%] space-x-2">
+                <img
+                  className="rounded-xl"
+                  width={"50%"}
+                  src={cardData?.photos[1]?.url}
+                  alt=""
+                />
+                <img
+                  className="rounded-2xl"
+                  width={"50%"}
+                  src={cardData?.photos[2]?.url}
+                  alt=""
+                />
+              </div>
+              {/* <div className="flex w-[100%] bg-pink-300">
+                <img
+                  className="rounded-xl"
+                  width={"52%"}
+                  src={cardData?.photos[1]?.url}
+                  alt=""
+                />
+                <img
+                  className="rounded-xl"
+                  width={"50%"}
+                  src={cardData?.photos[0]?.url}
+                  alt=""
+                />
+              </div> */}
+            </div>
+          </div>
         </div>
-        <div class="second__section__wrapper">
-            <div class="container">
-                <section class="second__section">
-                    <div class="inner__container">
-                        <div class="left-section">
-                            <div class="left__inner__section">
-                                <div class="status-wrapper">
-                                    <span class="status">À vendre</span>
-                                </div>
-                                <ul class="upload-wrapper">
-                                    <li>Partager</li>
-                                    <li>Enregistrer</li>
-                                </ul>
-                            </div>
-                            <div class="left-section-heading">
-                                <h1>Maison de campagne à Collingwood</h1>
-                            </div>
+        {/* ))} */}
 
-                            <ul class="location-wrapper">
-
-                                <li>Paris, France</li>
-                                <li>Publié par Kevin Francis</li>
-
-                            </ul>
-                            <ul class="features">
-                                <li>3 Chambres</li>
-                                <li>3 Salles de bains</li>
-                                <li>2 Cuisines</li>
-                                <li>1 Parking</li>
-                                <li>1 Jardin</li>
-                            </ul>
-                        </div>
+        <div className="second__section__wrapper">
+          <div className="container">
+            <section className="second__section ">
+              <div className="inner__container">
+                <div className="left-section ">
+                  <div className="left__inner__section">
+                    <div className="status-wrapper">
+                      <span className="status">À vendre</span>
                     </div>
-                    <div class="right-section">
-                        <div class="price-wrapper">
-                            <div class="price">100 000 €</div>
-                            <div class="prix">
-                                <p>prix</p>
-                            </div>
-                        </div>
-                        <div class="seller-info">
-                            <img src="/Asessts/Images/Kevin-image.png" alt="Kevin" class="seller-image"/>
-                            <p>Kevin</p>
-                        </div>
-                        <button class="contact-button">Contactez le vendeur</button>
+                    <ul className="upload-wrapper">
+                      <li>Partager</li>
+                      <li>Enregistrer</li>
+                    </ul>
+                  </div>
+                  <div className="left-section-heading">
+                    <h1>{cardData?.type?.name}</h1>
+                  </div>
+
+                  <ul className="location-wrapper">
+                    <li>
+                      {cardData?.location.country}, {cardData?.location?.city}
+                    </li>
+                    <div className="flex items-center ">
+                      <div className="">
+                        {cardData?.user?.profile_image !== null ? (
+                          <img
+                          
+                            src={cardData?.user?.profile_image}
+                            alt=""
+                          />
+                        ) : (
+                          <ProfileLogo />
+                        )}{" "}
+                      </div>
+                      <div>
+
+                      <li className="">
+                        {cardData?.user?.first_name} {cardData?.user?.last_name}
+                      </li>
+                      </div>
                     </div>
+                  </ul>
+                  <ul className="features">
+                    <li>3 Chambres</li>
+                    <li>{`${cardData?.num_of_bathrooms} Salles de bains`}</li>
+                    <li>2 Cuisines</li>
+                    <li>{`${cardData?.num_of_parking_spaces} Parking`}</li>
+                    <li>1 Jardin</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="right-section">
+                <div className="price-wrapper flex justify-between items-center">
+                  <div className="price">{formatNumber(cardData?.price)}</div>
+                  <div className="text-xl font-semibold">
+                    <p>prix</p>
+                  </div>
+                </div>
+                <div className="seller-info">
+                  {cardData?.user?.profile_image !== null ? (
+                    <img
+                      className="bg-slate-400"
+                      src={cardData?.user?.profile_image}
+                      alt=""
+                    />
+                  ) : (
+                    <ProfileLogo />
+                  )}
+                  <p>
+                    {cardData?.user?.first_name} {cardData?.user?.last_name}
+                  </p>
+                </div>
+                <button className="contact-button">Contactez le vendeur</button>
+              </div>
+            </section>
+            <div className="w-full">
+              <div className="inner__container">
+                <section className="information">
+                  <h2>Plus d'informations</h2>
+                  <div className="separator"></div>
+                  <p>
+                    Découvrez votre nouveau sanctuaire dans cette belle maison,
+                    parfaitement située au cœur de l'Espagne. Cette propriété
+                    offre :
+                  </p>
+                  <ul>
+                    <li>{cardData?.description}</li>
+                  </ul>
+                  <h5>
+                    Que vous cherchiez à vous agrandir ou à investir, cette
+                    propriété a tout pour plaire. Ne manquez pas votre chance de
+                    faire de cette magnifique maison la vôtre !
+                  </h5>
                 </section>
-                <div class="inner__container">
+              </div>
+              <div className="inner__container">
+                <section className="amenities">
+                  <h2>Commodités</h2>
+                  <p>À propos des commodités de la propriété</p>
+                  <div className="separator"></div>
 
-                    <section class="information">
+                  <ul className="amenities-list">
+                    {cardData?.features?.map((f, index) => (
+                      <li key={index}>{f.name}</li>
+                    ))}
+                  </ul>
+                </section>
+              </div>
+              <div className="inner__container">
+                <div className="map-wrapper">
+                  <h3>Emplacement</h3>
+                  <p>New Road, 42 Rue de Rivoli, 75001 Paris</p>
+                  <div className="separator"></div>
 
-                        <h2>Plus d'informations</h2>
-                        <div class="separator"></div>
-                        <p>Découvrez votre nouveau sanctuaire dans cette belle maison, parfaitement située au cœur
-                            de
-                            l'Espagne. Cette propriété offre :</p>
-                        <ul>
-                            <li>✨Intérieurs spacieux - Profitez de grands espaces de vie ouverts, de chambres
-                                généreuses
-                                et
-                                d'une cuisine gastronomique conçue pour les réunions de famille et les
-                                divertissements.
-                            </li>
-                            <li>🌳 Paradis extérieur - Imprégnez-vous d'une oasis de jardin paysagé privé, parfait
-                                pour
-                                la
-                                détente et les activités en plein air.</li>
-                            <li>🚗 Commodités pratiques - Proche des écoles, des centres commerciaux, des transports
-                                en
-                                commun
-                                et des parcs récréatifs.</li>
-                        </ul>
-                        <h5>Que vous cherchiez à vous agrandir ou à investir, cette propriété a tout pour plaire. Ne
-                            manquez
-                            pas votre chance de faire de cette magnifique maison la vôtre !</h5>
-                    </section>
+                  <div className="map-placeholder">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11426922.61546134!2d-7.988112082935941!3d45.63523546072285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54a02933785731%3A0x6bfd3f96c747d9f7!2sFrance!5e0!3m2!1sen!2s!4v1731099145878!5m2!1sen!2s"
+                      width="400"
+                      height="450"
+                      style={{ border: 0 }}
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                  </div>
                 </div>
-                <div class="inner__container">
-                    <section class="amenities">
-                        <h2>Commodités</h2>
-                        <p>À propos des commodités de la propriété</p>
-                        <div class="separator"></div>
-
-                        <ul class="amenities-list">
-                            <li>Espaces de vie spacieux</li>
-                            <li>Cuisine moderne</li>
-                            <li>Suite principale avec dressing</li>
-                            <li>Salles de bains luxueuses</li>
-                            <li>Bureau à domicile / Etude</li>
-                            <li>Fonctionnalités de maison intelligente</li>
-                            <li>Buanderie</li>
-                            <li>Jardin privé</li>
-                            <li>Parking dans l'allée</li>
-                            <li>Balcon</li>
-                            <li>Piscine</li>
-                        </ul>
-                    </section>
-                </div>
-                <div class="inner__container">
-                    <div class="map-wrapper">
-                        <h3>Emplacement</h3>
-                        <p>New Road, 42 Rue de Rivoli, 75001 Paris</p>
-                        <div class="separator"></div>
-
-                        <div class="map-placeholder">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11426922.61546134!2d-7.988112082935941!3d45.63523546072285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54a02933785731%3A0x6bfd3f96c747d9f7!2sFrance!5e0!3m2!1sen!2s!4v1731099145878!5m2!1sen!2s"
-                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-                        </div>
-                    </div>
-                </div>
-
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-</main>
-  )
+      </section>
+      {/* // ))} */}
+    </main>
+  );
 }
 
-export default Details
+export default Details;

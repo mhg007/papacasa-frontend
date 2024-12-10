@@ -19,7 +19,10 @@ const FirstLayOut = () => {
         <Outlet /> {/* Render child routes here */}
       </main>
       <MobileNavbar/>
+      <div className="mt-10">
+
      <Footer/>
+      </div>
     </div>
   );
 };

@@ -135,8 +135,8 @@ function ListNine() {
                   publiées dans l'annonce ni communiquées à des tiers.
                 </p>
                 <div className="list-form-9-separator"></div>
-                <div className="row">
-                  <div className="list-form-9-form-group-first-field">
+                <div className="row ">
+                  {/* <div className="list-form-9-form-group-first-field">
                     <label htmlFor="civilite">Civilité*</label>
                     <input
                       value={formValues.civilite}
@@ -144,7 +144,23 @@ function ListNine() {
                       type="text"
                       id="civilite"
                       name="civilite"
+                      className=""
                     />
+                  </div> */}
+                  <div className="list-form-9-form-group-first-field">
+                  <label htmlFor="country">Civilité*</label>
+                  <select value={formValues.civilite}
+                      onChange={handleChange}
+                      type="text"
+                      id="civilite"
+                      name="civilite"
+                      className=""
+                  >
+                    <option value="">Select Civilité</option>
+                    <option value="Mr">Mr</option>
+                    <option value="Mme">Mme</option>
+                    {/* Add more countries as needed */}
+                  </select>
                   </div>
                 </div>
                 <div className="row">

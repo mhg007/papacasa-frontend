@@ -17,6 +17,13 @@ export const papaCasaApi = createApi({
       else{
         return `listings/`;
       }
+        
+      },
+    }),
+    getDetail: builder.query({
+      query: (params) => {
+        console.log("🚀 ~ params:", params)
+        return `listings/${params}/`;
       },
     }),
 
@@ -29,7 +36,8 @@ export const papaCasaApi = createApi({
     listOneData: builder.query({
       query: () => "listing-types",
     }),
-    dropDownData: builder.query({ 
+    dropDownData: builder.query({
+      // Uncommented this endpoint
       query: () => "dropdown-data/",
     }),
     listingFeatures: builder.query({ 
@@ -80,9 +88,10 @@ export const papaCasaApi = createApi({
   }),
 });
 
-export const { 
-  useGetListingsQuery, 
-  useLoginUserMutation, 
+export const {
+  useGetListingsQuery,
+  useGetDetailQuery,
+  useLoginUserMutation,
   useSignUpUserMutation,
   useFavoritesIconMutation,
   useSubmitFormDataMutation,
