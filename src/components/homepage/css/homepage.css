@@ -565,6 +565,26 @@ a {
     grid-template-columns: repeat(4, 2fr);
     column-gap: 10px;
     row-gap: 30px;
+    /* background-color: #F03836; */
+}
+
+.search__list_home_page {
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; */
+    /* width: 95vw;
+    max-width: 1480px; */
+    /* min-width: 1200px; */
+    /* background: #864343; */
+    /* padding: 20px;
+    border-radius: 130px;
+    background-color: #FFFFFFCC; */
+    box-shadow: 0px 10px 10px -5px #0000000A;
+    box-shadow: 0px 20px 25px -5px #0000001A;
+    backdrop-filter: blur(10px);
+    /* margin-top: 50px; */
+    border: none;
 }
 
 
@@ -599,31 +619,38 @@ a {
 }
 
 .properties__grid {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 18px;
-    padding: 10px;
-    /* justify-content: space-around; */
+    padding: 10px; */
+    width: 100%;
+    height: 100%;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+    /* justify-content: space-evenly; */
+    display: flex;
   }
   
   .cards {
     width: 100%;
-    max-width: 280px;
+    height: 100%;
+    max-width: 270px;
+    min-height: 420px;
     background-color: #f3f3f3;
     border-radius: 14px;
     overflow: hidden;
     /* display: flex;
     flex-direction: column;
-    justify-content: space-between; */
+    justify-content: space-evenly; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .properties__top__block {
     margin: 0;
-    /* background-color: #B91C1C; */
-    height: 200px;
-    background-size: cover;
-    background-position: center;
+    /* width: 100%; */
+    /* background-size: cover;
+    background-position: center; */
     /* border-radius: 24px 24px 0 0; */
     position: relative;
   }
@@ -638,8 +665,11 @@ a {
   .properties__bottom__block {
     padding: 16px;
     display: flex;
+    justify-content: space-evenly;
     flex-direction: column;
     gap: 8px;
+    height: 100%;
+    min-height: 247px;
   }
   
   .description {
@@ -965,6 +995,10 @@ a {
 
 @media (max-width:767px) {
     .main-menu {
+        display: none;
+    }
+
+    .divHide{
         display: none;
     }
 

@@ -23,6 +23,8 @@ import MessagesFirstScreen from "./components/Messages with responsive 1st scree
 import Messages2ndscreen from "./components/Messages with responsive 2nd screen/Messages2ndscreen";
 import Profile from "./Profil/Profile";
 import SearchListings from "./components/searchListings/SearchListings";
+import Details from "./components/Details page/Details";
+import ProfileLogo from "./components/profileLogo/ProfileLogo";
 
 function App() {
   return (
@@ -39,6 +41,7 @@ function App() {
               <Route path="/messages-2ndScreen" element={<Messages2ndscreen />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/messages-firstScreen" element={<MessagesFirstScreen />} />  
+              <Route path="/profileLogo" element={<ProfileLogo />} />  
           {/* </Route> */}
 
           {/* Protected Routes with Layout */}
@@ -46,6 +49,7 @@ function App() {
             {/* Secured Route */}
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<HomPage />} />
+              <Route path="/details/:id" element={<Details />} />
               {/* <Route path="/navbar" element={<Navbar />} /> */}
               <Route path="/mobile-nav" element={<MobileNavbar />} />
               <Route path="/search-listings" element={<SearchListings />} />

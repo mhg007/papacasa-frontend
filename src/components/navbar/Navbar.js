@@ -55,7 +55,7 @@ function Navbar({ changeLang, t, i18n }) {
                     <button onClick={() => changeLang("fr")}>Fr</button>
                   </div>
                 </div>
-                <div class="flex justify-center items-center gap-3 w-[170px] mr-5">
+                <div className="flex justify-center items-center gap-3 w-[170px] mr-5">
                   {token?
                   <>
                   <div>

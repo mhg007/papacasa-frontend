@@ -70,12 +70,12 @@ function ListTen() {
     // }
     const payload = {
       user: {
-        email: intialFormData.step9.email? intialFormData.step9.email:null,
+        email: intialFormData?.step9.email? intialFormData.step9.email:null,
       },
-      type:  intialFormData.step1.propertyType[0],
+      type:  intialFormData?.step1?.propertyType[0],
       location: {
-        city: intialFormData.step3.city,
-        country: intialFormData.step3.country,
+        city: intialFormData?.step3?.city,
+        country: intialFormData?.step3?.country,
         state: intialFormData.step3.state,
         address: intialFormData.step3.street,
         code_postal: intialFormData.step3.postalCode,

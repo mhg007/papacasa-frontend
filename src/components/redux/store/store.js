@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { papaCasaApi } from "../services/services";
 import multiStepFormReducer from "../slice/formDataSlice"; // Import the slice reducer
-import filterCardsSliceReducer from "../slice/filterCardsList"
+import filterCardsSliceReducer from "../slice/filterCardsList";
 
 export const store = configureStore({
   reducer: {

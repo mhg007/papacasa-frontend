@@ -5,43 +5,28 @@ import heart_Icon from "../homepage/Assests/Images/heart_Icon.svg";
 import location_Icon from "../homepage/Assests/Images/location_Icon.svg";
 import searchicon from "../homepage/Assests/Images/search-icon.svg";
 import {
-  useDropDownDataQuery,
   useFavoritesIconMutation,
   useGetListingsQuery,
   useListOneDataQuery,
 } from "../redux/services/services";
 import { Carousel, message, Slider } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { filterListings } from "../redux/slice/filterCardsList";
 
 function SearchListings() {
-    // console.log("intialFilterData",intialFilterData)
-   
-      
-      
-   
-    
-
- const { data:filterData, isError, isLoading } = useListOneDataQuery();
-
-  
+  const { data: filterData, isError, isLoading } = useListOneDataQuery();
   const [favoritesIcon] = useFavoritesIconMutation();
-
-  const intialFilterData = useSelector((state) => state.filterCardsList?.filterList.undefined || {});
-  console.log("intialFilterData",intialFilterData)
-
-  const dispatch = useDispatch();
+  const intialFilterData = useSelector(
+    (state) => state.filterCardsList?.filterList.undefined || {}
+  );
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState(intialFilterData,{
+  const [formValues, setFormValues] = useState(intialFilterData, {
     searchType: "",
     citys: "",
     minMaxPrice: "",
     pieces: "",
     propType: "",
   });
-  console.log('***',intialFilterData)
- 
   const handleFavortiesIcons = async (item) => {
     const payload = {
       utilisateur: item.utilisateur,
@@ -67,54 +52,33 @@ function SearchListings() {
       ...prevValues,
       [id]: isSlider ? `${value[0]}-${value[1]}` : value,
     }));
-    if(isSlider) {
-        setPriceRange(value);
+    if (isSlider) {
+      setPriceRange(value);
     }
   };
-
-  const handleSelect = () => {
-    const [minPrice, maxPrice] = formValues.minMaxPrice
-      ? formValues.minMaxPrice.split("-").map(Number)
-      : [null, null];
-
-    const filterDropData = {
-      ...formValues,
-      minPrice,
-      maxPrice,
-    };
-
-    // Dispatch to Redux store
-    dispatch(filterListings({ filterCard: "filterList", data: filterDropData }));
-    navigate("/search-listings");
-  };
-
 
   const getFilters = useMemo(() => {
     const { searchType, citys, minMaxPrice, pieces, propType } = formValues;
     const [minPrice, maxPrice] = minMaxPrice
       ? minMaxPrice.split("-").map(Number)
       : [null, null];
-  
+
     const filters = {};
-  
+
     if (searchType) filters.searchType = searchType;
     if (citys) filters.city = citys;
     if (minPrice !== null) filters.min_price = minPrice;
     if (maxPrice !== null) filters.max_price = maxPrice;
     if (pieces) filters.no_of_rooms = pieces;
     if (propType) filters.type = propType;
-  
+
     return filters;
   }, [formValues]);
-  
-  
-  const {
-    data: listingsData,
-    isLoading: isListingsLoading,
-  } = useGetListingsQuery(getFilters);
-  console.log("listingsData",listingsData)
 
+  const { data: listingsData, isLoading: isListingsLoading } =
+    useGetListingsQuery(getFilters);
   const [listData, setListingsData] = useState(listingsData);
+
   useEffect(() => {
     if (listingsData && Array.isArray(listingsData)) {
       const sortedData = [...listingsData].sort((a, b) => {
@@ -125,19 +89,25 @@ function SearchListings() {
       setListingsData(sortedData);
     }
   }, [listingsData]);
-    const [priceRange, setPriceRange] = useState([0, 20000]);
-  
+  const [priceRange, setPriceRange] = useState([0, 20000]);
+
   const formatNumber = (value) => {
     return new Intl.NumberFormat("de-DE", {
       style: "currency",
       currency: "EUR",
     }).format(value);
   };
+
+  const goToDetailsPage = (id) => {
+    navigate(`/details/${id}`);
+    console.log(id)
+  };
+
   return (
     <>
       <div className="container flex flex-wrap gap-4">
-        <div className="search__list w-[90vw] max-w-[1280px] p-[10px] rounded-[130px] bg-[#FFFFFFCC]">
-          <form className="search__form flex flex-wrap gap-4 items-center">
+        <div className="search__list  w-[100%] max-w-[1280px]  rounded-[130px] bg-[#FFFFFFCC]">
+          <div className="search__form flex flex-wrap gap-4 items-center">
             {/* Type de recherche */}
             <div className="search__types-1 w-full md:w-auto">
               <h2 className="text-sm font-medium mb-1">Type de recherche</h2>
@@ -154,18 +124,18 @@ function SearchListings() {
 
             {/* Localisation */}
             <div className="search__types flex justify-end items-center w-full md:w-auto ">
-                {/* <div className=" flex justify-center items-center bg-slate-500"> 
+              {/* <div className=" flex justify-center items-center bg-slate-500"> 
                 </div> */}
-                <div className=" h-36 flex flex-col items-center justify-end ">
+              <div className=" h-36 flex flex-col items-center justify-end ">
                 <h2 className="text-sm font-medium">Localisation</h2>
-                  <input
+                <input
                   id="citys"
                   className="w-full border focus:border-gray-300 rounded"
                   onChange={handleChange}
-                   type="text" />
-                </div>
-               
+                  type="text"
+                />
               </div>
+            </div>
 
             {/* Types de bien */}
             <div className="search__types w-full md:w-auto">
@@ -177,8 +147,8 @@ function SearchListings() {
                 onChange={handleChange}
               >
                 <option value="">Sélectionner</option>
-                {filterData?.map((type) => (
-                  <option key={type.id} value={type.name}>
+                {filterData?.map((type,index) => (
+                  <option  key={index} value={type.name}>
                     {type.name}
                   </option>
                 ))}
@@ -205,30 +175,29 @@ function SearchListings() {
 
             {/* Prix maximum */}
             <div className="search__types w-full md:w-auto">
-                <h2 className="text-sm font-medium mb-1">Prix maximum</h2>
-                <div className="m-0 w-[12vw]">
-                  <Slider
-                    range
-                    min={0}
-                    max={20000}
-                    step={100}
-                    value={
-                      formValues.minMaxPrice
-                        ? formValues.minMaxPrice.split("-").map(Number) // Parse stored price range
-                        : [0, 20000]
-                    }
-                    onChange={
-                      (value) =>
-                        handleChange({ target: { id: "minMaxPrice", value } }) // Pass a compatible event-like object
-                    }
-                    tooltip={{ formatter: (value) => formatNumber(value) }}
-                  />
-                  <p className="text-sm mt-2">
-                    {formatNumber(priceRange[0])} -{" "}
-                    {formatNumber(priceRange[1])}
-                  </p>
-                </div>
+              <h2 className="text-sm font-medium mb-1">Prix maximum</h2>
+              <div className="m-0 w-[12vw]">
+                <Slider
+                  range
+                  min={0}
+                  max={20000}
+                  step={100}
+                  value={
+                    formValues.minMaxPrice
+                      ? formValues.minMaxPrice.split("-").map(Number) // Parse stored price range
+                      : [0, 20000]
+                  }
+                  onChange={
+                    (value) =>
+                      handleChange({ target: { id: "minMaxPrice", value } }) // Pass a compatible event-like object
+                  }
+                  tooltip={{ formatter: (value) => formatNumber(value) }}
+                />
+                <p className="text-sm mt-2 w[100%]">
+                  {formatNumber(priceRange[0])} - {formatNumber(priceRange[1])}
+                </p>
               </div>
+            </div>
 
             {/* Search Button */}
             <div className="search__icon relative w-full md:w-auto flex items-center">
@@ -236,21 +205,25 @@ function SearchListings() {
                 src={searchicon}
                 alt="Search Icon"
                 className="w-10 h-10 cursor-pointer bg-[#F03836] p-2 rounded-full"
-                onClick={handleSelect}
+                // onClick={handleSelect}
               />
             </div>
-          </form>
+          </div>
         </div>
 
         <div className="properties__grid w-full mt-8">
-          {(listData|| []).map((item, index) => (
-            <div className="cards w-full" key={index}>
+          {(listData || []).map((item, index) => (
+            <div
+              onClick={()=>goToDetailsPage(item.id)}
+              className="cards cursor-pointer" key={index}>
               <div className="properties__top__block">
                 <Carousel arrows infinite={false}>
                   {item.photos?.map((photo, photoIndex) => (
                     <div key={photoIndex} className="carousel-slide">
                       <img
                         src={photo.url}
+                        height={"100%"}
+                        width={"100%"}
                         alt={`Property ${index + 1} - Image ${photoIndex + 1}`}
                         className="property-image"
                       />
@@ -269,7 +242,8 @@ function SearchListings() {
               <div className="properties__bottom__block">
                 <h4>{item.type?.name || "Property Type"}</h4>
                 <p className="description">
-                  {item.description?.slice(0, 100) || "No description available."}
+                  {item.description?.slice(0, 100) ||
+                    "No description available."}
                 </p>
                 <div className="location">
                   <img src={location_Icon} alt="Location Icon" />
