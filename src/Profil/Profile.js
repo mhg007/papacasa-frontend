@@ -20,6 +20,8 @@ function Profile() {
   const [errorMessage, setErrorMessage] = useState("");
   const { data: userData, isLoading: isListingsLoading } = useUserDataQuery(id);
   console.log("🚀 ~ Profile ~ userData:", userData);
+  
+  
   const [formValues, setFormValues] = useState(
     userData || {
       first_name: "",
@@ -30,6 +32,7 @@ function Profile() {
       email: "",
       civilite: "",
       filename: "",
+      url:"",
     }
   );
 
@@ -92,7 +95,7 @@ function Profile() {
       telephone: formValues.telephone,
       gender: formValues.civilite,
       role: formValues.role,
-      profile_image: formValues.filename,
+      profile_image: {name:formValues.filename,url:formValues.url},
       addresse: formValues.addresse,
     };
     // if (formValues.filename) {
@@ -103,7 +106,6 @@ function Profile() {
       const response = await profileUpdate({payload}).unwrap(); // Send FormData
       message.success("Profile updated successfully!");
       console.log("Profile updated successfully:", response);
-      navigate("/");
     } catch (error) {
       message.error("Profile update failed!");
       console.error("Error updating profile:", error);
@@ -119,8 +121,9 @@ function Profile() {
         addresse: userData.addresse || "",
         telephone: userData.telephone || "",
         email: userData.email || "", // Email should remain read-only
-        civilite: userData.civilite || "",
+        civilite: userData.gender || "",
         filename: userData.profile_image || null, // Preload image if needed
+        url:""
       });
       if (userData.profile_image) {
         setImage(userData.profile_image); // Display the image if available
@@ -133,12 +136,13 @@ function Profile() {
     if (file) {
       setFormValues((prevValues) => ({
         ...prevValues,
-        filename: file, // Store the file itself
+        filename: file.name,
+        url:URL.createObjectURL(file),
       }));
       setImage(URL.createObjectURL(file)); // For preview
     }
   };
-
+  
   return (
     <main>
       <section className="profil__section" onSubmit={handleSubmit}>
@@ -207,7 +211,7 @@ function Profile() {
                      className="mt-4"
                       type="text"
                       id="telephone"
-                      value={phoneNumber}
+                      value={formValues.telephone}
                       onChange={handlePhoneChange}
                       required
                     />
